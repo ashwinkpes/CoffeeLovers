@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
+namespace CoffeeLovers.DomainModels.Models
+{
+    public abstract class BaseEntity
+    {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "CreatedBy is required")]
+        [MinLength(3,ErrorMessage = "CreatedBy must be minimum of 3 characters")]
+        [StringLength(20, ErrorMessage = "CreatedBy cannot be grater than 20 characters")]
+        public string CreatedBy { get; set; }
+
+        [Required(ErrorMessage = "Createdtime is required")]
+        public DateTime Createdtime { get; set; }
+
+        
+        [MinLength(3, ErrorMessage = "UpdatedBy must be minimum of 3 characters")]
+        [StringLength(20, ErrorMessage = "UpdatedBy cannot be grater than 20 characters")]
+        public string UpdatedBy { get; set; }
+                
+        public DateTime? Updatedtime { get; set; }
+
+        [Required(ErrorMessage = "IsActive is required")]
+        [DefaultValue(true)]
+        public bool IsActive { get; set; }
+    }
+}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoffeeLovers.Common.Extensions.IAppBuilderServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,8 +32,9 @@ namespace CoffeeLovers
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddCoffeeContext(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +60,7 @@ namespace CoffeeLovers
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            app.SeedCoffeeContext(Configuration);
         }
     }
 }

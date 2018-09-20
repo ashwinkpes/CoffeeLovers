@@ -2,10 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>86e444be-66a6-4f3f-b746-9bfeb38eb783</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoffeeLovers.Common\CoffeeLovers.Common.csproj" />
+    <ProjectReference Include="..\CoffeeLovers.DAL\CoffeeLovers.DAL.csproj" />
   </ItemGroup>
 
 </Project>
