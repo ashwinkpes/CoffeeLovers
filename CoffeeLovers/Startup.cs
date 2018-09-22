@@ -1,4 +1,5 @@
 ﻿using CoffeeLovers.Extensions;
+using CoffeeLovers.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +28,9 @@ namespace CoffeeLovers
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(config => {
+                config.Filters.Add(typeof(GlobalExceptionhandler));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //Add extesnion methods
             services.AddCoffeeContext(Configuration);

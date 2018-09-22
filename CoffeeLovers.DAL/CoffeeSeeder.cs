@@ -12,7 +12,8 @@ namespace CoffeeLovers.DAL
             seedData.CheckArgumentIsNull(nameof(seedData));
 
             seedData.Areas.ToList().ForEach(a => { a.CreatedBy = "System"; a.Createdtime = DateTime.UtcNow; });
-            seedData.Coffees.ToList().ForEach(a => { a.CreatedBy = "System"; a.Createdtime = DateTime.UtcNow; a.validFrom = DateTime.UtcNow; a.validTo = DateTime.MaxValue; });
+            seedData.Coffees.ToList().ForEach(a => { a.CreatedBy = "System"; a.Createdtime = DateTime.UtcNow;
+                a.validFrom = DateTime.UtcNow; a.validTo = DateTime.MaxValue; });
             seedData.Owners.ToList().ForEach(a => { a.CreatedBy = "System"; a.Createdtime = DateTime.UtcNow; });
 
             if (!db.Areas.Any())

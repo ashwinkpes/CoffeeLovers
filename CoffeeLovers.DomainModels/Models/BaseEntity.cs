@@ -6,6 +6,12 @@ namespace CoffeeLovers.DomainModels.Models
 {
     public abstract class BaseEntity
     {
+        public BaseEntity()
+        {
+            IsActive = true;
+        }
+
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "CreatedBy is required")]
         [MinLength(3,ErrorMessage = "CreatedBy must be minimum of 3 characters")]
         [StringLength(20, ErrorMessage = "CreatedBy cannot be grater than 20 characters")]
@@ -21,8 +27,7 @@ namespace CoffeeLovers.DomainModels.Models
                 
         public DateTime? Updatedtime { get; set; }
 
-        [Required(ErrorMessage = "IsActive is required")]
-        [DefaultValue(true)]
+        [Required(ErrorMessage = "IsActive is required")]     
         public bool IsActive { get; set; }
     }
 }
