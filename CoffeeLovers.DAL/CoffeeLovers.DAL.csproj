@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoffeeLovers.Common\CoffeeLovers.Common.csproj" />
     <ProjectReference Include="..\CoffeeLovers.DomainModels\CoffeeLovers.DomainModels.csproj" />
   </ItemGroup>
 

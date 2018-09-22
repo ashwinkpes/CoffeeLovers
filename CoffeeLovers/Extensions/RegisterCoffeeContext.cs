@@ -1,13 +1,15 @@
-﻿using CoffeeLovers.DAL;
+﻿using CoffeeLovers.Common;
+using CoffeeLovers.DAL;
+using CoffeeLovers.DomainModels.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
-namespace CoffeeLovers.Common.Extensions.IAppBuilderServices
+namespace CoffeeLovers.Extensions
 {
     public static class RegisterCoffeeContext
     {
@@ -20,7 +22,15 @@ namespace CoffeeLovers.Common.Extensions.IAppBuilderServices
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-              serviceScope.ServiceProvider.GetService<CoffeeDbContext>().EnsureSeedData();
+
+                var seedData = new SeedData
+                {
+                    Areas = JsonConvert.DeserializeObject<List<Area>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "areas.json")),
+                    Owners = JsonConvert.DeserializeObject<List<Owner>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Owners.json")),
+                    Coffees = JsonConvert.DeserializeObject<List<Coffee>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Coffees.json")),
+                };
+
+                serviceScope.ServiceProvider.GetService<CoffeeDbContext>().EnsureSeedData(seedData);
             }
         }
     }

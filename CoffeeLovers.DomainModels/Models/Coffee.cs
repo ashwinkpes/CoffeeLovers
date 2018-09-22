@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace CoffeeLovers.DomainModels.Models
 {
@@ -25,7 +24,6 @@ namespace CoffeeLovers.DomainModels.Models
         public DateTime validTo { get; set; }
 
         public ICollection<CoffeeArea> CoffeeAreas { get; set; }
-
-        public ICollection<AreaOwner> AreaOwners { get; set; }
+      
     }
 }

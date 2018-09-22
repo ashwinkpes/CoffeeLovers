@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace CoffeeLovers.DomainModels.Models
 {
@@ -12,11 +10,11 @@ namespace CoffeeLovers.DomainModels.Models
         [MinLength(3,ErrorMessage = "CreatedBy must be minimum of 3 characters")]
         [StringLength(20, ErrorMessage = "CreatedBy cannot be grater than 20 characters")]
         public string CreatedBy { get; set; }
-
+              
         [Required(ErrorMessage = "Createdtime is required")]
         public DateTime Createdtime { get; set; }
 
-        
+        [DefaultValue("System")]
         [MinLength(3, ErrorMessage = "UpdatedBy must be minimum of 3 characters")]
         [StringLength(20, ErrorMessage = "UpdatedBy cannot be grater than 20 characters")]
         public string UpdatedBy { get; set; }

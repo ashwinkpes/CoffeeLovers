@@ -4,14 +4,16 @@ using CoffeeLovers.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoffeeLovers.DAL.Migrations
 {
     [DbContext(typeof(CoffeeDbContext))]
-    partial class CoffeeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180922120533_UpdateCoffeeModel")]
+    partial class UpdateCoffeeModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,13 +168,13 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(6);
 
                     b.Property<bool>("IsActive");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(6);
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(20);

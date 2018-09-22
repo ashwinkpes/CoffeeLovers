@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace CoffeeLovers.DomainModels.Models
 {
@@ -21,7 +20,9 @@ namespace CoffeeLovers.DomainModels.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "PinCode is required")]
         [MinLength(3, ErrorMessage = "PinCode must be minimum of 3 characters")]
         [StringLength(6, ErrorMessage = "PinCode cannot be grater than 6 characters")]
-        public int PinCode { get; set; }      
+        public int PinCode { get; set; }
+
+        public ICollection<AreaOwner> AreaOwners { get; set; }
 
     }
 }

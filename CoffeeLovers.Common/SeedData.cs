@@ -1,12 +1,15 @@
-﻿using System;
+﻿using CoffeeLovers.DomainModels.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CoffeeLovers.Common
 {
-    public class SeedData
+    public sealed class SeedData
     {
-       public string AreaNames { get; set; }
-       public string AreaPinCodes { get; set; }
+        public IEnumerable<Area> Areas { get; set; }
+
+        public IEnumerable<Owner> Owners { get; set; }
+
+        public IEnumerable<Coffee> Coffees { get; set; }
+
     }
 }

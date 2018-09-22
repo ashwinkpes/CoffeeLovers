@@ -1,0 +1,27 @@
+[
+  {
+    "CoffeeId": "1FA558DC-63F4-49F0-9AAE-8D24A142C512",
+    "CoffeeName": "Expresso"
+  },
+
+  {
+    "CoffeeId": "4A1695BB-6B48-4F1E-88A0-25708879A283",
+    "CoffeeName": "Vanilla Latte"
+  },
+
+  {
+    "CoffeeId": "54EC13F1-3F0A-4090-821D-FA41C81F86F7",
+    "CoffeeName": "Filter Coffee"
+  },
+
+  {
+    "CoffeeId": "4B1D46C6-3841-4EF2-A041-25E8FDAC20F1",
+    "CoffeeName": "Classic Cappuccino"
+  },
+
+  {
+    "CoffeeId": "D49901B6-0DCD-4D1A-B0CF-D019AF0E289E",
+    "CoffeeName": "Vanilla Cappuccino"
+  }
+
+]

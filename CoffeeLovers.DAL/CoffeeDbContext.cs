@@ -1,8 +1,5 @@
 ﻿using CoffeeLovers.DomainModels.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CoffeeLovers.DAL
 {
@@ -14,6 +11,7 @@ namespace CoffeeLovers.DAL
         }
 
         public DbSet<Area> Areas { get; set; }
+        public DbSet<Owner> Owners { get; set; }
         public DbSet<Coffee> Coffees { get; set; }
         public DbSet<AreaOwner> AreaOwners { get; set; }
         public DbSet<CoffeeArea> CoffeeAreas { get; set; }
