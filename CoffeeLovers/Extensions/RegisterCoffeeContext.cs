@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,9 +14,15 @@ namespace CoffeeLovers.Extensions
 {
     public static class RegisterCoffeeContext
     {
-        public static void AddCoffeeContext(this IServiceCollection services, IConfiguration _configuration)
+        public static void AddCoffeeContext(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<CoffeeDbContext>(options => options.UseSqlServer(_configuration["ConnectionStrings:CoffeeLovers"]));
+            services.AddDbContext<CoffeeDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:CoffeeLovers"],
+                 serverDbContextOptionsBuilder =>
+                 {
+                     var minutes = (int)TimeSpan.FromMinutes(3).TotalSeconds;
+                     serverDbContextOptionsBuilder.CommandTimeout(minutes);
+                     serverDbContextOptionsBuilder.EnableRetryOnFailure();
+                 }));
         }
 
         public static void SeedCoffeeContext(this IApplicationBuilder app, IConfiguration _configuration)

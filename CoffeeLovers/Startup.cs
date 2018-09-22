@@ -1,4 +1,5 @@
-﻿using CoffeeLovers.Extensions;
+﻿using CoffeeLovers.Common.Options;
+using CoffeeLovers.Extensions;
 using CoffeeLovers.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,8 +33,22 @@ namespace CoffeeLovers
                 config.Filters.Add(typeof(GlobalExceptionhandler));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            //Add options
+            services.AddOptions();
+
+            //services.Configure<CorsSettings>(Configuration.GetSection("CorsPolicy"));
+
+            var CorsSettings = new CorsSettings();
+            Configuration.Bind("CorsPolicy", CorsSettings);
+            services.AddSingleton<CorsSettings>(CorsSettings);
+
             //Add extesnion methods
+
+            //Add DB context
             services.AddCoffeeContext(Configuration);
+
+            //Add Cors
+            services.AddCrossOriginPolicy(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
