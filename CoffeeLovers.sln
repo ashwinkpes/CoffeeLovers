@@ -9,11 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.DAL", "CoffeeL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.DomainModels", "CoffeeLovers.DomainModels\CoffeeLovers.DomainModels.csproj", "{46615619-4C03-43D2-8CED-5721D2041ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeLovers.Common", "CoffeeLovers.Common\CoffeeLovers.Common.csproj", "{9F90A2BF-5BF6-48C7-AB1F-BE4AD0074342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.Common", "CoffeeLovers.Common\CoffeeLovers.Common.csproj", "{9F90A2BF-5BF6-48C7-AB1F-BE4AD0074342}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeLovers.Repositories", "CoffeeLovers.Repositories\CoffeeLovers.Repositories.csproj", "{B65F8865-5431-4C72-9D49-8CB01AED21CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.Repositories", "CoffeeLovers.Repositories\CoffeeLovers.Repositories.csproj", "{B65F8865-5431-4C72-9D49-8CB01AED21CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeLovers.IRepositories", "CoffeeLovers.IRepositories\CoffeeLovers.IRepositories.csproj", "{B7836240-3498-4A70-95D9-1939EEA16D24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.IRepositories", "CoffeeLovers.IRepositories\CoffeeLovers.IRepositories.csproj", "{B7836240-3498-4A70-95D9-1939EEA16D24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.BusinessLogic", "CoffeeLovers.BusinessLogic\CoffeeLovers.BusinessLogic.csproj", "{0EF0E0A8-55A1-4C11-8AD9-96520058BA08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.IBusinessLogic", "CoffeeLovers.IBusinessLogic\CoffeeLovers.IBusinessLogic.csproj", "{AEF5B935-FD5D-41F3-A760-A9C938BADEBF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeLovers.APIModels", "CoffeeLovers.APIModels\CoffeeLovers.APIModels.csproj", "{8D76544F-E661-4980-8F72-1FA680D6CCA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +51,18 @@ Global
 		{B7836240-3498-4A70-95D9-1939EEA16D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7836240-3498-4A70-95D9-1939EEA16D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7836240-3498-4A70-95D9-1939EEA16D24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EF0E0A8-55A1-4C11-8AD9-96520058BA08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EF0E0A8-55A1-4C11-8AD9-96520058BA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EF0E0A8-55A1-4C11-8AD9-96520058BA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EF0E0A8-55A1-4C11-8AD9-96520058BA08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEF5B935-FD5D-41F3-A760-A9C938BADEBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF5B935-FD5D-41F3-A760-A9C938BADEBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF5B935-FD5D-41F3-A760-A9C938BADEBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF5B935-FD5D-41F3-A760-A9C938BADEBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D76544F-E661-4980-8F72-1FA680D6CCA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D76544F-E661-4980-8F72-1FA680D6CCA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D76544F-E661-4980-8F72-1FA680D6CCA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D76544F-E661-4980-8F72-1FA680D6CCA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

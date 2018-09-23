@@ -1,8 +1,6 @@
 ﻿using CoffeeLovers.Common.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System;
 
 namespace CoffeeLovers.Extensions
 {

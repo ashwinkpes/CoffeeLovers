@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CoffeeLovers.DomainModels\CoffeeLovers.DomainModels.csproj" />
-  </ItemGroup>
-
 </Project>

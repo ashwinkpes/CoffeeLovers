@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0-preview2-35157" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CoffeeLovers.DAL\CoffeeLovers.DAL.csproj" />
+    <ProjectReference Include="..\CoffeeLovers.IBusinessLogic\CoffeeLovers.IBusinessLogic.csproj" />
     <ProjectReference Include="..\CoffeeLovers.IRepositories\CoffeeLovers.IRepositories.csproj" />
   </ItemGroup>
 

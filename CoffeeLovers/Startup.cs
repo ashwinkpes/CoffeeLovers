@@ -35,7 +35,8 @@ namespace CoffeeLovers
 
             //Add options
             services.AddOptions();
-
+            services.AddHttpContextAccessor();
+           
             //services.Configure<CorsSettings>(Configuration.GetSection("CorsPolicy"));
 
             var CorsSettings = new CorsSettings();
