@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoffeeLovers.Common.Logging
+﻿namespace CoffeeLovers.Common.Logging
 {
     public interface IAppLogger<T>
     {

@@ -1,9 +1,6 @@
 ﻿using CoffeeLovers.DAL;
 using CoffeeLovers.DomainModels.Models;
 using CoffeeLovers.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CoffeeLovers.Repositories
 {
