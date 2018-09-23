@@ -11,5 +11,15 @@ namespace CoffeeLovers.APIModels
         public string AreaName { get; set; }
 
         public int PinCode { get; set; }
+
+        public AreaDto()
+        {
+
+        }
+
+        public AreaDto(Guid areaId)
+        {
+            this.AreaId = areaId;
+        }
     }
 }
