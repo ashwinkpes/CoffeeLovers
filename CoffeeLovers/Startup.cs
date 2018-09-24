@@ -50,6 +50,12 @@ namespace CoffeeLovers
 
             //Add Cors
             services.AddCrossOriginPolicy(Configuration);
+
+            //Add generic repositories
+            services.RegisterRepository(Configuration);
+
+            //Register services
+            services.RegisterServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

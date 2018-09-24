@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoffeeLovers.BusinessLogic\CoffeeLovers.BusinessLogic.csproj" />
     <ProjectReference Include="..\CoffeeLovers.Common\CoffeeLovers.Common.csproj" />
-    <ProjectReference Include="..\CoffeeLovers.DAL\CoffeeLovers.DAL.csproj" />
+    <ProjectReference Include="..\CoffeeLovers.IBusinessLogic\CoffeeLovers.IBusinessLogic.csproj" />
+    <ProjectReference Include="..\CoffeeLovers.IRepositories\CoffeeLovers.IRepositories.csproj" />
+    <ProjectReference Include="..\CoffeeLovers.Repositories\CoffeeLovers.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

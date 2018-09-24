@@ -6,22 +6,22 @@ namespace CoffeeLovers.Repositories.Specifications
 {
     public sealed class AreaWithAreaOwnersSpecification : BaseSpecification<Area>
     {
-        public AreaWithAreaOwnersSpecification(Guid areaId)
+        public AreaWithAreaOwnersSpecification(Guid areaId, bool includeAreaOwners)
            : base(b => b.AreaId == areaId)
         {
-            AddInclude(b => b.AreaOwners);
+            if (includeAreaOwners) AddInclude(b => b.AreaOwners);
         }
 
-        public AreaWithAreaOwnersSpecification(string areaName)
+        public AreaWithAreaOwnersSpecification(string areaName, bool includeAreaOwners)
           : base(b => b.AreaName == areaName)
         {
-            AddInclude(b => b.AreaOwners);
+            if (includeAreaOwners)  AddInclude(b => b.AreaOwners);
         }
 
-        public AreaWithAreaOwnersSpecification(int pinCode)
+        public AreaWithAreaOwnersSpecification(int pinCode, bool includeAreaOwners)
         : base(b => b.PinCode == pinCode)
         {
-            AddInclude(b => b.AreaOwners);
+            if (includeAreaOwners)  AddInclude(b => b.AreaOwners);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace CoffeeLovers.BusinessLogic
             var areaDto = default(AreaDto);
             var statusCode = HttpStatusCode.NotFound;
 
-            var areaSpec = new AreaWithAreaOwnersSpecification(areaName);
+            var areaSpec = new AreaWithAreaOwnersSpecification(areaName, false);
 
             var area = (await _areaRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
             if (area == null)
