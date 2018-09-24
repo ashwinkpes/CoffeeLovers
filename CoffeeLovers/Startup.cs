@@ -36,9 +36,13 @@ namespace CoffeeLovers
             //Add options
             services.AddOptions();
             services.AddHttpContextAccessor();
-           
+
             //services.Configure<CorsSettings>(Configuration.GetSection("CorsPolicy"));
 
+            //API settings
+            services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
+
+            //Cors settings
             var CorsSettings = new CorsSettings();
             Configuration.Bind("CorsPolicy", CorsSettings);
             services.AddSingleton<CorsSettings>(CorsSettings);
@@ -48,6 +52,12 @@ namespace CoffeeLovers
             //Add DB context
             services.AddCoffeeContext(Configuration);
 
+            //Add logging
+            services.RegisterLogging(Configuration);
+
+            //Add HttpContext Accessor
+            services.RegisterAccessor(Configuration);
+
             //Add Cors
             services.AddCrossOriginPolicy(Configuration);
 
@@ -56,6 +66,8 @@ namespace CoffeeLovers
 
             //Register services
             services.RegisterServices(Configuration);
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

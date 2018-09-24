@@ -6,6 +6,6 @@ namespace CoffeeLovers.IBusinessLogic
 {
     public interface IAreaService
     {
-        Task<(HttpStatusCode,AreaDto)> GetAreaByName(string areaName);
+        Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByName(string areaName);
     }
 }
