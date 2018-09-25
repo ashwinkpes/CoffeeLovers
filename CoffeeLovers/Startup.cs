@@ -64,6 +64,9 @@ namespace CoffeeLovers
             //Add generic repositories
             services.RegisterRepository(Configuration);
 
+            //Add specific repositories
+            services.RegisterSpecificRepository(Configuration);
+
             //Register services
             services.RegisterServices(Configuration);
 

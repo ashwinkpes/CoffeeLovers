@@ -1,5 +1,7 @@
 ﻿using CoffeeLovers.DomainModels.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CoffeeLovers.IRepositories
@@ -12,5 +14,7 @@ namespace CoffeeLovers.IRepositories
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        Task<int> CountAsync();
+        Task<T> FindAsync(Expression<Func<T, bool>> match);
     }
 }

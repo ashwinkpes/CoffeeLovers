@@ -23,5 +23,11 @@ namespace CoffeeLovers.Repositories.Specifications
         {
             if (includeAreaOwners)  AddInclude(b => b.AreaOwners);
         }
+
+        public AreaWithAreaOwnersSpecification(bool includeAreaOwners) : base(b => !string.IsNullOrEmpty(b.AreaName))
+        {
+            if (includeAreaOwners) AddInclude(b => b.AreaOwners);
+        }
+
     }
 }

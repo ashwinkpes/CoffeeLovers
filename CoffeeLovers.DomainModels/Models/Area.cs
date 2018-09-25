@@ -22,9 +22,7 @@ namespace CoffeeLovers.DomainModels.Models
         [StringLength(40, ErrorMessage = "AreaName cannot be grater than 40 characters")]
         public string AreaName { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "PinCode is required")]
-        [MinLength(3, ErrorMessage = "PinCode must be minimum of 3 characters")]
-        [StringLength(6, ErrorMessage = "PinCode cannot be grater than 6 characters")]
+        [Required(ErrorMessage = "PinCode is required")]    
         public int PinCode { get; set; }
 
         public ICollection<AreaOwner> AreaOwners { get; set; }

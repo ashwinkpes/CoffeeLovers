@@ -1,9 +1,11 @@
-﻿using CoffeeLovers.Common;
+﻿using CoffeeLovers.APIModels;
+using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.IBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -29,7 +31,7 @@ namespace CoffeeLovers.Controllers
         /// </summary>
         /// <param name="name"></param>    
         /// <returns>A area whose name matches the one passed in the parameter</returns>
-        /// <response code="200">Returns the matched area by name</response>
+        /// <response code="200">Returns 200 when the response is success and the area that matches the name sent as route param </response>
         /// <response code="400">Bad request</response>  
         /// <response code="404">Not found if name passed does not match any item</response>  
         [HttpGet("GetAreaByName/{name}")]
@@ -40,20 +42,55 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-GetAllAreas-Inititating {DateTime.UtcNow}"))
+                using (_arealogger.BeginScope($"API-GetAreaByName-Inititating {DateTime.UtcNow}"))
                 {
-                    _arealogger.LogInformation(LoggingEvents.GetItem, "API-GetAllAreas-Getting item by name {name}", name);
+                    _arealogger.LogInformation(LoggingEvents.GetItem, "API-GetAreaByName-Getting item by name {name}", name);
 
                     var result = await _areaService.GetAreaByName(name).ConfigureAwait(false);                   
 
                     if (result.statusCode == HttpStatusCode.NotFound)
                     {
-                        _arealogger.LogInformation(LoggingEvents.GetItemNotFound, "API-GetAllAreas-Item by name {name} not found", name);
+                        _arealogger.LogInformation(LoggingEvents.GetItemNotFound, "API-GetAreaByName-Item by name {name} not found", name);
                     }
+
+                    _arealogger.LogInformation($"API-GetAreaByName-Completed {DateTime.UtcNow}");
+
+                    return StatusCode((int)result.statusCode, result.areaDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                _arealogger.LogError
+                    (ex,
+                     $"API-GetAreaByName-Exception {DateTime.UtcNow}"
+                   );
+
+                return StatusCode((int)HttpStatusCode.BadRequest, 
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaByName" : ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Gets all areas.
+        /// </summary>
+        /// <param name="includeAreaOwners"></param> 
+        /// <returns>All areas present in the system</returns>
+        /// <response code="200">Returns 200 and list of areas if resposnse is success</response>
+        /// <response code="400">Bad request</response>         
+        [HttpGet("GetAllAreas/{includeAreaOwners}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> GetAllAreas(bool includeAreaOwners)
+        {
+            try
+            {
+                using (_arealogger.BeginScope($"API-GetAllAreas-Inititating {DateTime.UtcNow}"))
+                {
+                    var result = await _areaService.GetAllAreas(includeAreaOwners).ConfigureAwait(false);
 
                     _arealogger.LogInformation($"API-GetAllAreas-Completed {DateTime.UtcNow}");
 
-                    return StatusCode((int)result.statusCode, result.areaDto);
+                    return StatusCode((int)result.statusCode, result.areaDtos);
                 }
             }
             catch (Exception ex)
@@ -63,12 +100,48 @@ namespace CoffeeLovers.Controllers
                      $"API-GetAllAreas-Exception {DateTime.UtcNow}"
                    );
 
-                return StatusCode((int)HttpStatusCode.BadRequest, 
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaByName" : ex.StackTrace);
+                return StatusCode((int)HttpStatusCode.BadRequest,
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAllAreas" : ex.StackTrace);
             }
         }
 
-        private void CheckArguments()
+        /// <summary>
+        /// Adds an area to database
+        /// </summary>
+        /// <param name="areaDto"></param> 
+        /// <returns>Location of the added area</returns>
+        /// <response code="200">Returns 201 if the area is added successfully</response>
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        [HttpPost("AddArea")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> AddArea([FromBody] AreaDto areaDto)
+        {
+            try
+            {
+                using (_arealogger.BeginScope($"API-AddArea {DateTime.UtcNow}"))
+                {
+                    var result = await _areaService.CreateArea(areaDto).ConfigureAwait(false);
+
+                    _arealogger.LogInformation($"API-AddArea {DateTime.UtcNow}");
+
+                    return StatusCode((int)result.statusCode, result.areaDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                _arealogger.LogError
+                    (ex,
+                     $"API-AddArea-Exception {DateTime.UtcNow}"
+                   );
+
+                return StatusCode((int)HttpStatusCode.BadRequest,
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing AddArea" : ex.StackTrace);
+            }
+        }
+
+
+            private void CheckArguments()
         {
             _areaService.CheckArgumentIsNull(nameof(_areaService));
             _arealogger.CheckArgumentIsNull(nameof(_arealogger));

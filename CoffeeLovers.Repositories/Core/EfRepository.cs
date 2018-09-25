@@ -2,8 +2,10 @@
 using CoffeeLovers.DomainModels.Models;
 using CoffeeLovers.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CoffeeLovers.Repositories
@@ -21,6 +23,8 @@ namespace CoffeeLovers.Repositories
         {
             return _dbContext.Set<T>().Find(id);
         }
+
+
 
         public T GetSingleBySpec(ISpecification<T> spec)
         {
@@ -88,6 +92,8 @@ namespace CoffeeLovers.Repositories
 
         public async Task<T> AddAsync(T entity)
         {
+            entity.Createdtime = DateTime.UtcNow;
+            entity.CreatedBy = "System";          
             _dbContext.Set<T>().Add(entity);
             await _dbContext.SaveChangesAsync();
 
@@ -114,6 +120,26 @@ namespace CoffeeLovers.Repositories
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public int Count()
+        {
+            return _dbContext.Set<T>().Count();
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _dbContext.Set<T>().CountAsync();
+        }
+
+        public T Find(Expression<Func<T, bool>> match)
+        {
+            return _dbContext.Set<T>().SingleOrDefault(match);
+        }
+
+        public async Task<T> FindAsync(Expression<Func<T, bool>> match)
+        {
+            return await _dbContext.Set<T>().SingleOrDefaultAsync(match);
         }
     }
 }

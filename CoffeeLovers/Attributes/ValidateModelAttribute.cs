@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace CoffeeLovers.Attributes
 {
-    public class ValidateModelAttribute : ActionFilterAttribute
+    internal class ValidateModelAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -19,7 +19,7 @@ namespace CoffeeLovers.Attributes
         }
     }
 
-    public class ValidationFailedResult : ObjectResult
+    internal class ValidationFailedResult : ObjectResult
     {
         public ValidationFailedResult(ModelStateDictionary modelState)
             : base(new ValidationResultModel(modelState))
@@ -29,7 +29,7 @@ namespace CoffeeLovers.Attributes
     }
 
 
-    public class ValidationError
+    internal class ValidationError
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Field { get; }
@@ -43,7 +43,7 @@ namespace CoffeeLovers.Attributes
         }
     }
 
-    public class ValidationResultModel
+    internal class ValidationResultModel
     {
         public string Message { get; }
 

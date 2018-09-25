@@ -1,5 +1,7 @@
 ﻿using CoffeeLovers.DomainModels.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace CoffeeLovers.IRepositories
 {
@@ -12,5 +14,7 @@ namespace CoffeeLovers.IRepositories
         T Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+        int Count();
+        T Find(Expression<Func<T, bool>> match);        
     }
 }
