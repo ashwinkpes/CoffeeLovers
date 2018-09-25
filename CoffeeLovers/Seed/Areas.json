@@ -1,24 +1,28 @@
 [
   {
     "AreaId": "54EC13F1-3F0A-4090-821D-FA41C81F86F7",
+    "AreaDisplayId": "Area-2018-001",
     "AreaName": "Koramangala",
     "PinCode": "560034"
   },
 
   {
     "AreaId": "6D5C9651-EBAC-4874-87E9-DF5B844BD0FF",
+    "AreaDisplayId": "Area-2018-002",
     "AreaName": "Sarjapur",
     "PinCode": "562125"
   },
 
   {
     "AreaId": "96A97CD3-D49D-4750-9D0B-AE1A6C530931",
+    "AreaDisplayId": "Area-2018-003",
     "AreaName": "Bellandur",
     "PinCode": "560103"
   },
 
   {
     "AreaId": "DFB26651-F6BB-4D73-8B80-7C803E64C674",
+    "AreaDisplayId": "Area-2018-004",
     "AreaName": "HSR Layout",
     "PinCode": "560102"
   }

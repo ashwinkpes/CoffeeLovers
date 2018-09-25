@@ -27,8 +27,9 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
         {
             area.CheckArgumentIsNull(nameof(area));
 
-            var areaDto = new AreaDto(area.AreaId)
+            var areaDto = new AreaDto()
             {
+              AreaDisplayId = area.AreaDisplayId,
               AreaName = area.AreaName,
               PinCode = area.PinCode
             };

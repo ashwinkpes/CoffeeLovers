@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeLovers.Extensions
 {
-    public static class AddCorsPolicy
+    internal static class AddCorsPolicy
     {
-        public static void AddCrossOriginPolicy(this IServiceCollection services, IConfiguration Configuration)
+        internal static void AddCrossOriginPolicy(this IServiceCollection services, IConfiguration Configuration)
         {
             CorsSettings corsSettings = default(CorsSettings);
 

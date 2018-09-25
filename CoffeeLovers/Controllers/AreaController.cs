@@ -63,7 +63,7 @@ namespace CoffeeLovers.Controllers
         private void CheckArguments()
         {
             _areaService.CheckArgumentIsNull(nameof(_areaService));
-            _arealogger.CheckArgumentIsNull(nameof(_areaService));
+            _arealogger.CheckArgumentIsNull(nameof(_arealogger));
         }
     }
 

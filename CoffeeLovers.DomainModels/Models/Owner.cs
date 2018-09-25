@@ -12,6 +12,11 @@ namespace CoffeeLovers.DomainModels.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid OwnerId { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "OwnerDisplayId is required")]
+        [MinLength(3, ErrorMessage = "OwnerDisplayId must be minimum of 3 characters")]
+        [StringLength(40, ErrorMessage = "OwnerDisplayId cannot be grater than 40 characters")]
+        public string OwnerDisplayId { get; set; }
+
         public ICollection<AreaOwner> AreaOwners { get; set; }
     }
 }

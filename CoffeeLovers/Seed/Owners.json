@@ -1,24 +1,28 @@
 [
   {
     "OwnerId": "8EE6B9F8-2F71-4F15-BBAB-BFCB16F1DD72",
+    "OwnerDisplayId": "Owner-2018-001",
     "FirstName": "Akshay",
     "LastName": "Kumar"
   },
 
   {
     "OwnerId": "F212BC9A-B3FB-4EC0-B82C-DA94186C7EC9",
+    "OwnerDisplayId": "Owner-2018-002",
     "FirstName": "Salman",
     "LastName": "Khan"
   },
 
   {
     "OwnerId": "F3E1122D-86DD-4335-B55D-10833D31C790",
+    "OwnerDisplayId": "Owner-2018-003",
     "FirstName": "Aamir",
     "LastName": "Khan"
   },
 
   {
     "OwnerId": "EBE97261-0741-4ECD-9DF8-688543247DA7",
+    "OwnerDisplayId": "Owner-2018-004",
     "FirstName": "Amitabh",
     "LastName": "Bachan"
   }

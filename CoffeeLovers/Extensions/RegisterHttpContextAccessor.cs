@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeLovers.Extensions
 {
-    public static class RegisterHttpContextAccessor
+    internal static class RegisterHttpContextAccessor
     {
-        public static void RegisterAccessor(this IServiceCollection services, IConfiguration Configuration)
+        internal static void RegisterAccessor(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddHttpContextAccessor();
         }

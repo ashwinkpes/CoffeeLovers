@@ -4,8 +4,11 @@ using System.ComponentModel.DataAnnotations;
 namespace CoffeeLovers.APIModels
 {
     public class AreaDto
-    {
-        public Guid AreaId { get; private set; }
+    {      
+        [Required(AllowEmptyStrings = false, ErrorMessage = "AreaDisplayId is required")]
+        [MinLength(3, ErrorMessage = "AreaDisplayId must be minimum of 3 characters")]
+        [StringLength(40, ErrorMessage = "AreaDisplayId cannot be grater than 40 characters")]
+        public string AreaDisplayId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "AreaName is required")]
         [MinLength(3, ErrorMessage = "AreaName must be minimum of 3 characters")]
@@ -21,10 +24,6 @@ namespace CoffeeLovers.APIModels
         {
 
         }
-
-        public AreaDto(Guid areaId)
-        {
-            this.AreaId = areaId;
-        }
+       
     }
 }

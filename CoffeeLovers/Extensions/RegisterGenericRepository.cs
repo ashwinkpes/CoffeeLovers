@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeLovers.Extensions
 {
-    public static class RegisterGenericRepository
+    internal static class RegisterGenericRepository
     {
-        public static void RegisterRepository(this IServiceCollection services, IConfiguration Configuration)
+        internal static void RegisterRepository(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));

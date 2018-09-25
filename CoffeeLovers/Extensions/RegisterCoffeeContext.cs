@@ -12,9 +12,9 @@ using System.IO;
 
 namespace CoffeeLovers.Extensions
 {
-    public static class RegisterCoffeeContext
+    internal static class RegisterCoffeeContext
     {
-        public static void AddCoffeeContext(this IServiceCollection services, IConfiguration Configuration)
+        internal static void AddCoffeeContext(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddDbContext<CoffeeDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:CoffeeLovers"],
                  serverDbContextOptionsBuilder =>
@@ -25,7 +25,7 @@ namespace CoffeeLovers.Extensions
                  }));
         }
 
-        public static void SeedCoffeeContext(this IApplicationBuilder app, IConfiguration _configuration)
+        internal static void SeedCoffeeContext(this IApplicationBuilder app, IConfiguration _configuration)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
