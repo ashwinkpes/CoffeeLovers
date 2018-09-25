@@ -24,6 +24,14 @@ namespace CoffeeLovers.Controllers
             CheckArguments();
         }
 
+        /// <summary>
+        /// Gets an Area by Name.
+        /// </summary>
+        /// <param name="name"></param>    
+        /// <returns>A area whose name matches the one passed in the parameter</returns>
+        /// <response code="200">Returns the matched area by name</response>
+        /// <response code="400">Bad request</response>  
+        /// <response code="404">Not found if name passed does not match any item</response>  
         [HttpGet("GetAreaByName/{name}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]

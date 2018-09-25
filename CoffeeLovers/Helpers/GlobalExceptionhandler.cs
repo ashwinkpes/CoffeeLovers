@@ -34,7 +34,7 @@ namespace CoffeeLovers.Helpers
             HttpResponse response = context.HttpContext.Response;
             response.StatusCode = (int)status;
             response.ContentType = "application/json";
-            var err = message + " " + context.Exception.StackTrace;
+            var err = message + " " +  context.Exception.StackTrace;
             response.WriteAsync(err);
         }
     }

@@ -67,7 +67,9 @@ namespace CoffeeLovers
             //Register services
             services.RegisterServices(Configuration);
 
-            
+            //Register Swagger
+            services.AddSwaggerSettings(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +96,7 @@ namespace CoffeeLovers
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             app.SeedCoffeeContext(Configuration);
+            app.UseSwaggerMiddleWare(Configuration);
         }
     }
 }
