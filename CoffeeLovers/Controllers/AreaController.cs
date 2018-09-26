@@ -141,6 +141,46 @@ namespace CoffeeLovers.Controllers
         }
 
 
+        /// <summary>
+        /// Updates an area in database
+        /// </summary>
+        /// <param name="areaDisplayId">The area id whose details have to be updated</param> 
+        /// <param name="patchDtos">Properties that have to be updated</param> 
+        /// <returns>Status code of the operation</returns>
+        /// <response code="204">Returns 204 if the area is updated successfully</response>
+        /// <response code="404">Returns 404 if the area is not found</response>
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        [HttpPatch("UpdateArea/{areaDisplayId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> UpdateArea(string areaDisplayId, [FromBody] List<PatchDto> patchDtos)
+        {
+            try
+            {
+                using (_arealogger.BeginScope($"API-UpdateArea {DateTime.UtcNow}"))
+                {
+                    var result = await _areaService.UpdateArea(areaDisplayId, patchDtos).ConfigureAwait(false);
+
+                    _arealogger.LogInformation($"API-UpdateArea {DateTime.UtcNow}");
+
+                    return StatusCode((int)result);
+                }
+            }
+            catch (Exception ex)
+            {
+                _arealogger.LogError
+                  (ex,
+                   $"API-UpdateArea-Exception {DateTime.UtcNow}"
+                 );
+
+                return StatusCode((int)HttpStatusCode.BadRequest,
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing UpdateArea" : ex.StackTrace);
+            }
+        }
+
+
+
             private void CheckArguments()
         {
             _areaService.CheckArgumentIsNull(nameof(_areaService));

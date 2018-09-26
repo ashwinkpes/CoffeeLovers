@@ -1,4 +1,5 @@
-﻿using CoffeeLovers.DomainModels.Models;
+﻿using CoffeeLovers.Common;
+using CoffeeLovers.DomainModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -16,5 +17,6 @@ namespace CoffeeLovers.IRepositories
         Task DeleteAsync(T entity);
         Task<int> CountAsync();
         Task<T> FindAsync(Expression<Func<T, bool>> match);
+        Task ApplyPatchAsync<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity;
     }
 }

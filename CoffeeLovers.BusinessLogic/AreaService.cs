@@ -1,4 +1,5 @@
 ﻿using CoffeeLovers.APIModels;
+using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Logging;
 using CoffeeLovers.Common.Mapping.DomainToApi;
@@ -105,6 +106,32 @@ namespace CoffeeLovers.BusinessLogic
             _logger.LogInformation($"Service-GetAreaByName-Executing CreateArea completed at {DateTime.UtcNow}");
 
             return (statusCode, areaDto);
+        }
+
+        public async Task<HttpStatusCode> UpdateArea(string areaDisplayId, List<PatchDto> patchDtos)
+        {
+            var statusCode = HttpStatusCode.NoContent;
+
+            areaDisplayId.CheckArgumentIsNull(nameof(areaDisplayId));
+
+            _logger.LogInformation($"Service-CreateArea-Executing UpdateArea started at {DateTime.UtcNow}");
+
+            _logger.LogInformation($"Service-CreateArea-Executing get the area to be patched {DateTime.UtcNow}");
+
+            var areaDromDb = await _areaAsynRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId).ConfigureAwait(false);
+
+            if (areaDromDb == null)
+            {
+                _logger.LogInformation($"No Area found with areaDisplayid {areaDisplayId}");
+                statusCode = HttpStatusCode.NotFound;
+            }
+            else
+            {
+                await _areaAsynRepository.ApplyPatchAsync(areaDromDb, patchDtos);
+                statusCode = HttpStatusCode.OK;                
+            }
+
+            return statusCode;
         }
 
         private void CheckArguments()

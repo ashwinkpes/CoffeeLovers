@@ -1,4 +1,5 @@
-﻿using CoffeeLovers.DAL;
+﻿using CoffeeLovers.Common;
+using CoffeeLovers.DAL;
 using CoffeeLovers.DomainModels.Models;
 using CoffeeLovers.IRepositories;
 using Microsoft.EntityFrameworkCore;
@@ -140,6 +141,16 @@ namespace CoffeeLovers.Repositories
         public async Task<T> FindAsync(Expression<Func<T, bool>> match)
         {
             return await _dbContext.Set<T>().SingleOrDefaultAsync(match);
+        }
+
+        public async Task ApplyPatchAsync<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity
+        {
+            var nameValuePairProperties = patchDtos.ToDictionary(a => a.PropertyName, a => a.PropertyValue);
+
+            var dbEntityEntry = _dbContext.Entry(entityName);
+            dbEntityEntry.CurrentValues.SetValues(nameValuePairProperties);
+            dbEntityEntry.State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

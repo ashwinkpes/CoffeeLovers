@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoffeeLovers.APIModels\CoffeeLovers.APIModels.csproj" />
+    <ProjectReference Include="..\CoffeeLovers.Common\CoffeeLovers.Common.csproj" />
     <ProjectReference Include="..\CoffeeLovers.DomainModels\CoffeeLovers.DomainModels.csproj" />
   </ItemGroup>
 
