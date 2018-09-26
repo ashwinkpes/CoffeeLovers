@@ -28,7 +28,7 @@ namespace CoffeeLovers.BusinessLogic
             CheckArguments();
         }
 
-        public Task<(HttpStatusCode statusCode, AreaDto areaDto)> CreateArea(AreaDto areaToAdd)
+        public Task<(HttpStatusCode statusCode, CoffeeDto areaDto)> CreateArea(AreaDto areaToAdd)
         {
             throw new NotImplementedException();
         }
@@ -38,39 +38,17 @@ namespace CoffeeLovers.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public Task<(HttpStatusCode statusCode, IEnumerable<AreaDto> areaDtos)> GetAllAreas(bool includeAreaOwners)
+        public Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDto)> GetAllAreas(bool includeAreaOwners)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<(HttpStatusCode statusCode, CoffeeDto areaDto)> GetCoffeeByDisplayId(string coffeeDisplayid)
+        public Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByDisplayId(string coffeeDisplayid)
         {
-            _logger.LogInformation($"Service-GetAreaByName-Executing GetCoffeeByDisplayId started at {DateTime.UtcNow}");
-
-            coffeeDisplayid.CheckArgumentIsNull(nameof(coffeeDisplayid));
-
-            var areaDto = default(CoffeeDto);
-            var statusCode = HttpStatusCode.NotFound;
-
-            var coffeeSpec = new CoffeeWithAreasSpecification(false, coffeeDisplayid);
-
-            var coffee = (await _coffeeRepository.ListAsync(coffeeSpec).ConfigureAwait(false)).FirstOrDefault();
-            if (coffee == null)
-            {
-                _logger.LogInformation($"No coffee found with area display id  {coffeeDisplayid}");
-            }
-            else
-            {
-                statusCode = HttpStatusCode.OK;
-                areaDto = coffee.ToDto();
-            }
-
-            _logger.LogInformation($"Service-GetAreaByName-Executing GetAreaByDisplayId completed at {DateTime.UtcNow}");
-
-            return (statusCode, areaDto);
+            throw new NotImplementedException();
         }
 
-        public Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetCoffeeByName(string areaName)
+        public Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByName(string areaName)
         {
             throw new NotImplementedException();
         }
@@ -84,11 +62,6 @@ namespace CoffeeLovers.BusinessLogic
         {
             _coffeeRepository.CheckArgumentIsNull(nameof(_coffeeRepository));
             _logger.CheckArgumentIsNull(nameof(_logger));
-        }
-
-        Task<(HttpStatusCode statusCode, AreaDto areaDto)> ICoffeeService.GetCoffeeByDisplayId(string coffeeDisplayid)
-        {
-            throw new NotImplementedException();
         }
     }
 }
