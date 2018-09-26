@@ -17,13 +17,12 @@ namespace CoffeeLovers.BusinessLogic
 {
     public class AreaService : IAreaService
     {
-        private readonly IAsyncRepository<Area> _areaAsynRepository;
+       
         private readonly IAreaRepository _areaRepository;
         private readonly IAppLogger<AreaService> _logger;
 
-        public AreaService(IAsyncRepository<Area> areaAsynRepository, IAreaRepository areaRepository, IAppLogger<AreaService> logger)
+        public AreaService(IAreaRepository areaRepository, IAppLogger<AreaService> logger)
         {
-            _areaAsynRepository = areaAsynRepository;
             _areaRepository = areaRepository;
             _logger = logger;
             CheckArguments();
@@ -40,7 +39,7 @@ namespace CoffeeLovers.BusinessLogic
 
             var areaSpec = new AreaWithAreaOwnersSpecification(false, areaDisplayid);
 
-            var area = (await _areaAsynRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
+            var area = (await _areaRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
             if (area == null)
             {
                 _logger.LogInformation($"No Area found with area display id  {areaDisplayid}");
@@ -67,7 +66,7 @@ namespace CoffeeLovers.BusinessLogic
           
             var areaSpec = new AreaWithAreaOwnersSpecification(areaName, false);
 
-            var area = (await _areaAsynRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
+            var area = (await _areaRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
             if (area == null)
             {
                 _logger.LogInformation($"No Area found for {areaName}");                
@@ -91,7 +90,7 @@ namespace CoffeeLovers.BusinessLogic
             var statusCode = HttpStatusCode.OK;
 
             var areaSpec = new AreaWithAreaOwnersSpecification(includeAreaOwners);
-            var allAreas = (await _areaAsynRepository.ListAsync(areaSpec).ConfigureAwait(false));
+            var allAreas = (await _areaRepository.ListAsync(areaSpec).ConfigureAwait(false));
             if (!allAreas.Any())
             {
                 _logger.LogInformation($"No Areas found");
@@ -115,7 +114,7 @@ namespace CoffeeLovers.BusinessLogic
 
             var areaSpec = new AreaWithAreaOwnersSpecification(areaToAdd.AreaName, false);
 
-            var area = (await _areaAsynRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
+            var area = (await _areaRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
             if (area != null)
             {
                 _logger.LogInformation($"Area with area name {areaToAdd.AreaName} already exists!!!");
@@ -125,7 +124,7 @@ namespace CoffeeLovers.BusinessLogic
             {
                 Area areaEntity = await _areaRepository.GetMaxOfprimaryKey();
                 areaToAdd.AreaDisplayId = areaEntity.GetNextPrimaryKey();
-                var areaAdded = await _areaAsynRepository.AddAsync(areaToAdd.ToEntity(true));
+                var areaAdded = await _areaRepository.AddAsync(areaToAdd.ToEntity(true));
                 statusCode = HttpStatusCode.OK;
                 areaDto = areaAdded.ToDto();
             }
@@ -145,7 +144,7 @@ namespace CoffeeLovers.BusinessLogic
 
             _logger.LogInformation($"Service-CreateArea-Executing get the area to be patched {DateTime.UtcNow}");
 
-            var areaDromDb = await _areaAsynRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId).ConfigureAwait(false);
+            var areaDromDb = await _areaRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId).ConfigureAwait(false);
 
             if (areaDromDb == null)
             {
@@ -154,7 +153,7 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _areaAsynRepository.ApplyPatchAsync(areaDromDb, patchDtos);
+                await _areaRepository.ApplyPatchAsync(areaDromDb, patchDtos);
                      
             }
 
@@ -169,7 +168,7 @@ namespace CoffeeLovers.BusinessLogic
 
             _logger.LogInformation($"Service-CreateArea-Executing DeleteArea started at {DateTime.UtcNow}");
 
-            var areaDromDb = await _areaAsynRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId).ConfigureAwait(false);
+            var areaDromDb = await _areaRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId).ConfigureAwait(false);
 
             if (areaDromDb == null)
             {
@@ -178,8 +177,8 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _areaAsynRepository.SoftDeleteAsync(areaDromDb);
-                await _areaAsynRepository.SaveAll().ConfigureAwait(false);                
+                await _areaRepository.SoftDeleteAsync(areaDromDb);
+                await _areaRepository.SaveAll().ConfigureAwait(false);                
             }
 
             return statusCode;
@@ -187,7 +186,7 @@ namespace CoffeeLovers.BusinessLogic
 
         private void CheckArguments()
         {
-            _areaAsynRepository.CheckArgumentIsNull(nameof(_areaAsynRepository));
+            _areaRepository.CheckArgumentIsNull(nameof(_areaRepository));
             _logger.CheckArgumentIsNull(nameof(_logger));
         }
     }
