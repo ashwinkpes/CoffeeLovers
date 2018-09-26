@@ -29,6 +29,33 @@ namespace CoffeeLovers.BusinessLogic
             CheckArguments();
         }
 
+        public async Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayid)
+        {
+            _logger.LogInformation($"Service-GetAreaByName-Executing GetAreaByDisplayId started at {DateTime.UtcNow}");
+
+            areaDisplayid.CheckArgumentIsNull(nameof(areaDisplayid));
+
+            var areaDto = default(AreaDto);
+            var statusCode = HttpStatusCode.NotFound;
+
+            var areaSpec = new AreaWithAreaOwnersSpecification(false, areaDisplayid);
+
+            var area = (await _areaAsynRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
+            if (area == null)
+            {
+                _logger.LogInformation($"No Area found with area display id  {areaDisplayid}");
+            }
+            else
+            {
+                statusCode = HttpStatusCode.OK;
+                areaDto = area.ToDto();
+            }
+
+            _logger.LogInformation($"Service-GetAreaByName-Executing GetAreaByDisplayId completed at {DateTime.UtcNow}");
+
+            return (statusCode, areaDto);
+        }
+
         public async Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByName(string areaName)
         {
             _logger.LogInformation($"Service-GetAreaByName-Executing GetAreaByName started at {DateTime.UtcNow}");
@@ -128,7 +155,31 @@ namespace CoffeeLovers.BusinessLogic
             else
             {
                 await _areaAsynRepository.ApplyPatchAsync(areaDromDb, patchDtos);
-                statusCode = HttpStatusCode.OK;                
+                     
+            }
+
+            return statusCode;
+        }
+
+        public async Task<HttpStatusCode> DeleteArea(string areaDisplayId)
+        {
+            var statusCode = HttpStatusCode.NoContent;
+
+            areaDisplayId.CheckArgumentIsNull(nameof(areaDisplayId));
+
+            _logger.LogInformation($"Service-CreateArea-Executing DeleteArea started at {DateTime.UtcNow}");
+
+            var areaDromDb = await _areaAsynRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId).ConfigureAwait(false);
+
+            if (areaDromDb == null)
+            {
+                _logger.LogInformation($"No Area found with areaDisplayid {areaDisplayId}");
+                statusCode = HttpStatusCode.NotFound;
+            }
+            else
+            {
+                await _areaAsynRepository.SoftDeleteAsync(areaDromDb);
+                await _areaAsynRepository.SaveAll().ConfigureAwait(false);                
             }
 
             return statusCode;

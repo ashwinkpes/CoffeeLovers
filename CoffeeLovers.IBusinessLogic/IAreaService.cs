@@ -10,10 +10,14 @@ namespace CoffeeLovers.IBusinessLogic
     {
         Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByName(string areaName);
 
+        Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayid);
+
         Task<(HttpStatusCode statusCode, IEnumerable<AreaDto> areaDtos)> GetAllAreas(bool includeAreaOwners);
 
         Task<(HttpStatusCode statusCode, AreaDto areaDto)> CreateArea(AreaDto areaToAdd);
 
         Task<HttpStatusCode> UpdateArea(string areaDisplayId, List<PatchDto> patchDtos);
+
+        Task<HttpStatusCode> DeleteArea(string areaDisplayId);
     }
 }

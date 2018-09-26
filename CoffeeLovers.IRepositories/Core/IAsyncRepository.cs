@@ -18,5 +18,7 @@ namespace CoffeeLovers.IRepositories
         Task<int> CountAsync();
         Task<T> FindAsync(Expression<Func<T, bool>> match);
         Task ApplyPatchAsync<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity;
+        Task SoftDeleteAsync(T entity);
+        Task<int> SaveAll();
     }
 }

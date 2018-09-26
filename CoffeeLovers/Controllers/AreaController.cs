@@ -71,6 +71,50 @@ namespace CoffeeLovers.Controllers
         }
 
         /// <summary>
+        /// Gets an Area by Area Id.
+        /// </summary>
+        /// <param name="areaDisplayId">The id of the area we want to display</param>    
+        /// <returns>A area whose name matches the one passed in the parameter</returns>
+        /// <response code="200">Returns 200 when the response is success and the area that matches the name sent as route param </response>
+        /// <response code="400">Bad request</response>  
+        /// <response code="404">Not found if name passed does not match any item</response>  
+        [HttpGet("GetAreaById/{areaDisplayId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> GetAreaById([FromRoute] string areaDisplayId)
+        {
+            try
+            {
+                using (_arealogger.BeginScope($"API-GetAreaById-Inititating {DateTime.UtcNow}"))
+                {
+                    _arealogger.LogInformation(LoggingEvents.GetItem, $"API-GetAreaById-Getting item by area displayid {areaDisplayId}");
+
+                    var result = await _areaService.GetAreaByDisplayId(areaDisplayId).ConfigureAwait(false);
+
+                    if (result.statusCode == HttpStatusCode.NotFound)
+                    {
+                        _arealogger.LogInformation(LoggingEvents.GetItemNotFound, $"API-GetAreaById-Item by area displayid  {areaDisplayId} not found");
+                    }
+
+                    _arealogger.LogInformation($"API-GetAreaById-Completed {DateTime.UtcNow}");
+
+                    return StatusCode((int)result.statusCode, result.areaDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                _arealogger.LogError
+                    (ex,
+                     $"API-GetAreaById-Exception {DateTime.UtcNow}"
+                   );
+
+                return StatusCode((int)HttpStatusCode.BadRequest,
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaById" : ex.StackTrace);
+            }
+        }
+
+        /// <summary>
         /// Gets all areas.
         /// </summary>
         /// <param name="includeAreaOwners"></param> 
@@ -179,9 +223,44 @@ namespace CoffeeLovers.Controllers
             }
         }
 
+        /// <summary>
+        /// Deleates an area in database
+        /// </summary>
+        /// <param name="areaDisplayId">The area id whose details have to be updated</param>      
+        /// <returns>Status code of the operation</returns>
+        /// <response code="204">Returns 204 if the area is deletion is successfull</response>
+        /// <response code="404">Returns 404 if the area is not found</response>
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        [HttpDelete("DeleteArea/{areaDisplayId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> DeleteArea(string areaDisplayId)
+        {
+            try
+            {
+                using (_arealogger.BeginScope($"API-DeleteArea {DateTime.UtcNow}"))
+                {
+                    var result = await _areaService.DeleteArea(areaDisplayId).ConfigureAwait(false);
 
+                    _arealogger.LogInformation($"API-DeleteArea {DateTime.UtcNow}");
 
-            private void CheckArguments()
+                    return StatusCode((int)result);
+                }
+            }
+            catch (Exception ex)
+            {
+                _arealogger.LogError
+                  (ex,
+                   $"API-DeleteArea-Exception {DateTime.UtcNow}"
+                 );
+
+                return StatusCode((int)HttpStatusCode.BadRequest,
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing DeleteArea" : ex.StackTrace);
+            }
+        }
+
+        private void CheckArguments()
         {
             _areaService.CheckArgumentIsNull(nameof(_areaService));
             _arealogger.CheckArgumentIsNull(nameof(_arealogger));

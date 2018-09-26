@@ -152,5 +152,19 @@ namespace CoffeeLovers.Repositories
             dbEntityEntry.State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task SoftDeleteAsync(T entity)
+        {
+            entity.UpdatedBy = "System";
+            entity.Updatedtime = DateTime.UtcNow;
+            entity.IsActive = false;
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await Task.FromResult(0);
+        }
+
+        public async Task<int> SaveAll()
+        {
+          return await _dbContext.SaveChangesAsync();
+        }
     }
 }
