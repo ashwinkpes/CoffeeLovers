@@ -62,9 +62,28 @@ namespace CoffeeLovers.BusinessLogic
             return (statusCode, cofeeToStrore);
         }
 
-        public Task<HttpStatusCode> DeleteCoffee(string coffeeDisplayid)
+        public async Task<HttpStatusCode> DeleteCoffee(string coffeeDisplayid)
         {
-            throw new NotImplementedException();
+            var statusCode = HttpStatusCode.NoContent;
+
+            coffeeDisplayid.CheckArgumentIsNull(nameof(coffeeDisplayid));
+
+            _logger.LogInformation($"Service-DeleteCoffee-Executing DeleteCoffee started at {DateTime.UtcNow}");
+
+            var coffeeFromDb = await _coffeeRepository.FindAsync(s => s.CoffeeDisplayId == coffeeDisplayid).ConfigureAwait(false);
+
+            if (coffeeFromDb == null)
+            {
+                _logger.LogInformation($"No Coffee found with coffee id  {coffeeDisplayid}");
+                statusCode = HttpStatusCode.NotFound;
+            }
+            else
+            {
+                await _coffeeRepository.SoftDeleteAsync(coffeeFromDb);
+                await _coffeeRepository.SaveAll().ConfigureAwait(false);
+            }
+
+            return statusCode;
         }
 
         public async Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDtos)> GetAllCoffees(bool includeCofeeAreas)
@@ -145,9 +164,30 @@ namespace CoffeeLovers.BusinessLogic
             return (statusCode, coffeeDto);
         }
 
-        public  Task<HttpStatusCode> UpdateCoffee(string coffeeDisplayid, List<PatchDto> patchDtos)
+        public async Task<HttpStatusCode> UpdateCoffee(string coffeeDisplayid, List<PatchDto> patchDtos)
         {
-            throw new NotImplementedException();
+            var statusCode = HttpStatusCode.NoContent;
+
+            coffeeDisplayid.CheckArgumentIsNull(nameof(coffeeDisplayid));
+
+            _logger.LogInformation($"Service-UpdateCoffee-Executing UpdateCoffee started at {DateTime.UtcNow}");
+
+            _logger.LogInformation($"Service-UpdateCoffee-Executing get the coffee to be patched {DateTime.UtcNow}");
+
+            var coffeeFromDb = await _coffeeRepository.FindAsync(s => s.CoffeeDisplayId == coffeeDisplayid && s.IsActive).ConfigureAwait(false);
+
+            if (coffeeFromDb == null)
+            {
+                _logger.LogInformation($"No Area found with coffeeDisplayid {coffeeDisplayid}");
+                statusCode = HttpStatusCode.NotFound;
+            }
+            else
+            {
+                await _coffeeRepository.ApplyPatchAsync(coffeeFromDb, patchDtos);
+
+            }
+
+            return statusCode;
         }
 
         private void CheckArguments()

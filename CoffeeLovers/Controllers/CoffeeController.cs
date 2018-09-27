@@ -1,5 +1,4 @@
 ﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.APIModels;
 using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.IBusinessLogic;
@@ -183,6 +182,81 @@ namespace CoffeeLovers.Controllers
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
                     _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetCoffeeByName" : ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Deletes an coffee in database
+        /// </summary>
+        /// <param name="coffeeDisplayId">The coffee id whose details have to be updated</param>      
+        /// <returns>Status code of the operation</returns>
+        /// <response code="204">Returns 204 if the coffee deletion is successfull</response>
+        /// <response code="404">Returns 404 if the coffee is not found</response>
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>    
+        [HttpGet("DeleteCoffee/{coffeeDisplayId}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult> DeleteCoffee(string coffeeDisplayId)
+        {
+            try
+            {
+                using (_cofeelogger.BeginScope($"API-DeleteCoffee {DateTime.UtcNow}"))
+                {
+                    var result = await _coffeeService.DeleteCoffee(coffeeDisplayId).ConfigureAwait(false);
+
+                    _cofeelogger.LogInformation($"API-DeleteCoffee {DateTime.UtcNow}");
+
+                    return StatusCode((int)result);
+                }
+            }
+            catch (Exception ex)
+            {
+                _cofeelogger.LogError
+                  (ex,
+                   $"API-DeleteCoffee-Exception {DateTime.UtcNow}"
+                 );
+
+                return StatusCode((int)HttpStatusCode.BadRequest,
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing DeleteCoffee" : ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Updates an coffee in database
+        /// </summary>
+        /// <param name="coffeeDisplayId">The coffee id whose details have to be updated</param> 
+        /// <param name="patchDtos">Properties that have to be updated</param> 
+        /// <returns>Status code of the operation</returns>
+        /// <response code="204">Returns 204 if the coffee is updated successfully</response>
+        /// <response code="404">Returns 404 if the coffee is not found</response>
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>     
+        [HttpPatch("UpdateCoffee/{coffeeDisplayId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        public async Task<ActionResult> UpdateCoffee(string coffeeDisplayId, [FromBody] List<PatchDto> patchDtos)
+        {
+            try
+            {
+                using (_cofeelogger.BeginScope($"API-UpdateCoffee {DateTime.UtcNow}"))
+                {
+                    var result = await _coffeeService.UpdateCoffee(coffeeDisplayId, patchDtos).ConfigureAwait(false);
+
+                    _cofeelogger.LogInformation($"API-UpdateCoffee {DateTime.UtcNow}");
+
+                    return StatusCode((int)result);
+                }
+            }
+            catch (Exception ex)
+            {
+                _cofeelogger.LogError
+                  (ex,
+                   $"API-UpdateCoffee-Exception {DateTime.UtcNow}"
+                 );
+
+                return StatusCode((int)HttpStatusCode.BadRequest,
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing UpdateCoffee" : ex.StackTrace);
             }
         }
 

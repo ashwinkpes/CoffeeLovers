@@ -13,7 +13,7 @@ namespace CoffeeLovers.Repositories.Specifications
         }
 
         public AreaWithAreaOwnersSpecification(string areaName, bool includeAreaOwners)
-          : base(b => b.AreaName == areaName)
+          : base(b => b.AreaName == areaName && b.IsActive)
         {
             if (includeAreaOwners)  AddInclude(b => b.AreaOwners);
         }
@@ -24,12 +24,12 @@ namespace CoffeeLovers.Repositories.Specifications
             if (includeAreaOwners)  AddInclude(b => b.AreaOwners);
         }
 
-        public AreaWithAreaOwnersSpecification(bool includeAreaOwners) : base(b => !string.IsNullOrEmpty(b.AreaName))
+        public AreaWithAreaOwnersSpecification(bool includeAreaOwners) : base(b => !string.IsNullOrEmpty(b.AreaName) && b.IsActive)
         {
             if (includeAreaOwners) AddInclude(b => b.AreaOwners);
         }
 
-        public AreaWithAreaOwnersSpecification(bool includeAreaOwners, string areaDisplayId) : base(b => b.AreaDisplayId == areaDisplayId)
+        public AreaWithAreaOwnersSpecification(bool includeAreaOwners, string areaDisplayId) : base(b => b.AreaDisplayId == areaDisplayId && b.IsActive)
         {
             if (includeAreaOwners) AddInclude(b => b.AreaOwners);
         }

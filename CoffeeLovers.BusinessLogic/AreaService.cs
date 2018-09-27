@@ -144,7 +144,7 @@ namespace CoffeeLovers.BusinessLogic
 
             _logger.LogInformation($"Service-CreateArea-Executing get the area to be patched {DateTime.UtcNow}");
 
-            var areaDromDb = await _areaRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId).ConfigureAwait(false);
+            var areaDromDb = await _areaRepository.FindAsync(s => s.AreaDisplayId == areaDisplayId && s.IsActive).ConfigureAwait(false);
 
             if (areaDromDb == null)
             {

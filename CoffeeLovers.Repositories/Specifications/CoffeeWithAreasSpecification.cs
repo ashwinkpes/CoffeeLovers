@@ -13,17 +13,17 @@ namespace CoffeeLovers.Repositories.Specifications
         }
 
         public CoffeeWithAreasSpecification(string coffeeName, bool includeAreas)
-          : base(b => b.CoffeeName == coffeeName)
+          : base(b => b.CoffeeName == coffeeName && b.IsActive)
         {
             if (includeAreas)  AddInclude(b => b.CoffeeAreas);
         }
 
-        public CoffeeWithAreasSpecification(bool includeAreas) : base(b => !string.IsNullOrEmpty(b.CoffeeName))
+        public CoffeeWithAreasSpecification(bool includeAreas) : base(b => !string.IsNullOrEmpty(b.CoffeeName) && b.IsActive)
         {
             if (includeAreas) AddInclude(b => b.CoffeeAreas);
         }
 
-        public CoffeeWithAreasSpecification(bool includeAreas, string coffeeDisplayId) : base(b => b.CoffeeDisplayId == coffeeDisplayId)
+        public CoffeeWithAreasSpecification(bool includeAreas, string coffeeDisplayId) : base(b => b.CoffeeDisplayId == coffeeDisplayId && b.IsActive)
         {
             if (includeAreas) AddInclude(b => b.CoffeeAreas);
         }
