@@ -12,7 +12,7 @@ namespace CoffeeLovers.IBusinessLogic
 
         Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByDisplayId(string coffeeDisplayid);
 
-        Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDto)> GetAllCoffees(bool includeCofeeOwners);
+        Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDtos)> GetAllCoffees(bool includeCofeeOwners);
 
         Task<(HttpStatusCode statusCode, CoffeeDto cofeeDto)> CreateCoffee(AddCoffeeDto cofeeToAdd);
 

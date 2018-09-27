@@ -84,7 +84,7 @@ namespace CoffeeLovers.BusinessLogic
 
         public async Task<(HttpStatusCode statusCode, IEnumerable<AreaDto> areaDtos)> GetAllAreas(bool includeAreaOwners)
         {
-            _logger.LogInformation($"Service-GetAreaByName-Executing GetAllAreas started at {DateTime.UtcNow}");
+            _logger.LogInformation($"Service-GetAllAreas-Executing GetAllAreas started at {DateTime.UtcNow}");
 
             var areaDtos = default(IEnumerable<AreaDto>);
             var statusCode = HttpStatusCode.OK;

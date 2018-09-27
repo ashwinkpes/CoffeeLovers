@@ -67,22 +67,85 @@ namespace CoffeeLovers.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDto)> GetAllCoffees(bool includeCofeeOwners)
+        public async Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDtos)> GetAllCoffees(bool includeCofeeAreas)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation($"Service-GetAllCoffees-Executing GetAllCoffees started at {DateTime.UtcNow}");
+
+            var coffeeDtos = default(IEnumerable<CoffeeDto>);
+            var statusCode = HttpStatusCode.OK;
+
+            var coffeeSpec = new CoffeeWithAreasSpecification(includeCofeeAreas);
+
+            var allCoffees = (await _coffeeRepository.ListAsync(coffeeSpec).ConfigureAwait(false));
+            if (!allCoffees.Any())
+            {
+                _logger.LogInformation($"No coffees found");
+            }
+            else
+            {
+                coffeeDtos = allCoffees.ToDtos();
+            }
+
+            _logger.LogInformation($"Service-GetAllCoffees-Executing GetAllCoffees completed at {DateTime.UtcNow}");
+
+            return (statusCode, coffeeDtos);
         }
 
-        public Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByDisplayId(string coffeeDisplayid)
+        public async Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByDisplayId(string coffeeDisplayid)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation($"Service-GetCoffeeByDisplayId-Executing GetCoffeeByDisplayId started at {DateTime.UtcNow}");
+
+            coffeeDisplayid.CheckArgumentIsNull(nameof(coffeeDisplayid));
+
+            var coffeeDto = default(CoffeeDto);
+            var statusCode = HttpStatusCode.NotFound;
+
+            var coffeeSpec = new CoffeeWithAreasSpecification(false, coffeeDisplayid);
+
+            var coffee = (await _coffeeRepository.ListAsync(coffeeSpec).ConfigureAwait(false)).FirstOrDefault();
+            if (coffee == null)
+            {
+                _logger.LogInformation($"No coffee found with area display id  {coffeeDisplayid}");
+            }
+            else
+            {
+                statusCode = HttpStatusCode.OK;
+                coffeeDto = coffee.ToDto();
+            }
+
+            _logger.LogInformation($"Service-GetCoffeeByDisplayId-Executing GetCoffeeByDisplayId completed at {DateTime.UtcNow}");
+
+            return (statusCode, coffeeDto);
         }
 
-        public Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByName(string cofeeName)
+        public async Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByName(string cofeeName)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation($"Service-GetCoffeeByName-Executing GetCoffeeByName started at {DateTime.UtcNow}");
+
+            cofeeName.CheckArgumentIsNull(nameof(cofeeName));
+
+            var coffeeDto = default(CoffeeDto);
+            var statusCode = HttpStatusCode.NotFound;
+
+            var coffeeSpec = new CoffeeWithAreasSpecification(cofeeName, false);
+
+            var coffee = (await _coffeeRepository.ListAsync(coffeeSpec).ConfigureAwait(false)).FirstOrDefault();
+            if (coffee == null)
+            {
+                _logger.LogInformation($"No coffee found with name  {cofeeName}");
+            }
+            else
+            {
+                statusCode = HttpStatusCode.OK;
+                coffeeDto = coffee.ToDto();
+            }
+
+            _logger.LogInformation($"Service-GetCoffeeByName-Executing GetCoffeeByName completed at {DateTime.UtcNow}");
+
+            return (statusCode, coffeeDto);
         }
 
-        public async Task<HttpStatusCode> UpdateCoffee(string coffeeDisplayid, List<PatchDto> patchDtos)
+        public  Task<HttpStatusCode> UpdateCoffee(string coffeeDisplayid, List<PatchDto> patchDtos)
         {
             throw new NotImplementedException();
         }
