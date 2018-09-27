@@ -34,7 +34,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="200">Returns 200 when the response is success and the area that matches the name sent as route param </response>
         /// <response code="400">Bad request</response>  
         /// <response code="404">Not found if name passed does not match any item</response>  
-        [HttpGet("GetAreaByName/{name}")]
+        [HttpGet("GetAreaByName/{name}",Name =nameof(GetAreaByName))]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
@@ -78,7 +78,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="200">Returns 200 when the response is success and the area that matches the name sent as route param </response>
         /// <response code="400">Bad request</response>  
         /// <response code="404">Not found if name passed does not match any item</response>  
-        [HttpGet("GetAreaById/{areaDisplayId}")]
+        [HttpGet("GetAreaById/{areaDisplayId}", Name = nameof(GetAreaById))]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
@@ -121,7 +121,7 @@ namespace CoffeeLovers.Controllers
         /// <returns>All areas present in the system</returns>
         /// <response code="200">Returns 200 and list of areas if resposnse is success</response>
         /// <response code="400">Bad request</response>         
-        [HttpGet("GetAllAreas/{includeAreaOwners}")]
+        [HttpGet("GetAllAreas/{includeAreaOwners}", Name = nameof(GetAllAreas))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult> GetAllAreas(bool includeAreaOwners)
@@ -156,7 +156,7 @@ namespace CoffeeLovers.Controllers
         /// <returns>Location of the added area</returns>
         /// <response code="200">Returns 201 if the area is added successfully</response>
         /// <response code="400">Returns Bad request if invalid data or some exception</response>       
-        [HttpPost("AddArea")]
+        [HttpPost("AddArea", Name = nameof(AddArea))]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         public async Task<ActionResult> AddArea([FromBody] AreaDto areaDto)
@@ -194,7 +194,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="204">Returns 204 if the area is updated successfully</response>
         /// <response code="404">Returns 404 if the area is not found</response>
         /// <response code="400">Returns Bad request if invalid data or some exception</response>       
-        [HttpPatch("UpdateArea/{areaDisplayId}")]
+        [HttpPatch("UpdateArea/{areaDisplayId}", Name = nameof(UpdateArea))]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
@@ -231,7 +231,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="204">Returns 204 if the area is deletion is successfull</response>
         /// <response code="404">Returns 404 if the area is not found</response>
         /// <response code="400">Returns Bad request if invalid data or some exception</response>       
-        [HttpDelete("DeleteArea/{areaDisplayId}")]
+        [HttpDelete("DeleteArea/{areaDisplayId}", Name = nameof(DeleteArea))]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]

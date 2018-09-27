@@ -33,7 +33,7 @@ namespace CoffeeLovers.Controllers
         /// <returns>Location of the added coffee</returns>
         /// <response code="200">Returns 201 if the coffee is added successfully</response>
         /// <response code="400">Returns Bad request if invalid data or some exception</response>       
-        [HttpPost("AddCoffee")]
+        [HttpPost("AddCoffee", Name = nameof(AddCoffee))]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         public async Task<ActionResult> AddCoffee([FromBody] AddCoffeeDto coffeeDto)
@@ -69,7 +69,7 @@ namespace CoffeeLovers.Controllers
         /// <returns>All coffees present in the system</returns>
         /// <response code="200">Returns 200 and list of coffees if resposnse is success</response>
         /// <response code="400">Bad request</response>         
-        [HttpGet("GetAllCoffees/{includeCofeeAreas}")]
+        [HttpGet("GetAllCoffees/{includeCofeeAreas}", Name = nameof(GetAllCoffees))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<ActionResult> GetAllCoffees(bool includeCofeeAreas)
@@ -105,7 +105,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="200">Returns 200 when the coffee with specified id is found</response>
         /// <response code="404">Returns 404 when the coffee with specified id is not found</response>
         /// <response code="400">Returns 400 in case of bad request</response>
-        [HttpGet("GetCoffeeById/{coffeeId}")]
+        [HttpGet("GetCoffeeById/{coffeeId}", Name = nameof(GetCoffeeById))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -149,7 +149,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="200">Returns 200 when the coffee with specified name is found</response>
         /// <response code="404">Returns 404 when the coffee with specified name is not found</response>
         /// <response code="400">Returns 400 in case of bad request</response>
-        [HttpGet("GetCoffeeByName/{coffeeName}")]
+        [HttpGet("GetCoffeeByName/{coffeeName}", Name = nameof(GetCoffeeByName))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -193,7 +193,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="204">Returns 204 if the coffee deletion is successfull</response>
         /// <response code="404">Returns 404 if the coffee is not found</response>
         /// <response code="400">Returns Bad request if invalid data or some exception</response>    
-        [HttpGet("DeleteCoffee/{coffeeDisplayId}")]
+        [HttpGet("DeleteCoffee/{coffeeDisplayId}", Name = nameof(DeleteCoffee))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -231,7 +231,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="204">Returns 204 if the coffee is updated successfully</response>
         /// <response code="404">Returns 404 if the coffee is not found</response>
         /// <response code="400">Returns Bad request if invalid data or some exception</response>     
-        [HttpPatch("UpdateCoffee/{coffeeDisplayId}")]
+        [HttpPatch("UpdateCoffee/{coffeeDisplayId}", Name = nameof(UpdateCoffee))]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
