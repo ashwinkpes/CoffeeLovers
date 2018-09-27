@@ -48,7 +48,7 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.HasKey("AreaId");
 
-                    b.ToTable("Area");
+                    b.ToTable("Area","dbo");
                 });
 
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Coffee", b =>
@@ -82,7 +82,7 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.HasKey("CoffeeId");
 
-                    b.ToTable("Coffee");
+                    b.ToTable("Coffee","dbo");
                 });
 
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Owner", b =>
@@ -116,7 +116,7 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.HasKey("OwnerId");
 
-                    b.ToTable("Owner");
+                    b.ToTable("Owner","dbo");
                 });
 #pragma warning restore 612, 618
         }

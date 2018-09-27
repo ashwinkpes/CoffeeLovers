@@ -7,8 +7,12 @@ namespace CoffeeLovers.DAL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "dbo");
+
             migrationBuilder.CreateTable(
                 name: "Area",
+                schema: "dbo",
                 columns: table => new
                 {
                     CreatedBy = table.Column<string>(maxLength: 20, nullable: false),
@@ -28,6 +32,7 @@ namespace CoffeeLovers.DAL.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Coffee",
+                schema: "dbo",
                 columns: table => new
                 {
                     CreatedBy = table.Column<string>(maxLength: 20, nullable: false),
@@ -48,6 +53,7 @@ namespace CoffeeLovers.DAL.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Owner",
+                schema: "dbo",
                 columns: table => new
                 {
                     CreatedBy = table.Column<string>(maxLength: 20, nullable: false),
@@ -69,13 +75,16 @@ namespace CoffeeLovers.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Area");
+                name: "Area",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Coffee");
+                name: "Coffee",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Owner");
+                name: "Owner",
+                schema: "dbo");
         }
     }
 }
