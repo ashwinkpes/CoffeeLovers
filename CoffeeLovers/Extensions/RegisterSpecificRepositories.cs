@@ -13,7 +13,8 @@ namespace CoffeeLovers.Extensions
     {
         internal static void RegisterSpecificRepository(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddScoped(typeof(IAreaRepository), typeof(AreaRepository));           
+            services.AddScoped(typeof(IAreaRepository), typeof(AreaRepository));
+            services.AddScoped(typeof(ICoffeeRepository), typeof(CoffeeRepository));
 
         }
     }

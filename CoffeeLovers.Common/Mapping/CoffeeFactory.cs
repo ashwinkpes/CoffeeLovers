@@ -27,15 +27,7 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
         public static CoffeeDto ToDto(this Coffee coffee)
         {
             coffee.CheckArgumentIsNull(nameof(coffee));
-
-            var coffeeDto = new CoffeeDto()
-            {
-              CoffeeDisplayId = coffee.CoffeeDisplayId,
-              CoffeeName = coffee.CoffeeName,
-              validFrom = coffee.validFrom,
-              validTo = coffee.validTo
-            };
-
+            var coffeeDto = new CoffeeDto(coffee.CoffeeDisplayId, coffee.validFrom, coffee.validTo);
             return coffeeDto;
         }
 

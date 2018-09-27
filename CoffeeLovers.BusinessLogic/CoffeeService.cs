@@ -28,17 +28,46 @@ namespace CoffeeLovers.BusinessLogic
             CheckArguments();
         }
 
-        public Task<(HttpStatusCode statusCode, CoffeeDto areaDto)> CreateArea(AreaDto areaToAdd)
+        public async Task<(HttpStatusCode statusCode, CoffeeDto cofeeDto)> CreateCoffee(AddCoffeeDto cofeeToAdd)
+        {
+            _logger.LogInformation($"Service-CreateCoffee-Executing CreateCoffee started at {DateTime.UtcNow}");
+
+            var cofeeDto = cofeeToAdd;
+            var statusCode = HttpStatusCode.Created;
+            CoffeeDto cofeeToStrore = default(CoffeeDto);
+
+            var coffeeSpec = new CoffeeWithAreasSpecification(cofeeToAdd.CoffeeName, false);
+
+            var cofee = (await _coffeeRepository.ListAsync(coffeeSpec).ConfigureAwait(false)).FirstOrDefault();
+            if (cofee != null)
+            {
+                _logger.LogInformation($"cofee with cofee name {cofeeToAdd.CoffeeName} already exists!!!");
+                statusCode = HttpStatusCode.BadRequest;
+            }
+            else
+            {
+                Coffee cofeeEntity = await _coffeeRepository.GetMaxOfprimaryKey();
+                string newCoffeeDisplayId = cofeeEntity.GetNextPrimaryKey();
+
+                cofeeToStrore = new CoffeeDto(newCoffeeDisplayId, DateTime.UtcNow, DateTime.MaxValue);
+                cofeeToStrore.CoffeeName = cofeeToAdd.CoffeeName;
+
+                var coffeeAdded = await _coffeeRepository.AddAsync(cofeeToStrore.ToEntity(true));
+                statusCode = HttpStatusCode.OK;
+                cofeeDto = coffeeAdded.ToDto();
+            }
+
+            _logger.LogInformation($"Service-CreateCoffee-Executing CreateCoffee completed at {DateTime.UtcNow}");
+
+            return (statusCode, cofeeToStrore);
+        }
+
+        public Task<HttpStatusCode> DeleteCoffee(string coffeeDisplayid)
         {
             throw new NotImplementedException();
         }
 
-        public Task<HttpStatusCode> DeleteArea(string coffeeDisplayid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDto)> GetAllAreas(bool includeAreaOwners)
+        public Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDto)> GetAllCoffees(bool includeCofeeOwners)
         {
             throw new NotImplementedException();
         }
@@ -48,12 +77,12 @@ namespace CoffeeLovers.BusinessLogic
             throw new NotImplementedException();
         }
 
-        public Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByName(string areaName)
+        public Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByName(string cofeeName)
         {
             throw new NotImplementedException();
         }
 
-        public Task<HttpStatusCode> UpdateArea(string coffeeDisplayid, List<PatchDto> patchDtos)
+        public async Task<HttpStatusCode> UpdateCoffee(string coffeeDisplayid, List<PatchDto> patchDtos)
         {
             throw new NotImplementedException();
         }

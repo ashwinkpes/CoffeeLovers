@@ -8,16 +8,16 @@ namespace CoffeeLovers.IBusinessLogic
 {
     public interface ICoffeeService
     {
-        Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByName(string areaName);
+        Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByName(string cofeeName);
 
         Task<(HttpStatusCode statusCode, CoffeeDto coffeeDto)> GetCoffeeByDisplayId(string coffeeDisplayid);
 
-        Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDto)> GetAllAreas(bool includeAreaOwners);
+        Task<(HttpStatusCode statusCode, IEnumerable<CoffeeDto> coffeeDto)> GetAllCoffees(bool includeCofeeOwners);
 
-        Task<(HttpStatusCode statusCode, CoffeeDto areaDto)> CreateArea(AreaDto areaToAdd);
+        Task<(HttpStatusCode statusCode, CoffeeDto cofeeDto)> CreateCoffee(AddCoffeeDto cofeeToAdd);
 
-        Task<HttpStatusCode> UpdateArea(string coffeeDisplayid, List<PatchDto> patchDtos);
+        Task<HttpStatusCode> UpdateCoffee(string coffeeDisplayid, List<PatchDto> patchDtos);
 
-        Task<HttpStatusCode> DeleteArea(string coffeeDisplayid);
+        Task<HttpStatusCode> DeleteCoffee(string coffeeDisplayid);
     }
 }

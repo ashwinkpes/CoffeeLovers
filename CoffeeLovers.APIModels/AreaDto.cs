@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CoffeeLovers.APIModels
 {
     public class AreaDto
-    {      
+    {
         public string AreaDisplayId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "AreaName is required")]
