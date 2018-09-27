@@ -27,8 +27,6 @@ namespace CoffeeLovers.DomainModels.Models
 
         [Required(ErrorMessage = "validTo is required")]
         public DateTime validTo { get; set; }
-
-        public ICollection<CoffeeArea> CoffeeAreas { get; set; }
       
     }
 }

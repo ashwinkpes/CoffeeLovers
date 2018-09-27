@@ -16,7 +16,5 @@ namespace CoffeeLovers.DomainModels.Models
         [MinLength(3, ErrorMessage = "OwnerDisplayId must be minimum of 3 characters")]
         [StringLength(40, ErrorMessage = "OwnerDisplayId cannot be grater than 40 characters")]
         public string OwnerDisplayId { get; set; }
-
-        public ICollection<AreaOwner> AreaOwners { get; set; }
     }
 }

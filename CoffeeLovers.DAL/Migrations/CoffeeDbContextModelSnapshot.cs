@@ -51,44 +51,6 @@ namespace CoffeeLovers.DAL.Migrations
                     b.ToTable("Area");
                 });
 
-            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.AreaOwner", b =>
-                {
-                    b.Property<Guid>("AreaOwnerId");
-
-                    b.Property<int>("AreaId");
-
-                    b.Property<Guid>("AreaId1");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("Createdtime");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<int>("OwnerId");
-
-                    b.Property<Guid>("OwnerId1");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime?>("Updatedtime");
-
-                    b.Property<DateTime>("validFrom");
-
-                    b.Property<DateTime>("validTo");
-
-                    b.HasKey("AreaOwnerId");
-
-                    b.HasIndex("AreaId1");
-
-                    b.HasIndex("OwnerId1");
-
-                    b.ToTable("AreaOwner");
-                });
-
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Coffee", b =>
                 {
                     b.Property<Guid>("CoffeeId");
@@ -123,44 +85,6 @@ namespace CoffeeLovers.DAL.Migrations
                     b.ToTable("Coffee");
                 });
 
-            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.CoffeeArea", b =>
-                {
-                    b.Property<Guid>("CoffeeAreaId");
-
-                    b.Property<int>("AreaId");
-
-                    b.Property<Guid?>("AreaId1");
-
-                    b.Property<int>("CoffeeId");
-
-                    b.Property<Guid>("CoffeeId1");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("Createdtime");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime?>("Updatedtime");
-
-                    b.Property<DateTime>("validFrom");
-
-                    b.Property<DateTime>("validTo");
-
-                    b.HasKey("CoffeeAreaId");
-
-                    b.HasIndex("AreaId1");
-
-                    b.HasIndex("CoffeeId1");
-
-                    b.ToTable("CoffeeAreas");
-                });
-
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Owner", b =>
                 {
                     b.Property<Guid>("OwnerId");
@@ -193,31 +117,6 @@ namespace CoffeeLovers.DAL.Migrations
                     b.HasKey("OwnerId");
 
                     b.ToTable("Owner");
-                });
-
-            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.AreaOwner", b =>
-                {
-                    b.HasOne("CoffeeLovers.DomainModels.Models.Area", "Area")
-                        .WithMany("AreaOwners")
-                        .HasForeignKey("AreaId1")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CoffeeLovers.DomainModels.Models.Owner", "Owner")
-                        .WithMany("AreaOwners")
-                        .HasForeignKey("OwnerId1")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.CoffeeArea", b =>
-                {
-                    b.HasOne("CoffeeLovers.DomainModels.Models.Area", "Area")
-                        .WithMany()
-                        .HasForeignKey("AreaId1");
-
-                    b.HasOne("CoffeeLovers.DomainModels.Models.Coffee", "Coffee")
-                        .WithMany("CoffeeAreas")
-                        .HasForeignKey("CoffeeId1")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
