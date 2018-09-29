@@ -11,6 +11,7 @@ namespace CoffeeLovers.Extensions
         {
             services.AddScoped(typeof(IAreaRepository), typeof(AreaRepository));
             services.AddScoped(typeof(ICoffeeRepository), typeof(CoffeeRepository));
+            services.AddScoped(typeof(IOwnerRepository), typeof(OwnerRepository));
 
         }
     }

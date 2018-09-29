@@ -62,6 +62,7 @@ namespace CoffeeLovers.Repositories
                             .Where(spec.Criteria)
                             .AsEnumerable();
         }
+
         public async Task<List<T>> ListAsync(ISpecification<T> spec)
         {
             // fetch a Queryable that includes all expression-based includes

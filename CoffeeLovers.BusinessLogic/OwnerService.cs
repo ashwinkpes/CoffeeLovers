@@ -19,24 +19,26 @@ namespace CoffeeLovers.BusinessLogic
 {
     public class OwnerService : IOwnerService
     {       
-        private readonly IOwnerRepository _ownerRepository;       
+        private readonly IOwnerRepository _ownerRepository;
+        private readonly IDictionaryRepsository<OwnerService> _dictionaryRepsository;
         private readonly IAppLogger<OwnerService> _logger;
 
-        public OwnerService(IOwnerRepository ownerRepository, IAppLogger<OwnerService> logger)
+        public OwnerService(IOwnerRepository ownerRepository, IDictionaryRepsository<OwnerService> dictionaryRepsository, IAppLogger<OwnerService> logger)
         {
             _ownerRepository = ownerRepository;
+            _dictionaryRepsository = dictionaryRepsository;
             _logger = logger;
             CheckArguments();
         }
 
-        public async Task<(HttpStatusCode statusCode, OwnerDto ownerDto)> RegisterOwner(AddEditOwnerDto addOwnerDto, bool isAdminUser)
+        public async Task<(HttpStatusCode statusCode, string ownerId)> RegisterOwner(AddEditOwnerDto addOwnerDto)
         {
             _logger.LogInformation($"Service-RegisterOwner-Executing RegisterOwner started at {DateTime.UtcNow}");
 
             addOwnerDto.CheckArgumentIsNull(nameof(addOwnerDto));
 
             var statusCode = HttpStatusCode.Created;
-            OwnerDto ownerToStrore = default(OwnerDto);
+            string ownerId = string.Empty;
 
             var ownerSpec = new OwnerWithAreaSpecification(addOwnerDto.Email, false);
 
@@ -50,26 +52,19 @@ namespace CoffeeLovers.BusinessLogic
             {
                 Owner ownerEntity = await _ownerRepository.GetMaxOfprimaryKey();
                 string newCoffeeDisplayId = ownerEntity.GetNextPrimaryKey();
+                Dictionary<string,Guid> roles =  _dictionaryRepsository.RolesDictionary;
 
-                if (!isAdminUser)
-                {
-                  
-                }
-
-                ownerToStrore = new OwnerDto(newCoffeeDisplayId);
-                ownerToStrore.Email = addOwnerDto.Email;
-                ownerToStrore.FirstName = addOwnerDto.FirstName;
-                ownerToStrore.LastName = addOwnerDto.LastName;                     
             }
 
             _logger.LogInformation($"Service-RegisterOwner-Executing RegisterOwner completed at {DateTime.UtcNow}");
 
-            return (statusCode, ownerToStrore);
+            return (statusCode, ownerId);
         }
 
         private void CheckArguments()
         {
             _ownerRepository.CheckArgumentIsNull(nameof(_ownerRepository));
+            _dictionaryRepsository.CheckArgumentIsNull(nameof(_dictionaryRepsository));
             _logger.CheckArgumentIsNull(nameof(_logger));
         }
     }

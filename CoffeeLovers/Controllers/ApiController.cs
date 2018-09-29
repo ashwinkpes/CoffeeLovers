@@ -20,8 +20,6 @@ namespace CoffeeLovers.Controllers
         {
             _apiSettings = apiSettings.Value;
         }
-
-        public DateTimeOffset Now () => DateTimeOffset.UtcNow;
-       
+      
     }
 }
