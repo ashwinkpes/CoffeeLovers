@@ -36,45 +36,7 @@ namespace CoffeeLovers
                 config.Filters.Add(typeof(GlobalExceptionhandler));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //Add options
-            services.AddOptions();
-            services.AddHttpContextAccessor();
-
-            //services.Configure<CorsSettings>(Configuration.GetSection("CorsPolicy"));
-
-            //API settings
-            services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
-
-            //Cors settings
-            var CorsSettings = new CorsSettings();
-            Configuration.Bind("CorsPolicy", CorsSettings);
-            services.AddSingleton<CorsSettings>(CorsSettings);
-
-            //Add extesnion methods
-
-            //Add DB context
-            services.AddCoffeeContext(Configuration);
-
-            //Add logging
-            services.RegisterLogging(Configuration);
-
-            //Add HttpContext Accessor
-            services.RegisterAccessor(Configuration);
-
-            //Add Cors
-            services.AddCrossOriginPolicy(Configuration);
-
-            //Add generic repositories
-            services.RegisterRepository(Configuration);
-
-            //Add specific repositories
-            services.RegisterSpecificRepository(Configuration);
-
-            //Register services
-            services.RegisterServices(Configuration);
-
-            //Register Swagger
-            services.AddSwaggerSettings(Configuration);
+            services.RegisterChainOfServices(Configuration);
 
             _services = services;
         }
