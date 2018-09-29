@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace CoffeeLovers.DomainModels.Models
+{
+    [Table("AreaOwner", Schema = "dbo")]
+    public class AreaOwner : BaseEntity
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid AreaOwnerId { get; set; }
+
+        [Required(ErrorMessage = "validFrom is required")]
+        public DateTime validFrom { get; set; }
+
+        [Required(ErrorMessage = "validTo is required")]
+        public DateTime validTo { get; set; }
+
+        public Guid AreaId { get; set; }
+
+        [ForeignKey("AreaId")]
+        public virtual Area Area { get; set; }
+
+        public Guid OwnerId { get; set; }
+
+        [ForeignKey("OwnerId")]
+        public virtual Owner Owner { get; set; }
+
+    }
+}

@@ -24,6 +24,8 @@ namespace CoffeeLovers.DomainModels.Models
 
         [Required(ErrorMessage = "PinCode is required")]    
         public int PinCode { get; set; }
+
+        public virtual ICollection<AreaOwner> AreaOwners { get; set; }
         
     }
 }
