@@ -8,6 +8,11 @@ namespace CoffeeLovers.DomainModels.Models
     [Table("Area",Schema = "dbo")]
     public class Area : BaseEntity
     {
+        public Area()
+        {
+            AreaOwners = new HashSet<AreaOwner>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid AreaId { get; set; }

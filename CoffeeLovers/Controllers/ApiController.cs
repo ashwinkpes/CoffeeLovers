@@ -2,6 +2,7 @@
 using CoffeeLovers.Common.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace CoffeeLovers.Controllers
 {
@@ -20,5 +21,7 @@ namespace CoffeeLovers.Controllers
             _apiSettings = apiSettings.Value;
         }
 
+        public DateTimeOffset Now () => DateTimeOffset.UtcNow;
+       
     }
 }

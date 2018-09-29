@@ -8,6 +8,12 @@ namespace CoffeeLovers.DomainModels.Models
     [Table("Coffee", Schema = "dbo")]
     public class Coffee : Valid
     {
+
+        public Coffee()
+        {
+            CoffeeAreas = new HashSet<CoffeeArea>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid CoffeeId { get; set; }

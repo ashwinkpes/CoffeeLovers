@@ -17,6 +17,11 @@ namespace CoffeeLovers.DomainModels.Models
         [MaxLength(40, ErrorMessage = "OwnerDisplayId cannot be grater than 40 characters")]
         public string OwnerDisplayId { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "EmailId is required")]
+        [MinLength(3, ErrorMessage = "EmailId must be minimum of 3 characters")]
+        [MaxLength(30, ErrorMessage = "EmailId cannot be grater than 30 characters")]       
+        public string EmailId { get; set; }
+
         public virtual ICollection<AreaOwner> AreaOwners { get; set; }
     }
 }
