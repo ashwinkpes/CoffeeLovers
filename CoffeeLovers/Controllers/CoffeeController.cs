@@ -193,7 +193,7 @@ namespace CoffeeLovers.Controllers
         /// <response code="204">Returns 204 if the coffee deletion is successfull</response>
         /// <response code="404">Returns 404 if the coffee is not found</response>
         /// <response code="400">Returns Bad request if invalid data or some exception</response>    
-        [HttpGet("DeleteCoffee/{coffeeDisplayId}", Name = nameof(DeleteCoffee))]
+        [HttpDelete("DeleteCoffee/{coffeeDisplayId}", Name = nameof(DeleteCoffee))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]

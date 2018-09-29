@@ -164,7 +164,7 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _areaRepository.ApplyPatchAsync(areaDromDb, patchDtos).ConfigureAwait(false); 
+                 _areaRepository.ApplyPatch(areaDromDb, patchDtos); 
                 await _areaRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 
@@ -190,7 +190,7 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _areaRepository.SoftDeleteAsync(areaDromDb).ConfigureAwait(false);
+                _areaRepository.SoftDeleteAsync(areaDromDb);
                 await _areaRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 

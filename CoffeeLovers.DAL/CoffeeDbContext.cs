@@ -52,10 +52,12 @@ namespace CoffeeLovers.DAL
                     ((BaseEntity)entry.Entity).CreatedBy = authId;
                     ((BaseEntity)entry.Entity).Createdtime = timestamp;
                 }
-
-                _logger.Log(LogLevel.Trace, $"Record Updated By: [{authId}] on {timestamp}", entry.Entity);
-                ((BaseEntity)entry.Entity).UpdatedBy = authId;
-                ((BaseEntity)entry.Entity).Updatedtime = timestamp;
+                else if (entry.State == EntityState.Modified)
+                {
+                    _logger.Log(LogLevel.Trace, $"Record Updated By: [{authId}] on {timestamp}", entry.Entity);
+                    ((BaseEntity)entry.Entity).UpdatedBy = authId;
+                    ((BaseEntity)entry.Entity).Updatedtime = timestamp;
+                }
             }
         }
     }

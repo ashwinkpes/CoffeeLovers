@@ -14,8 +14,8 @@ namespace CoffeeLovers.IRepositories
         Task<List<T>> ListAsync(ISpecification<T> spec);       
         Task<int> CountAsync();
         Task<T> FindAsync(Expression<Func<T, bool>> match);
-        Task ApplyPatchAsync<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity;
-        Task SoftDeleteAsync(T entity);
+        void ApplyPatch<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity;
+        void SoftDeleteAsync(T entity);
         Task<int> SaveAllwithAudit(string authId = Constants.CreatedBy);
         Task AddAsync(T entity);       
         

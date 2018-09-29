@@ -49,8 +49,8 @@ namespace CoffeeLovers.BusinessLogic
                 Coffee cofeeEntity = await _coffeeRepository.GetMaxOfprimaryKey();
                 string newCoffeeDisplayId = cofeeEntity.GetNextPrimaryKey();
 
-                cofeeToStrore = new CoffeeDto(newCoffeeDisplayId, DateTime.UtcNow, DateTime.MaxValue);
-                cofeeToStrore.CoffeeName = cofeeToAdd.CoffeeName;
+                cofeeToStrore = new CoffeeDto(newCoffeeDisplayId);
+                cofeeToStrore.CoffeeName = cofeeToAdd.CoffeeName;             
 
                 await _coffeeRepository.AddAsync(cofeeToStrore.ToEntity(true)).ConfigureAwait(false);
                 await _coffeeRepository.SaveAllwithAudit().ConfigureAwait(false);
@@ -80,7 +80,7 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _coffeeRepository.SoftDeleteAsync(coffeeFromDb);
+                _coffeeRepository.SoftDeleteAsync(coffeeFromDb);
                 await _coffeeRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 
@@ -184,7 +184,7 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _coffeeRepository.ApplyPatchAsync(coffeeFromDb, patchDtos).ConfigureAwait(false);
+                _coffeeRepository.ApplyPatch(coffeeFromDb, patchDtos);
                 await _coffeeRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 

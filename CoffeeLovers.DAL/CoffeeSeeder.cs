@@ -28,10 +28,11 @@ namespace CoffeeLovers.DAL
 
             if (!db.Coffees.Any())
             {
+                seedData.Coffees.ToList().ForEach(x => { x.validTo = x.validFrom = DateTime.Now; });
                 db.Coffees.AddRange(seedData.Coffees);               
             }
 
-            db.SaveChangesWithAuditTrial().GetAwaiter();         
+            db.SaveChangesWithAuditTrial().GetAwaiter().GetResult();         
         }
     }
 }

@@ -110,22 +110,19 @@ namespace CoffeeLovers.Repositories
             return await _dbContext.Set<T>().SingleOrDefaultAsync(match);
         }
 
-        public async Task ApplyPatchAsync<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity
+        public void ApplyPatch<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity
         {
             var nameValuePairProperties = patchDtos.ToDictionary(a => a.PropertyName, a => a.PropertyValue);
 
             var dbEntityEntry = _dbContext.Entry(entityName);
             dbEntityEntry.CurrentValues.SetValues(nameValuePairProperties);
-            dbEntityEntry.State = EntityState.Modified;          
+            dbEntityEntry.State = EntityState.Modified;
         }
 
-        public async Task SoftDeleteAsync(T entity)
+        public void  SoftDeleteAsync(T entity)
         {
-            entity.UpdatedBy = "System";
-            entity.Updatedtime = DateTime.UtcNow;
-            entity.IsActive = false;
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await Task.FromResult(0);
+           entity.IsActive = false;
+            _dbContext.Entry(entity).State = EntityState.Modified;          
         }
 
         public async Task<int> SaveAllwithAudit(string authId = Constants.CreatedBy)
