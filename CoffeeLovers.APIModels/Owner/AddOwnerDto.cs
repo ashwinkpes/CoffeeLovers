@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CoffeeLovers.APIModels.Owner
 {
-    public class AddEditOwnerDto
+    public class AddOwnerDto
     {
         [Required]
         public string FirstName { get; set; }
@@ -21,5 +21,9 @@ namespace CoffeeLovers.APIModels.Owner
 
         [Required]
         public string AreaName { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
     }
 }

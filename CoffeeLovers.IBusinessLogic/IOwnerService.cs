@@ -9,6 +9,6 @@ namespace CoffeeLovers.IBusinessLogic
 {
     public interface IOwnerService
     {
-        Task<(HttpStatusCode statusCode, string ownerId)> RegisterOwner(AddEditOwnerDto addOwnerDto);
+        Task<(HttpStatusCode statusCode, string ownerId)> RegisterOwner(AddOwnerDto addOwnerDto);
     }
 }

@@ -36,7 +36,7 @@ namespace CoffeeLovers.Controllers
         [HttpPost("AddOwner", Name = nameof(AddOwner))]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult> AddOwner([FromBody] AddEditOwnerDto addOwnerDto)
+        public async Task<ActionResult> AddOwner([FromBody] AddOwnerDto addOwnerDto)
         {
             try
             {

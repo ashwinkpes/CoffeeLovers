@@ -31,7 +31,7 @@ namespace CoffeeLovers.BusinessLogic
             CheckArguments();
         }
 
-        public async Task<(HttpStatusCode statusCode, string ownerId)> RegisterOwner(AddEditOwnerDto addOwnerDto)
+        public async Task<(HttpStatusCode statusCode, string ownerId)> RegisterOwner(AddOwnerDto addOwnerDto)
         {
             _logger.LogInformation($"Service-RegisterOwner-Executing RegisterOwner started at {DateTime.UtcNow}");
 

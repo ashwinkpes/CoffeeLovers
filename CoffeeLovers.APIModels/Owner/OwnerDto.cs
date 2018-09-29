@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CoffeeLovers.APIModels.Owner
 {
-    public class OwnerDto : AddEditOwnerDto
+    public class OwnerDto : AddOwnerDto
     {
         public OwnerDto(string ownerId)
         {
