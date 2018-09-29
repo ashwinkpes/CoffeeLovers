@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoffeeLovers.DomainModels.Models
 {
@@ -13,5 +14,9 @@ namespace CoffeeLovers.DomainModels.Models
         [MinLength(3, ErrorMessage = "LastName must be minimum of 3 characters")]
         [MaxLength(20, ErrorMessage = "LastName cannot be grater than 20 characters")]
         public string LastName { get; set; }
+
+        [NotMapped]
+        public string FullName { get { return FirstName + LastName; } }
+      
     }
 }
