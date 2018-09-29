@@ -16,5 +16,7 @@ namespace CoffeeLovers.APIModels
         public DateTime validFrom { get; private set; }
 
         public DateTime validTo { get; private set; }
+
+        internal DateTime Test { get; private set; }
     }
 }

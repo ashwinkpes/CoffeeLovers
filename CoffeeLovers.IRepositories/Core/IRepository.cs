@@ -10,11 +10,9 @@ namespace CoffeeLovers.IRepositories
         T GetById(int id);
         T GetSingleBySpec(ISpecification<T> spec);
         IEnumerable<T> ListAll();
-        IEnumerable<T> List(ISpecification<T> spec);
-        T Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        IEnumerable<T> List(ISpecification<T> spec);       
         int Count();
-        T Find(Expression<Func<T, bool>> match);        
+        T Find(Expression<Func<T, bool>> match);
+        void Update(T entity);
     }
 }

@@ -11,14 +11,13 @@ namespace CoffeeLovers.IRepositories
     {
         Task<T> GetByIdAsync(int id);
         Task<List<T>> ListAllAsync();
-        Task<List<T>> ListAsync(ISpecification<T> spec);
-        Task<T> AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
+        Task<List<T>> ListAsync(ISpecification<T> spec);       
         Task<int> CountAsync();
         Task<T> FindAsync(Expression<Func<T, bool>> match);
         Task ApplyPatchAsync<T>(T entityName, List<PatchDto> patchDtos) where T : BaseEntity;
         Task SoftDeleteAsync(T entity);
-        Task<int> SaveAll();        
+        Task<int> SaveAllwithAudit(string authId = Constants.CreatedBy);
+        Task AddAsync(T entity);       
+        
     }
 }

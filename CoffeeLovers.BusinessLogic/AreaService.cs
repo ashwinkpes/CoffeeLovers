@@ -17,17 +17,22 @@ namespace CoffeeLovers.BusinessLogic
 {
     public class AreaService : IAreaService
     {
-       
-        private readonly IAreaRepository _areaRepository;
-        private readonly IAppLogger<AreaService> _logger;
 
+        #region --Private variables--
+        private readonly IAreaRepository _areaRepository;
+        private readonly IAppLogger<AreaService> _logger; 
+        #endregion
+
+        #region --Constructor--
         public AreaService(IAreaRepository areaRepository, IAppLogger<AreaService> logger)
         {
             _areaRepository = areaRepository;
             _logger = logger;
             CheckArguments();
         }
+        #endregion
 
+        #region --Read Operations--
         public async Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayid)
         {
             _logger.LogInformation($"Service-GetAreaByName-Executing GetAreaByDisplayId started at {DateTime.UtcNow}");
@@ -63,13 +68,13 @@ namespace CoffeeLovers.BusinessLogic
 
             var areaDto = default(AreaDto);
             var statusCode = HttpStatusCode.NotFound;
-          
+
             var areaSpec = new AreaWithAreaOwnersSpecification(areaName, false);
 
             var area = (await _areaRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
             if (area == null)
             {
-                _logger.LogInformation($"No Area found for {areaName}");                
+                _logger.LogInformation($"No Area found for {areaName}");
             }
             else
             {
@@ -105,11 +110,14 @@ namespace CoffeeLovers.BusinessLogic
             return (statusCode, areaDtos);
         }
 
-        public async Task<(HttpStatusCode statusCode, AreaDto areaDto)> CreateArea(AreaDto areaToAdd)
+        #endregion
+
+        #region --Add operations--
+        public async Task<(HttpStatusCode statusCode, string areaDisplayId)> CreateArea(AreaDto areaToAdd)
         {
             _logger.LogInformation($"Service-CreateArea-Executing CreateArea started at {DateTime.UtcNow}");
-       
-            var areaDto = areaToAdd;
+
+            var areaDisplayId = string.Empty;
             var statusCode = HttpStatusCode.Created;
 
             var areaSpec = new AreaWithAreaOwnersSpecification(areaToAdd.AreaName, false);
@@ -124,16 +132,19 @@ namespace CoffeeLovers.BusinessLogic
             {
                 Area areaEntity = await _areaRepository.GetMaxOfprimaryKey();
                 areaToAdd.AreaDisplayId = areaEntity.GetNextPrimaryKey();
-                var areaAdded = await _areaRepository.AddAsync(areaToAdd.ToEntity(true));
+                await _areaRepository.AddAsync(areaToAdd.ToEntity(true)).ConfigureAwait(false);
+                await _areaRepository.SaveAllwithAudit().ConfigureAwait(false);
                 statusCode = HttpStatusCode.OK;
-                areaDto = areaAdded.ToDto();
+                areaDisplayId = areaToAdd.AreaDisplayId;
             }
 
             _logger.LogInformation($"Service-GetAreaByName-Executing CreateArea completed at {DateTime.UtcNow}");
 
-            return (statusCode, areaDto);
+            return (statusCode, areaDisplayId);
         }
+        #endregion
 
+        #region --Update Operations--
         public async Task<HttpStatusCode> UpdateArea(string areaDisplayId, List<PatchDto> patchDtos)
         {
             var statusCode = HttpStatusCode.NoContent;
@@ -153,13 +164,15 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _areaRepository.ApplyPatchAsync(areaDromDb, patchDtos);
-                     
+                await _areaRepository.ApplyPatchAsync(areaDromDb, patchDtos).ConfigureAwait(false); 
+                await _areaRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 
             return statusCode;
         }
+        #endregion
 
+        #region --Delete Operations--
         public async Task<HttpStatusCode> DeleteArea(string areaDisplayId)
         {
             var statusCode = HttpStatusCode.NoContent;
@@ -177,17 +190,20 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _areaRepository.SoftDeleteAsync(areaDromDb);
-                await _areaRepository.SaveAll().ConfigureAwait(false);                
+                await _areaRepository.SoftDeleteAsync(areaDromDb).ConfigureAwait(false);
+                await _areaRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 
             return statusCode;
         }
+        #endregion
 
+        #region --Private Methods--
         private void CheckArguments()
         {
             _areaRepository.CheckArgumentIsNull(nameof(_areaRepository));
             _logger.CheckArgumentIsNull(nameof(_logger));
-        }
+        } 
+        #endregion
     }
 }

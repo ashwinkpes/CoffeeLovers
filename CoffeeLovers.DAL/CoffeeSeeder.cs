@@ -11,8 +11,6 @@ namespace CoffeeLovers.DAL
         {
             seedData.CheckArgumentIsNull(nameof(seedData));
 
-            AddAuditDetails(seedData);
-
             if (!db.Roles.Any())
             {
                 db.Roles.AddRange(seedData.Roles);
@@ -33,35 +31,7 @@ namespace CoffeeLovers.DAL
                 db.Coffees.AddRange(seedData.Coffees);               
             }
 
-            db.SaveChanges();
+            db.SaveChangesWithAuditTrial().GetAwaiter();         
         }
-
-        public static void AddAuditDetails(SeedData seedData)
-        {
-            seedData.Areas.ToList().ForEach(a => 
-            {
-                a.CreatedBy = Constants.CreatedBy;
-                a.Createdtime = DateTime.UtcNow;
-            });
-
-            seedData.Coffees.ToList().ForEach(a => 
-            {
-                a.CreatedBy = Constants.CreatedBy;
-                a.Createdtime = a.validFrom  = a.validTo =  DateTime.UtcNow;             
-            });
-
-            seedData.Owners.ToList().ForEach(a => 
-            {
-                a.CreatedBy = Constants.CreatedBy;
-                a.Createdtime = DateTime.UtcNow;
-            });
-
-            seedData.Roles.ToList().ForEach(a => 
-            {
-                a.CreatedBy = Constants.CreatedBy;               
-                a.Createdtime =  a.validFrom = a.validTo = DateTime.UtcNow;              
-            });
-        }
-
     }
 }

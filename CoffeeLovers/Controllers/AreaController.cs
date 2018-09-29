@@ -169,7 +169,7 @@ namespace CoffeeLovers.Controllers
 
                     _arealogger.LogInformation($"API-AddArea {DateTime.UtcNow}");
 
-                    return StatusCode((int)result.statusCode, result.areaDto);
+                    return StatusCode((int)result.statusCode, result.areaDisplayId);
                 }
             }
             catch (Exception ex)

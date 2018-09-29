@@ -14,7 +14,7 @@ namespace CoffeeLovers.IBusinessLogic
 
         Task<(HttpStatusCode statusCode, IEnumerable<AreaDto> areaDtos)> GetAllAreas(bool includeAreaOwners);
 
-        Task<(HttpStatusCode statusCode, AreaDto areaDto)> CreateArea(AreaDto areaToAdd);
+        Task<(HttpStatusCode statusCode, string areaDisplayId)> CreateArea(AreaDto areaToAdd);
 
         Task<HttpStatusCode> UpdateArea(string areaDisplayId, List<PatchDto> patchDtos);
 

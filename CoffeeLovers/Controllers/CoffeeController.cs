@@ -46,7 +46,7 @@ namespace CoffeeLovers.Controllers
 
                     _cofeelogger.LogInformation($"API-AddCoffee {DateTime.UtcNow}");
 
-                    return StatusCode((int)result.statusCode, result.cofeeDto);
+                    return StatusCode((int)result.statusCode, result.coffeeId);
                 }
             }
             catch (Exception ex)

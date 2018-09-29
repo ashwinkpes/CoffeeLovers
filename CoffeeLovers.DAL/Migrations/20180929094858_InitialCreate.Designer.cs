@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeLovers.DAL.Migrations
 {
     [DbContext(typeof(CoffeeDbContext))]
-    [Migration("20180929091939_InitialCreate")]
+    [Migration("20180929094858_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

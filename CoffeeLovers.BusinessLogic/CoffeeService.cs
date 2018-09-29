@@ -28,11 +28,11 @@ namespace CoffeeLovers.BusinessLogic
             CheckArguments();
         }
 
-        public async Task<(HttpStatusCode statusCode, CoffeeDto cofeeDto)> CreateCoffee(AddCoffeeDto cofeeToAdd)
+        public async Task<(HttpStatusCode statusCode, string coffeeId)> CreateCoffee(AddCoffeeDto cofeeToAdd)
         {
             _logger.LogInformation($"Service-CreateCoffee-Executing CreateCoffee started at {DateTime.UtcNow}");
 
-            var cofeeDto = cofeeToAdd;
+            var coffeeId = string.Empty;
             var statusCode = HttpStatusCode.Created;
             CoffeeDto cofeeToStrore = default(CoffeeDto);
 
@@ -52,14 +52,15 @@ namespace CoffeeLovers.BusinessLogic
                 cofeeToStrore = new CoffeeDto(newCoffeeDisplayId, DateTime.UtcNow, DateTime.MaxValue);
                 cofeeToStrore.CoffeeName = cofeeToAdd.CoffeeName;
 
-                var coffeeAdded = await _coffeeRepository.AddAsync(cofeeToStrore.ToEntity(true));
+                await _coffeeRepository.AddAsync(cofeeToStrore.ToEntity(true)).ConfigureAwait(false);
+                await _coffeeRepository.SaveAllwithAudit().ConfigureAwait(false);
                 statusCode = HttpStatusCode.OK;
-                cofeeDto = coffeeAdded.ToDto();
+                coffeeId = newCoffeeDisplayId;
             }
 
             _logger.LogInformation($"Service-CreateCoffee-Executing CreateCoffee completed at {DateTime.UtcNow}");
 
-            return (statusCode, cofeeToStrore);
+            return (statusCode, coffeeId);
         }
 
         public async Task<HttpStatusCode> DeleteCoffee(string coffeeDisplayid)
@@ -80,7 +81,7 @@ namespace CoffeeLovers.BusinessLogic
             else
             {
                 await _coffeeRepository.SoftDeleteAsync(coffeeFromDb);
-                await _coffeeRepository.SaveAll().ConfigureAwait(false);
+                await _coffeeRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 
             return statusCode;
@@ -183,8 +184,8 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                await _coffeeRepository.ApplyPatchAsync(coffeeFromDb, patchDtos);
-
+                await _coffeeRepository.ApplyPatchAsync(coffeeFromDb, patchDtos).ConfigureAwait(false);
+                await _coffeeRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 
             return statusCode;

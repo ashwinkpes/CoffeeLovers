@@ -25,13 +25,10 @@ namespace CoffeeLovers.Repositories
             return _dbContext.Set<T>().Find(id);
         }
 
-
-
         public T GetSingleBySpec(ISpecification<T> spec)
         {
             return List(spec).FirstOrDefault();
         }
-
 
         public virtual async Task<T> GetByIdAsync(int id)
         {
@@ -83,44 +80,14 @@ namespace CoffeeLovers.Repositories
                             .ToListAsync();
         }
 
-        public T Add(T entity)
+        public Task AddAsync(T entity)
         {
-            _dbContext.Set<T>().Add(entity);
-            _dbContext.SaveChanges();
-
-            return entity;
-        }
-
-        public async Task<T> AddAsync(T entity)
-        {
-            entity.Createdtime = DateTime.UtcNow;
-            entity.CreatedBy = "System";          
-            _dbContext.Set<T>().Add(entity);
-            await _dbContext.SaveChangesAsync();
-
-            return entity;
+           return _dbContext.Set<T>().AddAsync(entity);           
         }
 
         public void Update(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
-        }
-        public async Task UpdateAsync(T entity)
-        {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public void Delete(T entity)
-        {
-            _dbContext.Set<T>().Remove(entity);
-            _dbContext.SaveChanges();
-        }
-        public async Task DeleteAsync(T entity)
-        {
-            _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.Entry(entity).State = EntityState.Modified;          
         }
 
         public int Count()
@@ -149,8 +116,7 @@ namespace CoffeeLovers.Repositories
 
             var dbEntityEntry = _dbContext.Entry(entityName);
             dbEntityEntry.CurrentValues.SetValues(nameValuePairProperties);
-            dbEntityEntry.State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            dbEntityEntry.State = EntityState.Modified;          
         }
 
         public async Task SoftDeleteAsync(T entity)
@@ -162,9 +128,9 @@ namespace CoffeeLovers.Repositories
             await Task.FromResult(0);
         }
 
-        public async Task<int> SaveAll()
+        public async Task<int> SaveAllwithAudit(string authId = Constants.CreatedBy)
         {
-          return await _dbContext.SaveChangesAsync();
+          return await _dbContext.SaveChangesWithAuditTrial();
         }
     }
 }
