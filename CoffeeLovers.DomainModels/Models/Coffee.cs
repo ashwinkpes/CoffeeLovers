@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CoffeeLovers.DomainModels.Models
 {
     [Table("Coffee", Schema = "dbo")]
-    public class Coffee : BaseEntity
+    public class Coffee : Valid
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -22,11 +22,10 @@ namespace CoffeeLovers.DomainModels.Models
         [MaxLength(20, ErrorMessage = "CoffeeName cannot be grater than 20 characters")]
         public string CoffeeName { get; set; }
 
-        [Required(ErrorMessage = "validFrom is required")]
-        public DateTime validFrom { get; set; }
+        [Required(ErrorMessage = "Price is required")]
+        public decimal Price { get; set; }
 
-        [Required(ErrorMessage = "validTo is required")]
-        public DateTime validTo { get; set; }
-      
+        public virtual ICollection<CoffeeArea> CoffeeAreas { get; set; }
+
     }
 }

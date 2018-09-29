@@ -7,18 +7,12 @@ using System.Text;
 namespace CoffeeLovers.DomainModels.Models
 {
     [Table("AreaOwner", Schema = "dbo")]
-    public class AreaOwner : BaseEntity
+    public class AreaOwner : Valid
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid AreaOwnerId { get; set; }
-
-        [Required(ErrorMessage = "validFrom is required")]
-        public DateTime validFrom { get; set; }
-
-        [Required(ErrorMessage = "validTo is required")]
-        public DateTime validTo { get; set; }
-
+       
         public Guid AreaId { get; set; }
 
         [ForeignKey("AreaId")]
