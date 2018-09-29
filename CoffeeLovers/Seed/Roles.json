@@ -1,0 +1,14 @@
+[
+  {
+    "RoleId": "BF1A8D6E-4CDD-4E03-958C-88ACDE2B8344",
+    "RoleDisplayId": "Role-2018-1",
+    "RoleName": "Admin"
+  },
+
+  {
+    "RoleId": "54E7D72F-D4D4-4642-A088-D14E4D07791A",
+    "RoleDisplayId": "Role-2018-2",
+    "RoleName": "User"
+  }
+
+]

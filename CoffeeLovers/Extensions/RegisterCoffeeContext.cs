@@ -35,6 +35,7 @@ namespace CoffeeLovers.Extensions
                     Areas = JsonConvert.DeserializeObject<List<Area>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "areas.json")),
                     Owners = JsonConvert.DeserializeObject<List<Owner>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Owners.json")),
                     Coffees = JsonConvert.DeserializeObject<List<Coffee>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Coffees.json")),
+                    Roles = JsonConvert.DeserializeObject<List<Role>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Roles.json")),
                 };
 
                 serviceScope.ServiceProvider.GetService<CoffeeDbContext>().EnsureSeedData(seedData);

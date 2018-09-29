@@ -131,7 +131,7 @@ namespace CoffeeLovers.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
-                    b.Property<Guid?>("CoffeeId");
+                    b.Property<Guid>("CoffeeId");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -169,6 +169,10 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<DateTime>("Createdtime");
 
+                    b.Property<string>("EmailId")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(20);
@@ -183,6 +187,8 @@ namespace CoffeeLovers.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
+                    b.Property<Guid>("RoleId");
+
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(20);
 
@@ -190,7 +196,43 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.HasKey("OwnerId");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Owner","dbo");
+                });
+
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Role", b =>
+                {
+                    b.Property<Guid>("RoleId");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("Createdtime");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("RoleDisplayId")
+                        .IsRequired()
+                        .HasMaxLength(40);
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(40);
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime?>("Updatedtime");
+
+                    b.Property<DateTime>("validFrom");
+
+                    b.Property<DateTime>("validTo");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role","dbo");
                 });
 
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.AreaOwner", b =>
@@ -213,9 +255,18 @@ namespace CoffeeLovers.DAL.Migrations
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CoffeeLovers.DomainModels.Models.Coffee")
+                    b.HasOne("CoffeeLovers.DomainModels.Models.Coffee", "Coffee")
                         .WithMany("CoffeeAreas")
-                        .HasForeignKey("CoffeeId");
+                        .HasForeignKey("CoffeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Owner", b =>
+                {
+                    b.HasOne("CoffeeLovers.DomainModels.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

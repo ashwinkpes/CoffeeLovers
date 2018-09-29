@@ -8,6 +8,11 @@ namespace CoffeeLovers.DomainModels.Models
     [Table("Owner", Schema = "dbo")]
     public class Owner : User
     {
+        public Owner()
+        {
+            AreaOwners = new HashSet<AreaOwner>();                 
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid OwnerId { get; set; }
@@ -22,6 +27,12 @@ namespace CoffeeLovers.DomainModels.Models
         [MaxLength(30, ErrorMessage = "EmailId cannot be grater than 30 characters")]       
         public string EmailId { get; set; }
 
+        public Guid RoleId { get; set; }
+
+        [ForeignKey("RoleId")]
+        public virtual Role Role { get; set; }
+
         public virtual ICollection<AreaOwner> AreaOwners { get; set; }
+       
     }
 }

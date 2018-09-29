@@ -11,5 +11,7 @@ namespace CoffeeLovers.Common
 
         public IEnumerable<Coffee> Coffees { get; set; }
 
+        public IEnumerable<Role> Roles { get; set; }
+
     }
 }

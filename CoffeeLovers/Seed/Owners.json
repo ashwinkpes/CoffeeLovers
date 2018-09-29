@@ -1,30 +1,47 @@
 [
   {
-    "OwnerId": "8EE6B9F8-2F71-4F15-BBAB-BFCB16F1DD72",
+    "OwnerId": "A673EC7B-C5F5-4812-B3F3-27B3C3C9D815",
     "OwnerDisplayId": "Owner-2018-1",
+    "FirstName": "Ashwin",
+    "LastName": "Kumar",
+    "RoleId": "BF1A8D6E-4CDD-4E03-958C-88ACDE2B8344",
+    "EmailId": "ashwinkpes@gmail.com"
+  },
+
+  {
+    "OwnerId": "8EE6B9F8-2F71-4F15-BBAB-BFCB16F1DD72",
+    "OwnerDisplayId": "Owner-2018-2",
     "FirstName": "Akshay",
-    "LastName": "Kumar"
+    "LastName": "Kumar",
+    "RoleId": "54E7D72F-D4D4-4642-A088-D14E4D07791A",
+    "EmailId": "AkshayKumar@gmail.com"
   },
 
   {
     "OwnerId": "F212BC9A-B3FB-4EC0-B82C-DA94186C7EC9",
-    "OwnerDisplayId": "Owner-2018-2",
+    "OwnerDisplayId": "Owner-2018-3",
     "FirstName": "Salman",
-    "LastName": "Khan"
+    "LastName": "Khan",
+    "RoleId": "54E7D72F-D4D4-4642-A088-D14E4D07791A",
+    "EmailId": "SalmanKhan@gmail.com"
   },
 
   {
     "OwnerId": "F3E1122D-86DD-4335-B55D-10833D31C790",
-    "OwnerDisplayId": "Owner-2018-3",
+    "OwnerDisplayId": "Owner-2018-4",
     "FirstName": "Aamir",
-    "LastName": "Khan"
+    "LastName": "Khan",
+    "RoleId": "54E7D72F-D4D4-4642-A088-D14E4D07791A",
+    "EmailId": "AamirKhan@gmail.com"
   },
 
   {
     "OwnerId": "EBE97261-0741-4ECD-9DF8-688543247DA7",
-    "OwnerDisplayId": "Owner-2018-4",
+    "OwnerDisplayId": "Owner-2018-5",
     "FirstName": "Amitabh",
-    "LastName": "Bachan"
+    "LastName": "Bachan",
+    "RoleId": "54E7D72F-D4D4-4642-A088-D14E4D07791A",
+    "EmailId": "AmitabhBachan@gmail.com"
   }
 
 ]

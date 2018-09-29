@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeLovers.DAL.Migrations
 {
     [DbContext(typeof(CoffeeDbContext))]
-    [Migration("20180928064001_AddedAreaOwners")]
-    partial class AddedAreaOwners
+    [Migration("20180929091939_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,6 +107,8 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<bool>("IsActive");
 
+                    b.Property<decimal>("Price");
+
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(20);
 
@@ -121,6 +123,44 @@ namespace CoffeeLovers.DAL.Migrations
                     b.ToTable("Coffee","dbo");
                 });
 
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.CoffeeArea", b =>
+                {
+                    b.Property<Guid>("CoffeeAreaId");
+
+                    b.Property<Guid>("AreaId");
+
+                    b.Property<string>("CoffeeAreaDisplayId")
+                        .IsRequired()
+                        .HasMaxLength(40);
+
+                    b.Property<Guid>("CoffeeId");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("Createdtime");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime?>("Updatedtime");
+
+                    b.Property<DateTime>("validFrom");
+
+                    b.Property<DateTime>("validTo");
+
+                    b.HasKey("CoffeeAreaId");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("CoffeeId");
+
+                    b.ToTable("CoffeeAreas","dbo");
+                });
+
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Owner", b =>
                 {
                     b.Property<Guid>("OwnerId");
@@ -130,6 +170,10 @@ namespace CoffeeLovers.DAL.Migrations
                         .HasMaxLength(20);
 
                     b.Property<DateTime>("Createdtime");
+
+                    b.Property<string>("EmailId")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -145,6 +189,8 @@ namespace CoffeeLovers.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
+                    b.Property<Guid>("RoleId");
+
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(20);
 
@@ -152,7 +198,43 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.HasKey("OwnerId");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Owner","dbo");
+                });
+
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Role", b =>
+                {
+                    b.Property<Guid>("RoleId");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("Createdtime");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("RoleDisplayId")
+                        .IsRequired()
+                        .HasMaxLength(40);
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(40);
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime?>("Updatedtime");
+
+                    b.Property<DateTime>("validFrom");
+
+                    b.Property<DateTime>("validTo");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Role","dbo");
                 });
 
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.AreaOwner", b =>
@@ -165,6 +247,27 @@ namespace CoffeeLovers.DAL.Migrations
                     b.HasOne("CoffeeLovers.DomainModels.Models.Owner", "Owner")
                         .WithMany("AreaOwners")
                         .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.CoffeeArea", b =>
+                {
+                    b.HasOne("CoffeeLovers.DomainModels.Models.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CoffeeLovers.DomainModels.Models.Coffee", "Coffee")
+                        .WithMany("CoffeeAreas")
+                        .HasForeignKey("CoffeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Owner", b =>
+                {
+                    b.HasOne("CoffeeLovers.DomainModels.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -11,10 +11,12 @@ namespace CoffeeLovers.DAL
         {
             seedData.CheckArgumentIsNull(nameof(seedData));
 
-            seedData.Areas.ToList().ForEach(a => { a.CreatedBy = "System"; a.Createdtime = DateTime.UtcNow; });
-            seedData.Coffees.ToList().ForEach(a => { a.CreatedBy = "System"; a.Createdtime = DateTime.UtcNow;
-                a.validFrom = DateTime.UtcNow; a.validTo = DateTime.MaxValue; });
-            seedData.Owners.ToList().ForEach(a => { a.CreatedBy = "System"; a.Createdtime = DateTime.UtcNow; });
+            AddAuditDetails(seedData);
+
+            if (!db.Roles.Any())
+            {
+                db.Roles.AddRange(seedData.Roles);
+            }
 
             if (!db.Areas.Any())
             {
@@ -32,6 +34,33 @@ namespace CoffeeLovers.DAL
             }
 
             db.SaveChanges();
+        }
+
+        public static void AddAuditDetails(SeedData seedData)
+        {
+            seedData.Areas.ToList().ForEach(a => 
+            {
+                a.CreatedBy = Constants.CreatedBy;
+                a.Createdtime = DateTime.UtcNow;
+            });
+
+            seedData.Coffees.ToList().ForEach(a => 
+            {
+                a.CreatedBy = Constants.CreatedBy;
+                a.Createdtime = a.validFrom  = a.validTo =  DateTime.UtcNow;             
+            });
+
+            seedData.Owners.ToList().ForEach(a => 
+            {
+                a.CreatedBy = Constants.CreatedBy;
+                a.Createdtime = DateTime.UtcNow;
+            });
+
+            seedData.Roles.ToList().ForEach(a => 
+            {
+                a.CreatedBy = Constants.CreatedBy;               
+                a.Createdtime =  a.validFrom = a.validTo = DateTime.UtcNow;              
+            });
         }
 
     }

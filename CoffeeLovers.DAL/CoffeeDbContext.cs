@@ -13,6 +13,7 @@ namespace CoffeeLovers.DAL
         public DbSet<Area> Areas { get; set; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Coffee> Coffees { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<AreaOwner> AreaOwners { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
