@@ -13,9 +13,9 @@ namespace CoffeeLovers.Extensions
 {
     internal static class RegisterAuthentication
     {
-        internal static void RegisterAuthenticationScheme(this IServiceCollection services, IConfiguration Configuration)
+        internal static void RegisterAuthenticationScheme(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<BearerTokensOptions>(options => Configuration.GetSection("BearerTokens").Bind(options));
+            services.Configure<BearerTokensOptions>(options => configuration.GetSection("BearerTokens").Bind(options));
 
             var authorization = new AuthorizationPolicyBuilder()
               .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
@@ -40,11 +40,11 @@ namespace CoffeeLovers.Extensions
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = Configuration["BearerTokens:Issuer"], // site that makes the token
+                        ValidIssuer = configuration["BearerTokens:Issuer"], // site that makes the token
                         ValidateIssuer = false, // TODO: change this to avoid forwarding attacks
-                        ValidAudience = Configuration["BearerTokens:Audience"], // site that consumes the token
+                        ValidAudience = configuration["BearerTokens:Audience"], // site that consumes the token
                         ValidateAudience = false, // TODO: change this to avoid forwarding attacks
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["BearerTokens:Key"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["BearerTokens:Key"])),
                         ValidateIssuerSigningKey = true, // verify signature to avoid tampering
                         ValidateLifetime = true, // validate the expiration
                         ClockSkew = TimeSpan.Zero // tolerance for the expiration date
@@ -57,10 +57,7 @@ namespace CoffeeLovers.Extensions
                             logger.LogError("Authentication failed.", context.Exception);
                             return Task.CompletedTask;
                         },                       
-                        OnMessageReceived = context =>
-                        {
-                            return Task.CompletedTask;
-                        },
+                        OnMessageReceived = context => Task.CompletedTask,
                         OnChallenge = context =>
                         {
                             var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));

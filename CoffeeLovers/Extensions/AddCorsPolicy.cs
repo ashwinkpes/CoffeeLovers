@@ -6,7 +6,7 @@ namespace CoffeeLovers.Extensions
 {
     internal static class AddCorsPolicy
     {
-        internal static void AddCrossOriginPolicy(this IServiceCollection services, IConfiguration Configuration)
+        internal static void AddCrossOriginPolicy(this IServiceCollection services)
         {
             CorsSettings corsSettings = default(CorsSettings);
 

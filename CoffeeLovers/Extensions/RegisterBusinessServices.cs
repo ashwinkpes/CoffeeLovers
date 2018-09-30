@@ -7,7 +7,7 @@ namespace CoffeeLovers.Extensions
 {
     internal static class RegisterBusinessServices
     {
-        internal static void RegisterServices(this IServiceCollection services, IConfiguration Configuration)
+        internal static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IAreaService, AreaService>();
             services.AddScoped<ICoffeeService, CoffeeService>();

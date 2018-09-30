@@ -22,7 +22,8 @@ namespace CoffeeLovers.Controllers
         private readonly ILogger _cofeelogger;
         private readonly ApiSettings _apiSettings;
 
-        public CoffeeController(ICoffeeService coffeeService, ILogger<CoffeeController> logger, IOptionsSnapshot<ApiSettings> apiSettings)
+        public CoffeeController(ICoffeeService coffeeService, IOptionsSnapshot<ApiSettings> apiSettings,
+            ILogger<CoffeeController> logger)
         {
             _coffeeService = coffeeService;
             _cofeelogger = logger;

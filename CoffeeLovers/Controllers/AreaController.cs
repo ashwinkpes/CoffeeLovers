@@ -19,13 +19,14 @@ namespace CoffeeLovers.Controllers
     public class AreaController : ApiController
     {
         private readonly IAreaService _areaService;
-        private readonly ILogger _arealogger;
+        private readonly ILogger _areaLogger;
         private readonly ApiSettings _apiSettings;
 
-        public AreaController(IAreaService areaService, ILogger<AreaController> logger, IOptionsSnapshot<ApiSettings> apiSettings)
+        public AreaController(IAreaService areaService, IOptionsSnapshot<ApiSettings> apiSettings,
+            ILogger<AreaController> logger)
         {
             _areaService = areaService;
-            _arealogger = logger;
+            _areaLogger = logger;
             _apiSettings = apiSettings.Value;
             CheckArguments();
         }
@@ -46,25 +47,25 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-GetAreaByName-Initiated {DateTime.UtcNow}"))
+                using (_areaLogger.BeginScope($"API-GetAreaByName-Initiated {DateTime.UtcNow}"))
                 {
-                    _arealogger.LogInformation(LoggingEvents.GetItem, "API-GetAreaByName-Getting item by name {name}", name);
+                    _areaLogger.LogInformation(LoggingEvents.GetItem, "API-GetAreaByName-Getting item by name {name}", name);
 
                     var result = await _areaService.GetAreaByName(name).ConfigureAwait(false);                   
 
                     if (result.statusCode == HttpStatusCode.NotFound)
                     {
-                        _arealogger.LogInformation(LoggingEvents.GetItemNotFound, "API-GetAreaByName-Item by name {name} not found", name);
+                        _areaLogger.LogInformation(LoggingEvents.GetItemNotFound, "API-GetAreaByName-Item by name {name} not found", name);
                     }
 
-                    _arealogger.LogInformation($"API-GetAreaByName-Completed {DateTime.UtcNow}");
+                    _areaLogger.LogInformation($"API-GetAreaByName-Completed {DateTime.UtcNow}");
 
                     return StatusCode((int)result.statusCode, result.areaDto);
                 }
             }
             catch (Exception ex)
             {
-                _arealogger.LogError
+                _areaLogger.LogError
                     (ex,
                      $"API-GetAreaByName-Exception {DateTime.UtcNow}"
                    );
@@ -90,25 +91,25 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-GetAreaById-Inititating {DateTime.UtcNow}"))
+                using (_areaLogger.BeginScope($"API-GetAreaById-Inititating {DateTime.UtcNow}"))
                 {
-                    _arealogger.LogInformation(LoggingEvents.GetItem, $"API-GetAreaById-Getting item by area displayid {areaDisplayId}");
+                    _areaLogger.LogInformation(LoggingEvents.GetItem, $"API-GetAreaById-Getting item by area displayid {areaDisplayId}");
 
                     var result = await _areaService.GetAreaByDisplayId(areaDisplayId).ConfigureAwait(false);
 
                     if (result.statusCode == HttpStatusCode.NotFound)
                     {
-                        _arealogger.LogInformation(LoggingEvents.GetItemNotFound, $"API-GetAreaById-Item by area displayid  {areaDisplayId} not found");
+                        _areaLogger.LogInformation(LoggingEvents.GetItemNotFound, $"API-GetAreaById-Item by area displayid  {areaDisplayId} not found");
                     }
 
-                    _arealogger.LogInformation($"API-GetAreaById-Completed {DateTime.UtcNow}");
+                    _areaLogger.LogInformation($"API-GetAreaById-Completed {DateTime.UtcNow}");
 
                     return StatusCode((int)result.statusCode, result.areaDto);
                 }
             }
             catch (Exception ex)
             {
-                _arealogger.LogError
+                _areaLogger.LogError
                     (ex,
                      $"API-GetAreaById-Exception {DateTime.UtcNow}"
                    );
@@ -132,18 +133,18 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-GetAllAreas-Inititating {DateTime.UtcNow}"))
+                using (_areaLogger.BeginScope($"API-GetAllAreas-Inititating {DateTime.UtcNow}"))
                 {
                     var result = await _areaService.GetAllAreas(includeAreaOwners).ConfigureAwait(false);
 
-                    _arealogger.LogInformation($"API-GetAllAreas-Completed {DateTime.UtcNow}");
+                    _areaLogger.LogInformation($"API-GetAllAreas-Completed {DateTime.UtcNow}");
 
                     return StatusCode((int)result.statusCode, result.areaDtos);
                 }
             }
             catch (Exception ex)
             {
-                _arealogger.LogError
+                _areaLogger.LogError
                     (ex,
                      $"API-GetAllAreas-Exception {DateTime.UtcNow}"
                    );
@@ -167,18 +168,18 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-AddArea {DateTime.UtcNow}"))
+                using (_areaLogger.BeginScope($"API-AddArea {DateTime.UtcNow}"))
                 {
                     var result = await _areaService.CreateArea(areaDto).ConfigureAwait(false);
 
-                    _arealogger.LogInformation($"API-AddArea {DateTime.UtcNow}");
+                    _areaLogger.LogInformation($"API-AddArea {DateTime.UtcNow}");
 
                     return StatusCode((int)result.statusCode, result.areaDisplayId);
                 }
             }
             catch (Exception ex)
             {
-                _arealogger.LogError
+                _areaLogger.LogError
                     (ex,
                      $"API-AddArea-Exception {DateTime.UtcNow}"
                    );
@@ -206,18 +207,18 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-UpdateArea {DateTime.UtcNow}"))
+                using (_areaLogger.BeginScope($"API-UpdateArea {DateTime.UtcNow}"))
                 {
                     var result = await _areaService.UpdateArea(areaDisplayId, patchDtos).ConfigureAwait(false);
 
-                    _arealogger.LogInformation($"API-UpdateArea {DateTime.UtcNow}");
+                    _areaLogger.LogInformation($"API-UpdateArea {DateTime.UtcNow}");
 
                     return StatusCode((int)result);
                 }
             }
             catch (Exception ex)
             {
-                _arealogger.LogError
+                _areaLogger.LogError
                   (ex,
                    $"API-UpdateArea-Exception {DateTime.UtcNow}"
                  );
@@ -243,18 +244,18 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-DeleteArea {DateTime.UtcNow}"))
+                using (_areaLogger.BeginScope($"API-DeleteArea {DateTime.UtcNow}"))
                 {
                     var result = await _areaService.DeleteArea(areaDisplayId).ConfigureAwait(false);
 
-                    _arealogger.LogInformation($"API-DeleteArea {DateTime.UtcNow}");
+                    _areaLogger.LogInformation($"API-DeleteArea {DateTime.UtcNow}");
 
                     return StatusCode((int)result);
                 }
             }
             catch (Exception ex)
             {
-                _arealogger.LogError
+                _areaLogger.LogError
                   (ex,
                    $"API-DeleteArea-Exception {DateTime.UtcNow}"
                  );
@@ -267,7 +268,8 @@ namespace CoffeeLovers.Controllers
         private void CheckArguments()
         {
             _areaService.CheckArgumentIsNull(nameof(_areaService));
-            _arealogger.CheckArgumentIsNull(nameof(_arealogger));
+            _areaLogger.CheckArgumentIsNull(nameof(_areaLogger));
+            _apiSettings.CheckArgumentIsNull(nameof(_apiSettings));
         }
     }
 

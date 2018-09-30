@@ -5,7 +5,7 @@ namespace CoffeeLovers.Extensions
 {
     internal static class RegisterHttpContextAccessor
     {
-        internal static void RegisterAccessor(this IServiceCollection services, IConfiguration Configuration)
+        internal static void RegisterAccessor(this IServiceCollection services)
         {
             services.AddHttpContextAccessor();
         }

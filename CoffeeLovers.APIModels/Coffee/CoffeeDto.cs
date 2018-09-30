@@ -12,8 +12,8 @@ namespace CoffeeLovers.APIModels.Coffee
         private CoffeeDto(string coffeeDisplayId, DateTime dateTime)
         {
             this.CoffeeDisplayId = coffeeDisplayId;
-            this.ValidFrom = ValidFrom;
-            this.ValidTo = ValidTo;
+            this.ValidFrom = dateTime;
+            this.ValidTo = dateTime;
         }
 
         public string CoffeeDisplayId { get; private set; }

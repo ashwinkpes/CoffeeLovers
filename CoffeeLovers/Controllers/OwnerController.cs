@@ -16,13 +16,14 @@ namespace CoffeeLovers.Controllers
     public class OwnerController : ApiController
     {
         private readonly IOwnerService _ownerService;
-        private readonly ILogger _ownerlogger;
+        private readonly ILogger _ownerLogger;
         private readonly ApiSettings _apiSettings;
 
-        public OwnerController(IOwnerService ownerService, ILogger<OwnerController> logger, IOptionsSnapshot<ApiSettings> apiSettings)
+        public OwnerController(IOwnerService ownerService, IOptionsSnapshot<ApiSettings> apiSettings,
+            ILogger<OwnerController> logger)
         {
             _ownerService = ownerService;
-            _ownerlogger = logger;
+            _ownerLogger = logger;
             _apiSettings = apiSettings.Value;
             CheckArguments();
         }
@@ -41,18 +42,18 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_ownerlogger.BeginScope($"API-AddOwner {DateTime.UtcNow}"))
+                using (_ownerLogger.BeginScope($"API-AddOwner {DateTime.UtcNow}"))
                 {
                     var result = await _ownerService.RegisterOwner(addOwnerDto).ConfigureAwait(false);
 
-                    _ownerlogger.LogInformation($"API-AddArea {DateTime.UtcNow}");
+                    _ownerLogger.LogInformation($"API-AddArea {DateTime.UtcNow}");
 
                     return StatusCode((int)result.statusCode, result.ownerId);
                 }
             }
             catch (Exception ex)
             {
-                _ownerlogger.LogError
+                _ownerLogger.LogError
                     (ex,
                      $"API-AddOwner-Exception {DateTime.UtcNow}"
                    );
@@ -65,7 +66,7 @@ namespace CoffeeLovers.Controllers
         private void CheckArguments()
         {
             _ownerService.CheckArgumentIsNull(nameof(_ownerService));
-            _ownerlogger.CheckArgumentIsNull(nameof(_ownerlogger));
+            _ownerLogger.CheckArgumentIsNull(nameof(_ownerLogger));
         }
     }
 }

@@ -6,7 +6,7 @@ namespace CoffeeLovers.Extensions
 {
     internal static class RegisterLogger
     {
-        internal static void RegisterLogging(this IServiceCollection services, IConfiguration Configuration)
+        internal static void RegisterLogging(this IServiceCollection services)
         {
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
         }

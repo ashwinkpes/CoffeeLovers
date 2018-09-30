@@ -10,14 +10,14 @@ namespace CoffeeLovers.DAL
 {
     public sealed class CoffeeDbContext : DbContext
     {
-        private ILogger<CoffeeDbContext> _logger;
+        private readonly ILogger<CoffeeDbContext> _logger;
 
         public CoffeeDbContext(DbContextOptions options) : this(options, new LoggerFactory().CreateLogger<CoffeeDbContext>())
         {
           
         }
 
-        public CoffeeDbContext(DbContextOptions options, ILogger<CoffeeDbContext> logger) : base(options)
+        private CoffeeDbContext(DbContextOptions options, ILogger<CoffeeDbContext> logger) : base(options)
         {
             Database.Migrate();
             _logger = logger;
@@ -36,11 +36,11 @@ namespace CoffeeLovers.DAL
 
         public async Task<int> SaveChangesWithAuditTrial(string authId = Constants.CreatedBy)
         {
-            AddAuitInfo(authId);
+            AddAuditInfo(authId);
             return await base.SaveChangesAsync();
         }
 
-        private void AddAuitInfo(string authId)
+        private void AddAuditInfo(string authId)
         {
             var timestamp = DateTime.UtcNow;
 

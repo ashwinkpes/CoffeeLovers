@@ -6,7 +6,7 @@ namespace CoffeeLovers.Extensions
 {
     internal static class RegisterAllServices
     {
-        internal static void RegisterChainOfServices(this IServiceCollection services, IConfiguration Configuration)
+        internal static void RegisterChainOfServices(this IServiceCollection services, IConfiguration configuration)
         {
             //Add options
             services.AddOptions();
@@ -15,38 +15,36 @@ namespace CoffeeLovers.Extensions
             //services.Configure<CorsSettings>(Configuration.GetSection("CorsPolicy"));
 
             //API settings
-            services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
+            services.Configure<ApiSettings>(configuration.GetSection("ApiSettings"));
 
             //Cors settings
-            var CorsSettings = new CorsSettings();
-            Configuration.Bind("CorsPolicy", CorsSettings);
-            services.AddSingleton<CorsSettings>(CorsSettings);
+            var corsSettings = new CorsSettings();
+            configuration.Bind("CorsPolicy", corsSettings);
+            services.AddSingleton<CorsSettings>(corsSettings);
 
-            //Add extesnion methods
-
-            //Add DB context
-            services.AddCoffeeContext(Configuration);
+           //Add DB context
+            services.AddCoffeeContext(configuration);
 
             //Add logging
-            services.RegisterLogging(Configuration);
+            services.RegisterLogging();
 
             //Add HttpContext Accessor
-            services.RegisterAccessor(Configuration);
+            services.RegisterAccessor();
 
             //Add Cors
-            services.AddCrossOriginPolicy(Configuration);
+            services.AddCrossOriginPolicy();
 
             //Add generic repositories
-            services.RegisterRepository(Configuration);
+            services.RegisterRepository();
 
             //Add specific repositories
-            services.RegisterSpecificRepository(Configuration);
+            services.RegisterSpecificRepository();
 
             //Register services
-            services.RegisterServices(Configuration);
+            services.RegisterServices();
 
             //Register Swagger
-            services.AddSwaggerSettings(Configuration);
+            services.AddSwaggerSettings();
         }
     }
 }

@@ -6,12 +6,12 @@ using System.Net;
 
 namespace CoffeeLovers.Helpers
 {
-    public class GlobalExceptionhandler : IExceptionFilter
+    public class GlobalExceptionHandler : IExceptionFilter
     {
         public void OnException(ExceptionContext context)
         {
             HttpStatusCode status = HttpStatusCode.InternalServerError;
-            String message = String.Empty;
+            String message;
 
             var exceptionType = context.Exception.GetType();
             if (exceptionType == typeof(UnauthorizedAccessException))

@@ -15,9 +15,9 @@ namespace CoffeeLovers.Extensions
 {
     internal static class RegisterCoffeeContext
     {
-        internal static void AddCoffeeContext(this IServiceCollection services, IConfiguration Configuration)
+        internal static void AddCoffeeContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<CoffeeDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:CoffeeLovers"],
+            services.AddDbContext<CoffeeDbContext>(options => options.UseSqlServer(configuration["ConnectionStrings:CoffeeLovers"],
                  serverDbContextOptionsBuilder =>
                  {
                      var minutes = (int)TimeSpan.FromMinutes(3).TotalSeconds;
@@ -26,7 +26,7 @@ namespace CoffeeLovers.Extensions
                  }));
         }
 
-        internal static void SeedCoffeeContext(this IApplicationBuilder app, IConfiguration _configuration, ISecurityService securityService, string userInitalizePassword)
+        internal static void SeedCoffeeContext(this IApplicationBuilder app, ISecurityService securityService, string userInitializePassword)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -37,7 +37,7 @@ namespace CoffeeLovers.Extensions
                     Owners = JsonConvert.DeserializeObject<List<Owner>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Owners.json")),
                     Coffees = JsonConvert.DeserializeObject<List<Coffee>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Coffees.json")),
                     Roles = JsonConvert.DeserializeObject<List<Role>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Roles.json")),
-                    UserInitalizePassword =  userInitalizePassword
+                    UserInitalizePassword =  userInitializePassword
                 };
 
                 serviceScope.ServiceProvider.GetService<CoffeeDbContext>().EnsureSeedData(seedData, securityService);

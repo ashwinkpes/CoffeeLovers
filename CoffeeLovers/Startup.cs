@@ -33,7 +33,7 @@ namespace CoffeeLovers
             });
 
             services.AddMvc(config => {
-                config.Filters.Add(typeof(GlobalExceptionhandler));
+                config.Filters.Add(typeof(GlobalExceptionHandler));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.RegisterChainOfServices(Configuration);
@@ -60,8 +60,8 @@ namespace CoffeeLovers
             app.UseCookiePolicy();
 
           
-            app.SeedCoffeeContext(Configuration, securityService, Configuration.GetSection("UserInitalizePassword").ToString());
-            app.UseSwaggerMiddleWare(Configuration);
+            app.SeedCoffeeContext(securityService, Configuration.GetSection("UserInitializePassword").ToString());
+            app.UseSwaggerMiddleWare();
 
             app.UseMvc(routes =>
             {

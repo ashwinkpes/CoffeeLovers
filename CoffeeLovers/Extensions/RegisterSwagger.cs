@@ -10,7 +10,7 @@ namespace CoffeeLovers.Extensions
 {
     internal static class RegisterSwagger
     {
-        internal static void AddSwaggerSettings(this IServiceCollection services, IConfiguration Configuration)
+        internal static void AddSwaggerSettings(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
@@ -22,7 +22,7 @@ namespace CoffeeLovers.Extensions
                     TermsOfService = "None",
                     Contact = new Contact
                     {
-                        Name = "CoffeeLoveersAdmin",
+                        Name = "CoffeeLoversAdmin",
                         Email = "CoffeeLoveersAdmin@Gamil.com",
                         Url = "https://twitter.com/ashwinkpes"
                     },
@@ -41,13 +41,13 @@ namespace CoffeeLovers.Extensions
           
         }
 
-        internal static void UseSwaggerMiddleWare(this IApplicationBuilder app, IConfiguration _configuration)
+        internal static void UseSwaggerMiddleWare(this IApplicationBuilder app)
         {
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cofee Lovers API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coffee Lovers API V1");
                 c.RoutePrefix = string.Empty;
             });
         }
