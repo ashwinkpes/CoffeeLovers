@@ -9,30 +9,30 @@ using System.Threading.Tasks;
 
 namespace CoffeeLovers.Repositories
 {
-    public class DictionaryRepsository<T> : IDictionaryRepsository<T> where T : class
+    public class DictionaryRepository<T> : IDictionaryRepository<T> where T : class
     {
-        protected readonly CoffeeDbContext _dbContext;
-        private readonly IAppLogger<DictionaryRepsository<T>> appLogger;
+        private readonly CoffeeDbContext _dbContext;
+        private readonly IAppLogger<DictionaryRepository<T>> _appLogger;
 
         public Dictionary<string, Guid> RolesDictionary { get; set; }
         public Dictionary<string, Guid> AreasDictionary { get; set; }
         
-        public DictionaryRepsository(CoffeeDbContext dbContext, IAppLogger<DictionaryRepsository<T>> appLogger)
+        public DictionaryRepository(CoffeeDbContext dbContext, IAppLogger<DictionaryRepository<T>> appLogger)
         {
-            _dbContext = dbContext;
-            this.appLogger = appLogger;
+            this._dbContext = dbContext;
+            this._appLogger = appLogger;
             
             //GetRoles().Wait();
             //GetAreas().Wait();
 
-            IEnumerable<Role> Roles = _dbContext.Roles.ToList();
-            IEnumerable<Area> Areas = _dbContext.Areas.ToList();
+            IEnumerable<Role> roles = _dbContext.Roles.ToList();
+            IEnumerable<Area> areas = _dbContext.Areas.ToList();
 
-            var tasks = new List<Task>() { GetRoles(Roles), GetAreas(Areas) };
+            var tasks = new List<Task>() { GetRoles(roles), GetAreas(areas) };
             WhenAllTasks(tasks);
         }
 
-        public Task GetRoles(IEnumerable<Role> roles)
+        private Task GetRoles(IEnumerable<Role> roles)
         {
             return Task.Run(() =>
             {
@@ -40,7 +40,7 @@ namespace CoffeeLovers.Repositories
             });
         }
 
-        public Task GetAreas(IEnumerable<Area> areas)
+        private Task GetAreas(IEnumerable<Area> areas)
         {
             return Task.Run(() =>
             {
@@ -73,10 +73,10 @@ namespace CoffeeLovers.Repositories
             }
             catch (Exception ex)
             {
-                appLogger.LogWarning($"WhenAllTasks Exception: {ex.ToString()}");
+                _appLogger.LogWarning($"WhenAllTasks Exception: {ex.ToString()}");
             }
 
-            appLogger.LogWarning($"WhenAllTasks status: {allTasks.Status}");
+            _appLogger.LogWarning($"WhenAllTasks status: {allTasks.Status}");
 
             if (allTasks.Exception != null)
             {

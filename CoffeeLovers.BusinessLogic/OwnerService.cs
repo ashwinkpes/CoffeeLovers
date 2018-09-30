@@ -17,17 +17,17 @@ namespace CoffeeLovers.BusinessLogic
     public class OwnerService : IOwnerService
     {       
         private readonly IOwnerRepository _ownerRepository;
-        private readonly IDictionaryRepsository<OwnerService> _dictionaryRepsository;
+        private readonly IDictionaryRepository<OwnerService> _dictionaryRepository;
         private readonly IAppLogger<OwnerService> _logger;
         private readonly ISecurityService _securityService;
 
         public OwnerService(IOwnerRepository ownerRepository, 
-                            IDictionaryRepsository<OwnerService> dictionaryRepsository, 
+                            IDictionaryRepository<OwnerService> dictionaryRepository, 
                             IAppLogger<OwnerService> logger,
                             ISecurityService securityService)
         {
             _ownerRepository = ownerRepository;
-            _dictionaryRepsository = dictionaryRepsository;
+            _dictionaryRepository = dictionaryRepository;
             _logger = logger;
             _securityService = securityService;
 
@@ -53,9 +53,9 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                Owner ownerEntity = await _ownerRepository.GetMaxOfprimaryKey();
+                Owner ownerEntity = await _ownerRepository.GetMaxOfPrimaryKey();
                 string newOwnerDisplayId = ownerEntity.GetNextPrimaryKey();
-                Dictionary<string,Guid> roles =  _dictionaryRepsository.RolesDictionary;
+                Dictionary<string,Guid> roles =  _dictionaryRepository.RolesDictionary;
 
                 Guid roleId = roles.Where(s => s.Key == addOwnerDto.RoleName).First().Value; 
 
@@ -81,7 +81,7 @@ namespace CoffeeLovers.BusinessLogic
         private void CheckArguments()
         {
             _ownerRepository.CheckArgumentIsNull(nameof(_ownerRepository));
-            _dictionaryRepsository.CheckArgumentIsNull(nameof(_dictionaryRepsository));
+            _dictionaryRepository.CheckArgumentIsNull(nameof(_dictionaryRepository));
             _logger.CheckArgumentIsNull(nameof(_logger));
         }
     }

@@ -16,7 +16,7 @@ namespace CoffeeLovers.Repositories
             
         }
 
-        public async Task<Area> GetMaxOfprimaryKey()
+        public async Task<Area> GetMaxOfPrimaryKey()
         {
             return await _dbContext.Areas.OrderByDescending(s => s.AreaDisplayId).FirstOrDefaultAsync();
                

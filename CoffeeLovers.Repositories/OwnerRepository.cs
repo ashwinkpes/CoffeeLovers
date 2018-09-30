@@ -16,7 +16,7 @@ namespace CoffeeLovers.Repositories
             
         }
 
-        public async Task<Owner> GetMaxOfprimaryKey()
+        public async Task<Owner> GetMaxOfPrimaryKey()
         {
             return await _dbContext.Owners.OrderByDescending(s => s.OwnerDisplayId).FirstOrDefaultAsync();
                

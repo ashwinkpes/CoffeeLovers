@@ -10,7 +10,7 @@ namespace CoffeeLovers.IBusinessLogic
     {
         Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByName(string areaName);
 
-        Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayid);
+        Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayId);
 
         Task<(HttpStatusCode statusCode, IEnumerable<AreaDto> areaDtos)> GetAllAreas(bool includeAreaOwners);
 

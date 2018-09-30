@@ -33,21 +33,21 @@ namespace CoffeeLovers.BusinessLogic
         #endregion
 
         #region --Read Operations--
-        public async Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayid)
+        public async Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayId)
         {
             _logger.LogInformation($"Service-GetAreaByName-Executing GetAreaByDisplayId started at {DateTime.UtcNow}");
 
-            areaDisplayid.CheckArgumentIsNull(nameof(areaDisplayid));
+            areaDisplayId.CheckArgumentIsNull(nameof(areaDisplayId));
 
             var areaDto = default(AreaDto);
             var statusCode = HttpStatusCode.NotFound;
 
-            var areaSpec = new AreaWithAreaOwnersSpecification(false, areaDisplayid);
+            var areaSpec = new AreaWithAreaOwnersSpecification(false, areaDisplayId);
 
             var area = (await _areaRepository.ListAsync(areaSpec).ConfigureAwait(false)).FirstOrDefault();
             if (area == null)
             {
-                _logger.LogInformation($"No Area found with area display id  {areaDisplayid}");
+                _logger.LogInformation($"No Area found with area display id  {areaDisplayId}");
             }
             else
             {
@@ -130,7 +130,7 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                Area areaEntity = await _areaRepository.GetMaxOfprimaryKey();
+                Area areaEntity = await _areaRepository.GetMaxOfPrimaryKey();
                 areaToAdd.AreaDisplayId = areaEntity.GetNextPrimaryKey();
                 await _areaRepository.AddAsync(areaToAdd.ToEntity(true)).ConfigureAwait(false);
                 await _areaRepository.SaveAllwithAudit().ConfigureAwait(false);
@@ -159,7 +159,7 @@ namespace CoffeeLovers.BusinessLogic
 
             if (areaDromDb == null)
             {
-                _logger.LogInformation($"No Area found with areaDisplayid {areaDisplayId}");
+                _logger.LogInformation($"No Area found with areaDisplayId {areaDisplayId}");
                 statusCode = HttpStatusCode.NotFound;
             }
             else
@@ -185,7 +185,7 @@ namespace CoffeeLovers.BusinessLogic
 
             if (areaDromDb == null)
             {
-                _logger.LogInformation($"No Area found with areaDisplayid {areaDisplayId}");
+                _logger.LogInformation($"No Area found with areaDisplayId {areaDisplayId}");
                 statusCode = HttpStatusCode.NotFound;
             }
             else
