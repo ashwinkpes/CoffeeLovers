@@ -20,9 +20,6 @@ namespace CoffeeLovers.APIModels.Owner
         public string RoleName { get; set; }
 
         [Required]
-        public string AreaName { get; set; }
-
-        [Required]
         public string Password { get; set; }
 
     }

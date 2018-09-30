@@ -16,7 +16,7 @@ namespace CoffeeLovers.Common.Mapping
               FirstName = ownerDto.FirstName,
               LastName = ownerDto.LastName,
               EmailId = ownerDto.Email,
-             
+              OwnerDisplayId = ownerDto.OwnerId
             };
 
             if (generatePrimaryKey) owner.OwnerId = Guid.NewGuid();

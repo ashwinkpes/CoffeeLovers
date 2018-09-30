@@ -1,11 +1,13 @@
 ﻿using CoffeeLovers.Common.Logging;
 using CoffeeLovers.DAL;
+using CoffeeLovers.DomainModels.Models;
 using CoffeeLovers.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoffeeLovers.Repositories
@@ -14,56 +16,53 @@ namespace CoffeeLovers.Repositories
     {
         protected readonly CoffeeDbContext _dbContext;
         private readonly IAppLogger<DictionaryRepsository<T>> appLogger;
-        private Dictionary<string, Guid> _rolesDictionary;
-        private Dictionary<string, Guid> _areasDictionary;
 
-        private List<Task> tasks;
-
+        public Dictionary<string, Guid> RolesDictionary { get; set; }
+        public Dictionary<string, Guid> AreasDictionary { get; set; }
+        
         public DictionaryRepsository(CoffeeDbContext dbContext, IAppLogger<DictionaryRepsository<T>> appLogger)
         {
             _dbContext = dbContext;
             this.appLogger = appLogger;
-            tasks = new List<Task>();
-            tasks.Add(GetRoles());
-            tasks.Add(GetAreas());
-            var res = WhenAllTasks(tasks);
+            //GetRoles().Wait();
+            //GetAreas().Wait();
+            IEnumerable<Role> Roles = _dbContext.Roles.ToList();
+            IEnumerable<Area> Areas = _dbContext.Areas.ToList();
+            var tasks = new List<Task>() { GetRoles(Roles), GetAreas(Areas) };
+            WhenAllTasks(tasks);
         }
 
-        public Dictionary<string, Guid> RolesDictionary
+        public Task GetRoles(IEnumerable<Role> roles)
         {
-            get
+            return Task.Run(() =>
             {
-                return _rolesDictionary ?? (_rolesDictionary = GetRoles().Result);
-            }
-            set
-            {
-                _rolesDictionary = value;
-            }
+                RolesDictionary = (roles.Select(r => new { r.RoleName, r.RoleId }).ToDictionary(r => r.RoleName, r => r.RoleId));
+            });
         }
 
-        public Dictionary<string, Guid> AreasDictionary
+        public Task GetAreas(IEnumerable<Area> areas)
         {
-            get
+            return Task.Run(() =>
             {
-                return _areasDictionary ?? (_areasDictionary = GetAreas().Result);
-            }
-            set
-            {
-                _areasDictionary = value;
-            }
+                AreasDictionary = (areas.Select(r => new { r.AreaName, r.AreaId }).ToDictionary(r => r.AreaName, r => r.AreaId));
+            });
         }
 
-        public Task<Dictionary<string,Guid>> GetRoles()
-        {
-           var rolesDictionary = ( _dbContext.Roles.ToList().Select(r => new { r.RoleName, r.RoleId }).ToDictionary(r => r.RoleName, r => r.RoleId));
-            return Task.FromResult(rolesDictionary);
-        }
+        //public async Task GetRoles()
+        //{
+        //    await Task.Run(() =>
+        //    {
+        //        RolesDictionary =  (_dbContext.Roles.ToList().Select(r => new { r.RoleName, r.RoleId }).ToDictionary(r => r.RoleName, r => r.RoleId));
+        //    });           
+        //}
 
-        public Task<Dictionary<string, Guid>> GetAreas()
-        {
-            var areasDictionary = (_dbContext.Areas.ToList().Select(r => new { r.AreaName, r.AreaId }).ToDictionary(r => r.AreaName, r => r.AreaId));
-            return Task.FromResult(areasDictionary);
-        }
+        //public async Task GetAreas()
+        //{
+        //    await Task.Run(() =>
+        //    {
+        //        AreasDictionary = (_dbContext.Areas.ToList().Select(r => new { r.AreaName, r.AreaId }).ToDictionary(r => r.AreaName, r => r.AreaId));
+        //    });            
+        //}
 
         private Task WhenAllTasks(List<Task> tasks)
         {

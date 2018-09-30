@@ -51,9 +51,21 @@ namespace CoffeeLovers.BusinessLogic
             else
             {
                 Owner ownerEntity = await _ownerRepository.GetMaxOfprimaryKey();
-                string newCoffeeDisplayId = ownerEntity.GetNextPrimaryKey();
+                string newOwnerDisplayId = ownerEntity.GetNextPrimaryKey();
                 Dictionary<string,Guid> roles =  _dictionaryRepsository.RolesDictionary;
 
+                var ownerDto = new OwnerDto(newOwnerDisplayId)
+                {
+                    FirstName = addOwnerDto.FirstName,
+                    LastName = addOwnerDto.LastName,
+                    Email = addOwnerDto.Email
+                };
+
+                var ownerToAddToDb = ownerDto.ToEntity(true);
+                ownerToAddToDb.RoleId = roles.Where(s => s.Key == addOwnerDto.RoleName).First().Value;
+                await _ownerRepository.AddAsync(ownerToAddToDb).ConfigureAwait(false);
+                await _ownerRepository.SaveAllwithAudit();
+                ownerId = newOwnerDisplayId;
             }
 
             _logger.LogInformation($"Service-RegisterOwner-Executing RegisterOwner completed at {DateTime.UtcNow}");
