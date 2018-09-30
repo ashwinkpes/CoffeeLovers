@@ -10,7 +10,6 @@ namespace CoffeeLovers.DomainModels.Models
     {
         public Owner()
         {
-            AreaOwners = new HashSet<AreaOwner>();                 
         }
 
         [Key]
@@ -46,7 +45,6 @@ namespace CoffeeLovers.DomainModels.Models
         /// </summary>
         public string SerialNumber { get; set; }
 
-        public virtual ICollection<AreaOwner> AreaOwners { get; set; }
-       
+        public virtual ICollection<AreaOwner> AreaOwners { get; set; } = new HashSet<AreaOwner>();
     }
 }

@@ -14,7 +14,7 @@ namespace CoffeeLovers.DAL
 
             if (!db.Roles.Any())
             {
-                seedData.Roles.ToList().ForEach(x => { x.validTo = x.validFrom = DateTime.Now; });
+                seedData.Roles.ToList().ForEach(x => { x.ValidTo = x.ValidFrom = DateTime.Now; });
                 db.Roles.AddRange(seedData.Roles);
             }
 
@@ -31,7 +31,7 @@ namespace CoffeeLovers.DAL
 
             if (!db.Coffees.Any())
             {
-                seedData.Coffees.ToList().ForEach(x => { x.validTo = x.validFrom = DateTime.Now; });
+                seedData.Coffees.ToList().ForEach(x => { x.ValidTo = x.ValidFrom = DateTime.Now; });
                 db.Coffees.AddRange(seedData.Coffees);               
             }
 

@@ -11,7 +11,6 @@ namespace CoffeeLovers.DomainModels.Models
 
         public Coffee()
         {
-            CoffeeAreas = new HashSet<CoffeeArea>();
         }
 
         [Key]
@@ -31,7 +30,6 @@ namespace CoffeeLovers.DomainModels.Models
         [Required(ErrorMessage = "Price is required")]
         public decimal Price { get; set; }
 
-        public virtual ICollection<CoffeeArea> CoffeeAreas { get; set; }
-
+        public virtual ICollection<CoffeeArea> CoffeeAreas { get; set; } = new HashSet<CoffeeArea>();
     }
 }

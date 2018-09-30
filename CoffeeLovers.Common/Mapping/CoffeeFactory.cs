@@ -40,8 +40,8 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
             var coffee = new Coffee()
             {
                 CoffeeName = coffeeDto.CoffeeName,
-                validFrom = coffeeDto.ValidFrom,
-                validTo = coffeeDto.ValidTo,
+                ValidFrom = coffeeDto.ValidFrom,
+                ValidTo = coffeeDto.ValidTo,
                 CoffeeDisplayId = coffeeDto.CoffeeDisplayId
             };
 

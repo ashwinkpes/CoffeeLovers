@@ -10,7 +10,6 @@ namespace CoffeeLovers.DomainModels.Models
     {
         public Area()
         {
-            AreaOwners = new HashSet<AreaOwner>();
         }
 
         [Key]
@@ -30,7 +29,6 @@ namespace CoffeeLovers.DomainModels.Models
         [Required(ErrorMessage = "PinCode is required")]    
         public int PinCode { get; set; }
 
-        public virtual ICollection<AreaOwner> AreaOwners { get; set; }
-        
+        public virtual ICollection<AreaOwner> AreaOwners { get; set; } = new HashSet<AreaOwner>();
     }
 }
