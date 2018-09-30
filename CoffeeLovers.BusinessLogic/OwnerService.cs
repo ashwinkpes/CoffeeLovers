@@ -1,10 +1,7 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.APIModels.Owner;
-using CoffeeLovers.Common;
+﻿using CoffeeLovers.APIModels.Owner;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Logging;
 using CoffeeLovers.Common.Mapping;
-using CoffeeLovers.Common.Mapping.DomainToApi;
 using CoffeeLovers.DomainModels.Models;
 using CoffeeLovers.IBusinessLogic;
 using CoffeeLovers.IRepositories;

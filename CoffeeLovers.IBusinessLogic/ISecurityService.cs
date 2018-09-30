@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoffeeLovers.IBusinessLogic
+﻿namespace CoffeeLovers.IBusinessLogic
 {
     public interface ISecurityService
     {

@@ -1,7 +1,4 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.APIModels.Owner;
-using CoffeeLovers.Common;
-using System.Collections.Generic;
+﻿using CoffeeLovers.APIModels.Owner;
 using System.Net;
 using System.Threading.Tasks;
 

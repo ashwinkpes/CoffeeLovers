@@ -1,5 +1,4 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.Common;
+﻿using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Options;
 using CoffeeLovers.IBusinessLogic;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using CoffeeLovers.APIModels.Area;
 
 namespace CoffeeLovers.Controllers
 {
@@ -46,7 +46,7 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_arealogger.BeginScope($"API-GetAreaByName-Inititating {DateTime.UtcNow}"))
+                using (_arealogger.BeginScope($"API-GetAreaByName-Initiated {DateTime.UtcNow}"))
                 {
                     _arealogger.LogInformation(LoggingEvents.GetItem, "API-GetAreaByName-Getting item by name {name}", name);
 

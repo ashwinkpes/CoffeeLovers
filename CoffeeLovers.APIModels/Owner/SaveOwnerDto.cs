@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CoffeeLovers.APIModels.Owner
 {
@@ -8,9 +6,9 @@ namespace CoffeeLovers.APIModels.Owner
     {
         public Guid RoleId { get; private set; }
 
-        public SaveOwnerDto(Guid roleid, string ownerId):base(ownerId)
+        public SaveOwnerDto(Guid roleId, string ownerId):base(ownerId)
         {
-            this.RoleId = roleid;
+            this.RoleId = roleId;
         }
     }
 }

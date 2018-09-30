@@ -1,8 +1,8 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.Common;
+﻿using CoffeeLovers.Common;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using CoffeeLovers.APIModels.Area;
 
 namespace CoffeeLovers.IBusinessLogic
 {

@@ -1,5 +1,4 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.Common;
+﻿using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Logging;
 using CoffeeLovers.Common.Mapping.DomainToApi;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using CoffeeLovers.APIModels.Coffee;
 
 namespace CoffeeLovers.BusinessLogic
 {

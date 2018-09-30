@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoffeeLovers.APIModels.Owner
+﻿namespace CoffeeLovers.APIModels.Owner
 {
     public class DisplayOwnerDto : AddOwnerDto
     {

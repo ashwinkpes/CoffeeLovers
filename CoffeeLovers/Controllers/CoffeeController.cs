@@ -1,5 +1,4 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.Common;
+﻿using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Options;
 using CoffeeLovers.IBusinessLogic;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using CoffeeLovers.APIModels.Coffee;
 
 namespace CoffeeLovers.Controllers
 {

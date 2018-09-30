@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoffeeLovers.Common.Options
+﻿namespace CoffeeLovers.Common.Options
 {
     public class BearerTokensOptions
     {

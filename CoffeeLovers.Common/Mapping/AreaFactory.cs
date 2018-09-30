@@ -1,8 +1,8 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.Common.Extensions;
+﻿using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.DomainModels.Models;
 using System;
 using System.Collections.Generic;
+using CoffeeLovers.APIModels.Area;
 
 namespace CoffeeLovers.Common.Mapping.DomainToApi
 {

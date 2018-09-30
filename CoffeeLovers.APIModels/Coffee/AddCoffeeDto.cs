@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CoffeeLovers.APIModels
+namespace CoffeeLovers.APIModels.Coffee
 {
     public class AddCoffeeDto
     {

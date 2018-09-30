@@ -1,8 +1,8 @@
-﻿using CoffeeLovers.APIModels;
-using CoffeeLovers.Common.Extensions;
+﻿using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.DomainModels.Models;
 using System;
 using System.Collections.Generic;
+using CoffeeLovers.APIModels.Coffee;
 
 namespace CoffeeLovers.Common.Mapping.DomainToApi
 {
@@ -40,8 +40,8 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
             var coffee = new Coffee()
             {
                 CoffeeName = coffeeDto.CoffeeName,
-                validFrom = coffeeDto.validFrom,
-                validTo = coffeeDto.validTo,
+                validFrom = coffeeDto.ValidFrom,
+                validTo = coffeeDto.ValidTo,
                 CoffeeDisplayId = coffeeDto.CoffeeDisplayId
             };
 

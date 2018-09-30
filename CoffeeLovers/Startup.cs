@@ -1,5 +1,4 @@
-﻿using CoffeeLovers.Common.Options;
-using CoffeeLovers.Extensions;
+﻿using CoffeeLovers.Extensions;
 using CoffeeLovers.Helpers;
 using CoffeeLovers.IBusinessLogic;
 using Microsoft.AspNetCore.Builder;
@@ -21,7 +20,7 @@ namespace CoffeeLovers
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

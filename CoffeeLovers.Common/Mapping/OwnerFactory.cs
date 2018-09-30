@@ -1,8 +1,6 @@
 ﻿using CoffeeLovers.APIModels.Owner;
 using CoffeeLovers.DomainModels.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CoffeeLovers.Common.Mapping
 {
