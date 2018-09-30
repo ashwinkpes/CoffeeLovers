@@ -5,6 +5,6 @@ namespace CoffeeLovers.IRepositories
 {
     public interface IDictionaryRepository<T> where T : class
     {
-        Dictionary<string,Guid> RolesDictionary { get; set; }
+        Dictionary<string, Guid> RolesDictionary { get; set; }
     }
 }

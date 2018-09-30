@@ -1,13 +1,13 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
+﻿using CoffeeLovers.APIModels.Owner;
 using CoffeeLovers.Common.Extensions;
+using CoffeeLovers.Common.Options;
 using CoffeeLovers.IBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CoffeeLovers.APIModels.Owner;
-using CoffeeLovers.Common.Options;
 using Microsoft.Extensions.Options;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace CoffeeLovers.Controllers
 {
@@ -31,10 +31,10 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Adds an owner to database
         /// </summary>
-        /// <param name="addOwnerDto"></param> 
+        /// <param name="addOwnerDto"></param>
         /// <returns>Location of the added owner</returns>
         /// <response code="200">Returns 201 if the area is added successfully</response>
-        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>
         [HttpPost("AddOwner", Name = nameof(AddOwner))]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]

@@ -8,11 +8,17 @@ namespace CoffeeLovers.IRepositories
     public interface IRepository<T> where T : BaseEntity
     {
         T GetById(int id);
+
         T GetSingleBySpec(ISpecification<T> spec);
+
         IEnumerable<T> ListAll();
-        IEnumerable<T> List(ISpecification<T> spec);       
+
+        IEnumerable<T> List(ISpecification<T> spec);
+
         int Count();
+
         T Find(Expression<Func<T, bool>> match);
+
         void Update(T entity);
     }
 }

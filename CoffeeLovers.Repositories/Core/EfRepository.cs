@@ -83,12 +83,12 @@ namespace CoffeeLovers.Repositories
 
         public Task AddAsync(T entity)
         {
-           return _dbContext.Set<T>().AddAsync(entity);           
+            return _dbContext.Set<T>().AddAsync(entity);
         }
 
         public void Update(T entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;          
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public int Count()
@@ -120,15 +120,15 @@ namespace CoffeeLovers.Repositories
             dbEntityEntry.State = EntityState.Modified;
         }
 
-        public void  SoftDeleteAsync(T entity)
+        public void SoftDeleteAsync(T entity)
         {
-           entity.IsActive = false;
-            _dbContext.Entry(entity).State = EntityState.Modified;          
+            entity.IsActive = false;
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public async Task<int> SaveAllwithAudit(string authId = Constants.CreatedBy)
         {
-          return await _dbContext.SaveChangesWithAuditTrial();
+            return await _dbContext.SaveChangesWithAuditTrial();
         }
     }
 }

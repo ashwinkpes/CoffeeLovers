@@ -20,7 +20,7 @@ namespace CoffeeLovers.DAL
 
             if (!db.Areas.Any())
             {
-              db.Areas.AddRange(seedData.Areas);            
+                db.Areas.AddRange(seedData.Areas);
             }
 
             if (!db.Owners.Any())
@@ -32,10 +32,10 @@ namespace CoffeeLovers.DAL
             if (!db.Coffees.Any())
             {
                 seedData.Coffees.ToList().ForEach(x => { x.ValidTo = x.ValidFrom = DateTime.Now; });
-                db.Coffees.AddRange(seedData.Coffees);               
+                db.Coffees.AddRange(seedData.Coffees);
             }
 
-            db.SaveChangesWithAuditTrial().GetAwaiter().GetResult();         
+            db.SaveChangesWithAuditTrial().GetAwaiter().GetResult();
         }
     }
 }

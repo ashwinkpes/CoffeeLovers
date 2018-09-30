@@ -1,4 +1,5 @@
-﻿using CoffeeLovers.Common;
+﻿using CoffeeLovers.APIModels.Coffee;
+using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Options;
 using CoffeeLovers.IBusinessLogic;
@@ -9,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using CoffeeLovers.APIModels.Coffee;
 
 namespace CoffeeLovers.Controllers
 {
@@ -34,10 +34,10 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Adds an coffee to database
         /// </summary>
-        /// <param name="coffeeDto"></param> 
+        /// <param name="coffeeDto"></param>
         /// <returns>Location of the added coffee</returns>
         /// <response code="200">Returns 201 if the coffee is added successfully</response>
-        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>
         [HttpPost("AddCoffee", Name = nameof(AddCoffee))]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -66,14 +66,13 @@ namespace CoffeeLovers.Controllers
             }
         }
 
-
         /// <summary>
         /// Gets all coffees.
         /// </summary>
-        /// <param name="includeCofeeAreas"></param> 
+        /// <param name="includeCofeeAreas"></param>
         /// <returns>All coffees present in the system</returns>
         /// <response code="200">Returns 200 and list of coffees if resposnse is success</response>
-        /// <response code="400">Bad request</response>         
+        /// <response code="400">Bad request</response>
         [HttpGet("GetAllCoffees/{includeCofeeAreas}", Name = nameof(GetAllCoffees))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -193,11 +192,11 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Deletes an coffee in database
         /// </summary>
-        /// <param name="coffeeDisplayId">The coffee id whose details have to be updated</param>      
+        /// <param name="coffeeDisplayId">The coffee id whose details have to be updated</param>
         /// <returns>Status code of the operation</returns>
         /// <response code="204">Returns 204 if the coffee deletion is successfull</response>
         /// <response code="404">Returns 404 if the coffee is not found</response>
-        /// <response code="400">Returns Bad request if invalid data or some exception</response>    
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>
         [HttpDelete("DeleteCoffee/{coffeeDisplayId}", Name = nameof(DeleteCoffee))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -230,12 +229,12 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Updates an coffee in database
         /// </summary>
-        /// <param name="coffeeDisplayId">The coffee id whose details have to be updated</param> 
-        /// <param name="patchDtos">Properties that have to be updated</param> 
+        /// <param name="coffeeDisplayId">The coffee id whose details have to be updated</param>
+        /// <param name="patchDtos">Properties that have to be updated</param>
         /// <returns>Status code of the operation</returns>
         /// <response code="204">Returns 204 if the coffee is updated successfully</response>
         /// <response code="404">Returns 404 if the coffee is not found</response>
-        /// <response code="400">Returns Bad request if invalid data or some exception</response>     
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>
         [HttpPatch("UpdateCoffee/{coffeeDisplayId}", Name = nameof(UpdateCoffee))]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -271,6 +270,4 @@ namespace CoffeeLovers.Controllers
             _cofeelogger.CheckArgumentIsNull(nameof(_cofeelogger));
         }
     }
-
-    
 }

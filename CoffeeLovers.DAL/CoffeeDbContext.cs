@@ -14,7 +14,6 @@ namespace CoffeeLovers.DAL
 
         public CoffeeDbContext(DbContextOptions options) : this(options, new LoggerFactory().CreateLogger<CoffeeDbContext>())
         {
-          
         }
 
         private CoffeeDbContext(DbContextOptions options, ILogger<CoffeeDbContext> logger) : base(options)
@@ -31,7 +30,7 @@ namespace CoffeeLovers.DAL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-           base.OnModelCreating(builder);
+            base.OnModelCreating(builder);
         }
 
         public async Task<int> SaveChangesWithAuditTrial(string authId = Constants.CreatedBy)

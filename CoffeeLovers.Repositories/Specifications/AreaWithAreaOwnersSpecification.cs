@@ -15,13 +15,13 @@ namespace CoffeeLovers.Repositories.Specifications
         public AreaWithAreaOwnersSpecification(string areaName, bool includeAreaOwners)
           : base(b => b.AreaName == areaName && b.IsActive)
         {
-            if (includeAreaOwners)  AddInclude(b => b.AreaOwners);
+            if (includeAreaOwners) AddInclude(b => b.AreaOwners);
         }
 
         public AreaWithAreaOwnersSpecification(int pinCode, bool includeAreaOwners)
         : base(b => b.PinCode == pinCode)
         {
-            if (includeAreaOwners)  AddInclude(b => b.AreaOwners);
+            if (includeAreaOwners) AddInclude(b => b.AreaOwners);
         }
 
         public AreaWithAreaOwnersSpecification(bool includeAreaOwners) : base(b => !string.IsNullOrEmpty(b.AreaName) && b.IsActive)
@@ -33,6 +33,5 @@ namespace CoffeeLovers.Repositories.Specifications
         {
             if (includeAreaOwners) AddInclude(b => b.AreaOwners);
         }
-
     }
 }

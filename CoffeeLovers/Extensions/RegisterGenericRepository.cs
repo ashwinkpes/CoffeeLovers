@@ -1,6 +1,5 @@
 ﻿using CoffeeLovers.IRepositories;
 using CoffeeLovers.Repositories;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeLovers.Extensions

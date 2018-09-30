@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using CoffeeLovers.Models;
 using Microsoft.AspNetCore.Mvc;
-using CoffeeLovers.Models;
+using System.Diagnostics;
 
 namespace CoffeeLovers.Controllers
 {

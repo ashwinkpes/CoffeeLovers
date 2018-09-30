@@ -28,7 +28,6 @@ namespace CoffeeLovers.Attributes
         }
     }
 
-
     internal class ValidationError
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

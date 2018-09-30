@@ -26,7 +26,6 @@ namespace CoffeeLovers.Extensions
                 options.AddPolicy("Bearer", authorization);
             });
 
-
             services
                 .AddAuthentication(options =>
                 {
@@ -56,7 +55,7 @@ namespace CoffeeLovers.Extensions
                             var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
                             logger.LogError("Authentication failed.", context.Exception);
                             return Task.CompletedTask;
-                        },                       
+                        },
                         OnMessageReceived = context => Task.CompletedTask,
                         OnChallenge = context =>
                         {
@@ -66,7 +65,6 @@ namespace CoffeeLovers.Extensions
                         }
                     };
                 });
-
         }
     }
 }

@@ -32,7 +32,8 @@ namespace CoffeeLovers
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc(config => {
+            services.AddMvc(config =>
+            {
                 config.Filters.Add(typeof(GlobalExceptionHandler));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -59,7 +60,6 @@ namespace CoffeeLovers
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-          
             app.SeedCoffeeContext(securityService, Configuration.GetSection("UserInitializePassword").ToString());
             app.UseSwaggerMiddleWare();
 

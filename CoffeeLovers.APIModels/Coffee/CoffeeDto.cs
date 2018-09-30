@@ -4,9 +4,8 @@ namespace CoffeeLovers.APIModels.Coffee
 {
     public class CoffeeDto : AddCoffeeDto
     {
-        public CoffeeDto(string coffeeDisplayId) : this(coffeeDisplayId,DateTime.Now)
+        public CoffeeDto(string coffeeDisplayId) : this(coffeeDisplayId, DateTime.Now)
         {
-         
         }
 
         private CoffeeDto(string coffeeDisplayId, DateTime dateTime)
@@ -20,6 +19,6 @@ namespace CoffeeLovers.APIModels.Coffee
 
         public DateTime ValidFrom { get; private set; }
 
-        public DateTime ValidTo { get; private set; }       
+        public DateTime ValidTo { get; private set; }
     }
 }

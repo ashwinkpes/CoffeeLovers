@@ -8,7 +8,6 @@ namespace CoffeeLovers.DomainModels.Models
     [Table("Coffee", Schema = "dbo")]
     public class Coffee : Valid
     {
-
         public Coffee()
         {
         }

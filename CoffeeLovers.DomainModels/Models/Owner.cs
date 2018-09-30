@@ -23,7 +23,7 @@ namespace CoffeeLovers.DomainModels.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "EmailId is required")]
         [MinLength(3, ErrorMessage = "EmailId must be minimum of 3 characters")]
-        [MaxLength(30, ErrorMessage = "EmailId cannot be grater than 30 characters")]       
+        [MaxLength(30, ErrorMessage = "EmailId cannot be grater than 30 characters")]
         public string EmailId { get; set; }
 
         public Guid RoleId { get; set; }

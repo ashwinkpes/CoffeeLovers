@@ -10,20 +10,17 @@ namespace CoffeeLovers.Common.Mapping
         {
             var owner = new Owner()
             {
-              FirstName = ownerDto.FirstName,
-              LastName = ownerDto.LastName,
-              EmailId = ownerDto.Email,
-              OwnerDisplayId = ownerDto.OwnerId,
-              RoleId = ownerDto.RoleId            
+                FirstName = ownerDto.FirstName,
+                LastName = ownerDto.LastName,
+                EmailId = ownerDto.Email,
+                OwnerDisplayId = ownerDto.OwnerId,
+                RoleId = ownerDto.RoleId
             };
 
             if (generatePrimaryKey) owner.OwnerId = Guid.NewGuid();
 
             return owner;
         }
-
-
-
 
         public static string GetNextPrimaryKey(this Owner owner)
         {

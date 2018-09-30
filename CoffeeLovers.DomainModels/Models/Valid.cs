@@ -10,6 +10,5 @@ namespace CoffeeLovers.DomainModels.Models
 
         [Required(ErrorMessage = "validTo is required")]
         public DateTime ValidTo { get; set; }
-
     }
 }

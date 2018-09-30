@@ -18,6 +18,5 @@ namespace CoffeeLovers.APIModels.Owner
 
         [Required]
         public string Password { get; set; }
-
     }
 }

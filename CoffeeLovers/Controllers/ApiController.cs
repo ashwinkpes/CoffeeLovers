@@ -8,8 +8,6 @@ namespace CoffeeLovers.Controllers
     {
         protected ApiController()
         {
-           
         }
-      
     }
 }

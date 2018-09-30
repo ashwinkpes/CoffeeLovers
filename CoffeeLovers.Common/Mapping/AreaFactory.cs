@@ -1,8 +1,8 @@
-﻿using CoffeeLovers.Common.Extensions;
+﻿using CoffeeLovers.APIModels.Area;
+using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.DomainModels.Models;
 using System;
 using System.Collections.Generic;
-using CoffeeLovers.APIModels.Area;
 
 namespace CoffeeLovers.Common.Mapping.DomainToApi
 {
@@ -22,30 +22,27 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
             return areaDtos;
         }
 
-
-
         public static AreaDto ToDto(this Area area)
         {
             area.CheckArgumentIsNull(nameof(area));
 
             var areaDto = new AreaDto()
             {
-              AreaDisplayId = area.AreaDisplayId,
-              AreaName = area.AreaName,
-              PinCode = area.PinCode
+                AreaDisplayId = area.AreaDisplayId,
+                AreaName = area.AreaName,
+                PinCode = area.PinCode
             };
 
             return areaDto;
         }
 
-
-        public static Area ToEntity(this AreaDto areaDto , bool generatePrimaryKey = false)
+        public static Area ToEntity(this AreaDto areaDto, bool generatePrimaryKey = false)
         {
             areaDto.CheckArgumentIsNull(nameof(areaDto));
 
             var area = new Area()
             {
-                AreaName = areaDto.AreaName,               
+                AreaName = areaDto.AreaName,
                 PinCode = areaDto.PinCode,
                 AreaDisplayId = areaDto.AreaDisplayId
             };
@@ -55,18 +52,17 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
             return area;
         }
 
-
         public static string GetNextPrimaryKey(this Area area)
         {
-            string primaryKey = "Area-"+ DateTime.Now.Year.ToString()+"-";
+            string primaryKey = "Area-" + DateTime.Now.Year.ToString() + "-";
             if (area == null)
             {
                 primaryKey += "1";
             }
             else
             {
-               string[] splitString = area.AreaDisplayId.Split("-", StringSplitOptions.RemoveEmptyEntries);
-                primaryKey += splitString.Length == 3 ?  (int.Parse(splitString[2]) + 1).ToString()  : "1";
+                string[] splitString = area.AreaDisplayId.Split("-", StringSplitOptions.RemoveEmptyEntries);
+                primaryKey += splitString.Length == 3 ? (int.Parse(splitString[2]) + 1).ToString() : "1";
             }
 
             return primaryKey;

@@ -27,7 +27,6 @@ namespace CoffeeLovers.Repositories.Specifications
         public OwnerWithAreaSpecification(string emailId)
          : base(b => b.EmailId == emailId)
         {
-            
         }
     }
 }

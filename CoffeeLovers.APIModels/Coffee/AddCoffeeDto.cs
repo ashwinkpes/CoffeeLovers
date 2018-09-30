@@ -8,6 +8,5 @@ namespace CoffeeLovers.APIModels.Coffee
         [MinLength(3, ErrorMessage = "CoffeeName must be minimum of 3 characters")]
         [StringLength(20, ErrorMessage = "CoffeeName cannot be grater than 20 characters")]
         public string CoffeeName { get; set; }
-
     }
 }

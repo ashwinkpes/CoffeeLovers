@@ -16,8 +16,6 @@ namespace CoffeeLovers.APIModels.Area
 
         public AreaDto()
         {
-
         }
-      
     }
 }

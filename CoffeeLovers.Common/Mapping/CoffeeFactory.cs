@@ -1,8 +1,8 @@
-﻿using CoffeeLovers.Common.Extensions;
+﻿using CoffeeLovers.APIModels.Coffee;
+using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.DomainModels.Models;
 using System;
 using System.Collections.Generic;
-using CoffeeLovers.APIModels.Coffee;
 
 namespace CoffeeLovers.Common.Mapping.DomainToApi
 {
@@ -22,8 +22,6 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
             return coffeeDtos;
         }
 
-
-
         public static CoffeeDto ToDto(this Coffee coffee)
         {
             coffee.CheckArgumentIsNull(nameof(coffee));
@@ -31,7 +29,6 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
             coffeeDto.CoffeeName = coffee.CoffeeName;
             return coffeeDto;
         }
-
 
         public static Coffee ToEntity(this CoffeeDto coffeeDto, bool generatePrimaryKey = false)
         {
@@ -50,18 +47,17 @@ namespace CoffeeLovers.Common.Mapping.DomainToApi
             return coffee;
         }
 
-
         public static string GetNextPrimaryKey(this Coffee coffee)
         {
-            string primaryKey = "Coffee-" + DateTime.Now.Year.ToString()+"-";
+            string primaryKey = "Coffee-" + DateTime.Now.Year.ToString() + "-";
             if (coffee == null)
             {
                 primaryKey += "1";
             }
             else
             {
-               string[] splitString = coffee.CoffeeDisplayId.Split("-", StringSplitOptions.RemoveEmptyEntries);
-                primaryKey += splitString.Length == 3 ?  (int.Parse(splitString[2]) + 1).ToString()  : "1";
+                string[] splitString = coffee.CoffeeDisplayId.Split("-", StringSplitOptions.RemoveEmptyEntries);
+                primaryKey += splitString.Length == 3 ? (int.Parse(splitString[2]) + 1).ToString() : "1";
             }
 
             return primaryKey;

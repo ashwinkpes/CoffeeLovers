@@ -1,4 +1,5 @@
-﻿using CoffeeLovers.Common;
+﻿using CoffeeLovers.APIModels.Area;
+using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Options;
 using CoffeeLovers.IBusinessLogic;
@@ -9,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using CoffeeLovers.APIModels.Area;
 
 namespace CoffeeLovers.Controllers
 {
@@ -34,12 +34,12 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Gets an Area by Name.
         /// </summary>
-        /// <param name="name"></param>    
+        /// <param name="name"></param>
         /// <returns>A area whose name matches the one passed in the parameter</returns>
         /// <response code="200">Returns 200 when the response is success and the area that matches the name sent as route param </response>
-        /// <response code="400">Bad request</response>  
-        /// <response code="404">Not found if name passed does not match any item</response>  
-        [HttpGet("GetAreaByName/{name}",Name =nameof(GetAreaByName))]
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not found if name passed does not match any item</response>
+        [HttpGet("GetAreaByName/{name}", Name = nameof(GetAreaByName))]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
@@ -51,7 +51,7 @@ namespace CoffeeLovers.Controllers
                 {
                     _areaLogger.LogInformation(LoggingEvents.GetItem, "API-GetAreaByName-Getting item by name {name}", name);
 
-                    var result = await _areaService.GetAreaByName(name).ConfigureAwait(false);                   
+                    var result = await _areaService.GetAreaByName(name).ConfigureAwait(false);
 
                     if (result.statusCode == HttpStatusCode.NotFound)
                     {
@@ -70,7 +70,7 @@ namespace CoffeeLovers.Controllers
                      $"API-GetAreaByName-Exception {DateTime.UtcNow}"
                    );
 
-                return StatusCode((int)HttpStatusCode.BadRequest, 
+                return StatusCode((int)HttpStatusCode.BadRequest,
                     _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaByName" : ex.ToString());
             }
         }
@@ -78,11 +78,11 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Gets an Area by Area Id.
         /// </summary>
-        /// <param name="areaDisplayId">The id of the area we want to display</param>    
+        /// <param name="areaDisplayId">The id of the area we want to display</param>
         /// <returns>A area whose name matches the one passed in the parameter</returns>
         /// <response code="200">Returns 200 when the response is success and the area that matches the name sent as route param </response>
-        /// <response code="400">Bad request</response>  
-        /// <response code="404">Not found if name passed does not match any item</response>  
+        /// <response code="400">Bad request</response>
+        /// <response code="404">Not found if name passed does not match any item</response>
         [HttpGet("GetAreaById/{areaDisplayId}", Name = nameof(GetAreaById))]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -122,10 +122,10 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Gets all areas.
         /// </summary>
-        /// <param name="includeAreaOwners"></param> 
+        /// <param name="includeAreaOwners"></param>
         /// <returns>All areas present in the system</returns>
         /// <response code="200">Returns 200 and list of areas if resposnse is success</response>
-        /// <response code="400">Bad request</response>         
+        /// <response code="400">Bad request</response>
         [HttpGet("GetAllAreas/{includeAreaOwners}", Name = nameof(GetAllAreas))]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -157,10 +157,10 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Adds an area to database
         /// </summary>
-        /// <param name="areaDto"></param> 
+        /// <param name="areaDto"></param>
         /// <returns>Location of the added area</returns>
         /// <response code="200">Returns 201 if the area is added successfully</response>
-        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>
         [HttpPost("AddArea", Name = nameof(AddArea))]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -189,16 +189,15 @@ namespace CoffeeLovers.Controllers
             }
         }
 
-
         /// <summary>
         /// Updates an area in database
         /// </summary>
-        /// <param name="areaDisplayId">The area id whose details have to be updated</param> 
-        /// <param name="patchDtos">Properties that have to be updated</param> 
+        /// <param name="areaDisplayId">The area id whose details have to be updated</param>
+        /// <param name="patchDtos">Properties that have to be updated</param>
         /// <returns>Status code of the operation</returns>
         /// <response code="204">Returns 204 if the area is updated successfully</response>
         /// <response code="404">Returns 404 if the area is not found</response>
-        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>
         [HttpPatch("UpdateArea/{areaDisplayId}", Name = nameof(UpdateArea))]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -231,11 +230,11 @@ namespace CoffeeLovers.Controllers
         /// <summary>
         /// Deleates an area in database
         /// </summary>
-        /// <param name="areaDisplayId">The area id whose details have to be updated</param>      
+        /// <param name="areaDisplayId">The area id whose details have to be updated</param>
         /// <returns>Status code of the operation</returns>
         /// <response code="204">Returns 204 if the area is deletion is successfull</response>
         /// <response code="404">Returns 404 if the area is not found</response>
-        /// <response code="400">Returns Bad request if invalid data or some exception</response>       
+        /// <response code="400">Returns Bad request if invalid data or some exception</response>
         [HttpDelete("DeleteArea/{areaDisplayId}", Name = nameof(DeleteArea))]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
@@ -272,6 +271,4 @@ namespace CoffeeLovers.Controllers
             _apiSettings.CheckArgumentIsNull(nameof(_apiSettings));
         }
     }
-
-    
 }

@@ -1,5 +1,4 @@
 ﻿using CoffeeLovers.Common.Options;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeLovers.Extensions
@@ -17,7 +16,7 @@ namespace CoffeeLovers.Extensions
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
-                        .WithOrigins(corsSettings.AllowedOrgins) 
+                        .WithOrigins(corsSettings.AllowedOrgins)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());

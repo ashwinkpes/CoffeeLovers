@@ -16,12 +16,12 @@ namespace CoffeeLovers.Repositories
 
         public Dictionary<string, Guid> RolesDictionary { get; set; }
         public Dictionary<string, Guid> AreasDictionary { get; set; }
-        
+
         public DictionaryRepository(CoffeeDbContext dbContext, IAppLogger<DictionaryRepository<T>> appLogger)
         {
             this._dbContext = dbContext;
             this._appLogger = appLogger;
-            
+
             //GetRoles().Wait();
             //GetAreas().Wait();
 
@@ -53,7 +53,7 @@ namespace CoffeeLovers.Repositories
         //    await Task.Run(() =>
         //    {
         //        RolesDictionary =  (_dbContext.Roles.ToList().Select(r => new { r.RoleName, r.RoleId }).ToDictionary(r => r.RoleName, r => r.RoleId));
-        //    });           
+        //    });
         //}
 
         //public async Task GetAreas()
@@ -61,7 +61,7 @@ namespace CoffeeLovers.Repositories
         //    await Task.Run(() =>
         //    {
         //        AreasDictionary = (_dbContext.Areas.ToList().Select(r => new { r.AreaName, r.AreaId }).ToDictionary(r => r.AreaName, r => r.AreaId));
-        //    });            
+        //    });
         //}
 
         private Task WhenAllTasks(List<Task> tasks)

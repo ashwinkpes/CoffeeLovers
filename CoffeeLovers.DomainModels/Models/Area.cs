@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoffeeLovers.DomainModels.Models
 {
-    [Table("Area",Schema = "dbo")]
+    [Table("Area", Schema = "dbo")]
     public class Area : BaseEntity
     {
         public Area()
@@ -26,7 +26,7 @@ namespace CoffeeLovers.DomainModels.Models
         [MaxLength(40, ErrorMessage = "AreaName cannot be grater than 40 characters")]
         public string AreaName { get; set; }
 
-        [Required(ErrorMessage = "PinCode is required")]    
+        [Required(ErrorMessage = "PinCode is required")]
         public int PinCode { get; set; }
 
         public virtual ICollection<AreaOwner> AreaOwners { get; set; } = new HashSet<AreaOwner>();

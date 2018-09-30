@@ -15,14 +15,14 @@ using System.Threading.Tasks;
 namespace CoffeeLovers.BusinessLogic
 {
     public class OwnerService : IOwnerService
-    {       
+    {
         private readonly IOwnerRepository _ownerRepository;
         private readonly IDictionaryRepository<OwnerService> _dictionaryRepository;
         private readonly IAppLogger<OwnerService> _logger;
         private readonly ISecurityService _securityService;
 
-        public OwnerService(IOwnerRepository ownerRepository, 
-                            IDictionaryRepository<OwnerService> dictionaryRepository, 
+        public OwnerService(IOwnerRepository ownerRepository,
+                            IDictionaryRepository<OwnerService> dictionaryRepository,
                             IAppLogger<OwnerService> logger,
                             ISecurityService securityService)
         {
@@ -55,11 +55,11 @@ namespace CoffeeLovers.BusinessLogic
             {
                 Owner ownerEntity = await _ownerRepository.GetMaxOfPrimaryKey();
                 string newOwnerDisplayId = ownerEntity.GetNextPrimaryKey();
-                Dictionary<string,Guid> roles =  _dictionaryRepository.RolesDictionary;
+                Dictionary<string, Guid> roles = _dictionaryRepository.RolesDictionary;
 
-                Guid roleId = roles.Where(s => s.Key == addOwnerDto.RoleName).First().Value; 
+                Guid roleId = roles.Where(s => s.Key == addOwnerDto.RoleName).First().Value;
 
-                var ownerDto = new SaveOwnerDto(roleId,newOwnerDisplayId)
+                var ownerDto = new SaveOwnerDto(roleId, newOwnerDisplayId)
                 {
                     FirstName = addOwnerDto.FirstName,
                     LastName = addOwnerDto.LastName,

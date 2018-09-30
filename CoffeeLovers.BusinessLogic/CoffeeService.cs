@@ -1,4 +1,5 @@
-﻿using CoffeeLovers.Common;
+﻿using CoffeeLovers.APIModels.Coffee;
+using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Logging;
 using CoffeeLovers.Common.Mapping.DomainToApi;
@@ -11,13 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using CoffeeLovers.APIModels.Coffee;
 
 namespace CoffeeLovers.BusinessLogic
 {
     public class CoffeeService : ICoffeeService
     {
-       
         private readonly ICoffeeRepository _coffeeRepository;
         private readonly IAppLogger<CoffeeService> _logger;
 
@@ -50,7 +49,7 @@ namespace CoffeeLovers.BusinessLogic
                 string newCoffeeDisplayId = cofeeEntity.GetNextPrimaryKey();
 
                 cofeeToStrore = new CoffeeDto(newCoffeeDisplayId);
-                cofeeToStrore.CoffeeName = coffeeToAdd.CoffeeName;             
+                cofeeToStrore.CoffeeName = coffeeToAdd.CoffeeName;
 
                 await _coffeeRepository.AddAsync(cofeeToStrore.ToEntity(true)).ConfigureAwait(false);
                 await _coffeeRepository.SaveAllwithAudit().ConfigureAwait(false);

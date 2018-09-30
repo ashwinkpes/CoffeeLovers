@@ -1,4 +1,5 @@
-﻿using CoffeeLovers.Common;
+﻿using CoffeeLovers.APIModels.Area;
+using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Logging;
 using CoffeeLovers.Common.Mapping.DomainToApi;
@@ -11,28 +12,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using CoffeeLovers.APIModels.Area;
 
 namespace CoffeeLovers.BusinessLogic
 {
     public class AreaService : IAreaService
     {
-
         #region --Private variables--
+
         private readonly IAreaRepository _areaRepository;
-        private readonly IAppLogger<AreaService> _logger; 
-        #endregion
+        private readonly IAppLogger<AreaService> _logger;
+
+        #endregion --Private variables--
 
         #region --Constructor--
+
         public AreaService(IAreaRepository areaRepository, IAppLogger<AreaService> logger)
         {
             _areaRepository = areaRepository;
             _logger = logger;
             CheckArguments();
         }
-        #endregion
+
+        #endregion --Constructor--
 
         #region --Read Operations--
+
         public async Task<(HttpStatusCode statusCode, AreaDto areaDto)> GetAreaByDisplayId(string areaDisplayId)
         {
             _logger.LogInformation($"Service-GetAreaByName-Executing GetAreaByDisplayId started at {DateTime.UtcNow}");
@@ -110,9 +114,10 @@ namespace CoffeeLovers.BusinessLogic
             return (statusCode, areaDtos);
         }
 
-        #endregion
+        #endregion --Read Operations--
 
         #region --Add operations--
+
         public async Task<(HttpStatusCode statusCode, string areaDisplayId)> CreateArea(AreaDto areaToAdd)
         {
             _logger.LogInformation($"Service-CreateArea-Executing CreateArea started at {DateTime.UtcNow}");
@@ -142,9 +147,11 @@ namespace CoffeeLovers.BusinessLogic
 
             return (statusCode, areaDisplayId);
         }
-        #endregion
+
+        #endregion --Add operations--
 
         #region --Update Operations--
+
         public async Task<HttpStatusCode> UpdateArea(string areaDisplayId, List<PatchDto> patchDtos)
         {
             var statusCode = HttpStatusCode.NoContent;
@@ -164,15 +171,17 @@ namespace CoffeeLovers.BusinessLogic
             }
             else
             {
-                 _areaRepository.ApplyPatch(areaDromDb, patchDtos); 
+                _areaRepository.ApplyPatch(areaDromDb, patchDtos);
                 await _areaRepository.SaveAllwithAudit().ConfigureAwait(false);
             }
 
             return statusCode;
         }
-        #endregion
+
+        #endregion --Update Operations--
 
         #region --Delete Operations--
+
         public async Task<HttpStatusCode> DeleteArea(string areaDisplayId)
         {
             var statusCode = HttpStatusCode.NoContent;
@@ -196,14 +205,17 @@ namespace CoffeeLovers.BusinessLogic
 
             return statusCode;
         }
-        #endregion
+
+        #endregion --Delete Operations--
 
         #region --Private Methods--
+
         private void CheckArguments()
         {
             _areaRepository.CheckArgumentIsNull(nameof(_areaRepository));
             _logger.CheckArgumentIsNull(nameof(_logger));
-        } 
-        #endregion
+        }
+
+        #endregion --Private Methods--
     }
 }

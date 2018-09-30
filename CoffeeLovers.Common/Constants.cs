@@ -4,6 +4,7 @@
     {
         //Error messages
         public const string UnAuthorizedAccess = "Unauthorized Access.";
+
         public const string ServerErrorOccured = "A server error occurred.";
 
         //Loggig

@@ -1,6 +1,5 @@
 ﻿using CoffeeLovers.BusinessLogic;
 using CoffeeLovers.IBusinessLogic;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeLovers.Extensions

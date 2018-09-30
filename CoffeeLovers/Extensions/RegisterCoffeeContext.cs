@@ -30,14 +30,13 @@ namespace CoffeeLovers.Extensions
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-
                 var seedData = new SeedData
                 {
                     Areas = JsonConvert.DeserializeObject<List<Area>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "areas.json")),
                     Owners = JsonConvert.DeserializeObject<List<Owner>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Owners.json")),
                     Coffees = JsonConvert.DeserializeObject<List<Coffee>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Coffees.json")),
                     Roles = JsonConvert.DeserializeObject<List<Role>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Roles.json")),
-                    UserInitalizePassword =  userInitializePassword
+                    UserInitalizePassword = userInitializePassword
                 };
 
                 serviceScope.ServiceProvider.GetService<CoffeeDbContext>().EnsureSeedData(seedData, securityService);

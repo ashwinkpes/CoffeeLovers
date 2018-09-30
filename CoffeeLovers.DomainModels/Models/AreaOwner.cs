@@ -10,7 +10,7 @@ namespace CoffeeLovers.DomainModels.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid AreaOwnerId { get; set; }
-       
+
         public Guid AreaId { get; set; }
 
         [ForeignKey("AreaId")]
@@ -20,6 +20,5 @@ namespace CoffeeLovers.DomainModels.Models
 
         [ForeignKey("OwnerId")]
         public virtual Owner Owner { get; set; }
-
     }
 }

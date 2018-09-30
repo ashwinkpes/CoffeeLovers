@@ -7,7 +7,6 @@
             this.OwnerId = ownerId;
         }
 
-       public string OwnerId { get; private set; }
-       
+        public string OwnerId { get; private set; }
     }
 }

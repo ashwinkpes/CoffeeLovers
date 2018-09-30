@@ -1,8 +1,8 @@
-﻿using CoffeeLovers.Common;
+﻿using CoffeeLovers.APIModels.Coffee;
+using CoffeeLovers.Common;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using CoffeeLovers.APIModels.Coffee;
 
 namespace CoffeeLovers.IBusinessLogic
 {
@@ -20,7 +20,4 @@ namespace CoffeeLovers.IBusinessLogic
 
         Task<HttpStatusCode> DeleteCoffee(string coffeeDisplayId);
     }
-
-
-   
 }

@@ -25,7 +25,5 @@ namespace CoffeeLovers.DomainModels.Models
 
         [ForeignKey("CoffeeId")]
         public virtual Coffee Coffee { get; set; }
-
-
     }
 }

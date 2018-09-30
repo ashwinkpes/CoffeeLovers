@@ -14,6 +14,5 @@ namespace CoffeeLovers.Common
         public IEnumerable<Role> Roles { get; set; }
 
         public string UserInitalizePassword { get; set; }
-
     }
 }

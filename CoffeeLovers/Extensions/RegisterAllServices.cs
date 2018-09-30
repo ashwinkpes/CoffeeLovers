@@ -22,7 +22,7 @@ namespace CoffeeLovers.Extensions
             configuration.Bind("CorsPolicy", corsSettings);
             services.AddSingleton<CorsSettings>(corsSettings);
 
-           //Add DB context
+            //Add DB context
             services.AddCoffeeContext(configuration);
 
             //Add logging
