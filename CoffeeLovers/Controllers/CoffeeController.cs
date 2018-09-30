@@ -1,9 +1,11 @@
 ﻿using CoffeeLovers.APIModels;
 using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
+using CoffeeLovers.Common.Options;
 using CoffeeLovers.IBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -18,11 +20,13 @@ namespace CoffeeLovers.Controllers
     {
         private readonly ICoffeeService _coffeeService;
         private readonly ILogger _cofeelogger;
+        private readonly ApiSettings _apiSettings;
 
-        public CoffeeController(ICoffeeService coffeeService, ILogger<CoffeeController> logger)
+        public CoffeeController(ICoffeeService coffeeService, ILogger<CoffeeController> logger, IOptionsSnapshot<ApiSettings> apiSettings)
         {
             _coffeeService = coffeeService;
             _cofeelogger = logger;
+            _apiSettings = apiSettings.Value;
             CheckArguments();
         }
 

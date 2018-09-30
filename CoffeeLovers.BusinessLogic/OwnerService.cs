@@ -40,7 +40,7 @@ namespace CoffeeLovers.BusinessLogic
             var statusCode = HttpStatusCode.Created;
             string ownerId = string.Empty;
 
-            var ownerSpec = new OwnerWithAreaSpecification(addOwnerDto.Email, false);
+            var ownerSpec = new OwnerWithAreaSpecification(addOwnerDto.Email);
 
             var owner = (await _ownerRepository.ListAsync(ownerSpec).ConfigureAwait(false)).FirstOrDefault();
             if (owner != null)

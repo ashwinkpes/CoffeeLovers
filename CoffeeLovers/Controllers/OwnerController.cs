@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CoffeeLovers.APIModels.Owner;
+using CoffeeLovers.Common.Options;
+using Microsoft.Extensions.Options;
 
 namespace CoffeeLovers.Controllers
 {
@@ -18,11 +20,13 @@ namespace CoffeeLovers.Controllers
     {
         private readonly IOwnerService _ownerService;
         private readonly ILogger _ownerlogger;
+        private readonly ApiSettings _apiSettings;
 
-        public OwnerController(IOwnerService ownerService, ILogger<OwnerController> logger)
+        public OwnerController(IOwnerService ownerService, ILogger<OwnerController> logger, IOptionsSnapshot<ApiSettings> apiSettings)
         {
             _ownerService = ownerService;
             _ownerlogger = logger;
+            _apiSettings = apiSettings.Value;
             CheckArguments();
         }
 
@@ -57,7 +61,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing AddOwner" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing AddOwner" : ex.ToString());
             }
         }
 
