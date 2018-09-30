@@ -22,12 +22,18 @@ namespace CoffeeLovers.BusinessLogic
         private readonly IOwnerRepository _ownerRepository;
         private readonly IDictionaryRepsository<OwnerService> _dictionaryRepsository;
         private readonly IAppLogger<OwnerService> _logger;
+        private readonly ISecurityService _securityService;
 
-        public OwnerService(IOwnerRepository ownerRepository, IDictionaryRepsository<OwnerService> dictionaryRepsository, IAppLogger<OwnerService> logger)
+        public OwnerService(IOwnerRepository ownerRepository, 
+                            IDictionaryRepsository<OwnerService> dictionaryRepsository, 
+                            IAppLogger<OwnerService> logger,
+                            ISecurityService securityService)
         {
             _ownerRepository = ownerRepository;
             _dictionaryRepsository = dictionaryRepsository;
             _logger = logger;
+            _securityService = securityService;
+
             CheckArguments();
         }
 
@@ -54,7 +60,9 @@ namespace CoffeeLovers.BusinessLogic
                 string newOwnerDisplayId = ownerEntity.GetNextPrimaryKey();
                 Dictionary<string,Guid> roles =  _dictionaryRepsository.RolesDictionary;
 
-                var ownerDto = new OwnerDto(newOwnerDisplayId)
+                Guid roleId = roles.Where(s => s.Key == addOwnerDto.RoleName).First().Value; 
+
+                var ownerDto = new SaveOwnerDto(roleId,newOwnerDisplayId)
                 {
                     FirstName = addOwnerDto.FirstName,
                     LastName = addOwnerDto.LastName,
@@ -62,7 +70,7 @@ namespace CoffeeLovers.BusinessLogic
                 };
 
                 var ownerToAddToDb = ownerDto.ToEntity(true);
-                ownerToAddToDb.RoleId = roles.Where(s => s.Key == addOwnerDto.RoleName).First().Value;
+                ownerToAddToDb.Password = _securityService.GetSha256Hash(addOwnerDto.Password);
                 await _ownerRepository.AddAsync(ownerToAddToDb).ConfigureAwait(false);
                 await _ownerRepository.SaveAllwithAudit();
                 ownerId = newOwnerDisplayId;

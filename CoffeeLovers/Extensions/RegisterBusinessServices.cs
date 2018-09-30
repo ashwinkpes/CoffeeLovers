@@ -12,6 +12,7 @@ namespace CoffeeLovers.Extensions
             services.AddScoped<IAreaService, AreaService>();
             services.AddScoped<ICoffeeService, CoffeeService>();
             services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<ISecurityService, SecurityService>();
         }
     }
 }

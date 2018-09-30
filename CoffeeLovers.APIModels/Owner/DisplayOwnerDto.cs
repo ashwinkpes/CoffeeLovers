@@ -4,13 +4,14 @@ using System.Text;
 
 namespace CoffeeLovers.APIModels.Owner
 {
-    public class OwnerDto : AddOwnerDto
+    public class DisplayOwnerDto : AddOwnerDto
     {
-        public OwnerDto(string ownerId)
+        public DisplayOwnerDto(string ownerId)
         {
             this.OwnerId = ownerId;
         }
 
-        public string OwnerId { get; private set; }
+       public string OwnerId { get; private set; }
+       
     }
 }

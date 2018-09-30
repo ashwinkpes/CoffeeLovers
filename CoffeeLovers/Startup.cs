@@ -1,6 +1,7 @@
 ﻿using CoffeeLovers.Common.Options;
 using CoffeeLovers.Extensions;
 using CoffeeLovers.Helpers;
+using CoffeeLovers.IBusinessLogic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -42,7 +43,7 @@ namespace CoffeeLovers
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ISecurityService securityService)
         {
             if (env.IsDevelopment())
             {
@@ -60,7 +61,7 @@ namespace CoffeeLovers
             app.UseCookiePolicy();
 
           
-            app.SeedCoffeeContext(Configuration);
+            app.SeedCoffeeContext(Configuration, securityService, Configuration.GetSection("UserInitalizePassword").ToString());
             app.UseSwaggerMiddleWare(Configuration);
 
             app.UseMvc(routes =>

@@ -61,7 +61,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing AddCoffee" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing AddCoffee" : ex.ToString());
             }
         }
 
@@ -97,7 +97,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAllCoffees" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAllCoffees" : ex.ToString());
             }
         }
 
@@ -141,7 +141,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetCoffeeById" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetCoffeeById" : ex.ToString());
             }
         }
 
@@ -185,7 +185,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetCoffeeByName" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetCoffeeByName" : ex.ToString());
             }
         }
 
@@ -222,7 +222,7 @@ namespace CoffeeLovers.Controllers
                  );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing DeleteCoffee" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing DeleteCoffee" : ex.ToString());
             }
         }
 
@@ -260,7 +260,7 @@ namespace CoffeeLovers.Controllers
                  );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing UpdateCoffee" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing UpdateCoffee" : ex.ToString());
             }
         }
 

@@ -179,6 +179,8 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<bool>("IsActive");
 
+                    b.Property<DateTimeOffset?>("LastLoggedIn");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(20);
@@ -187,7 +189,11 @@ namespace CoffeeLovers.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
+                    b.Property<string>("Password");
+
                     b.Property<Guid>("RoleId");
+
+                    b.Property<string>("SerialNumber");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(20);

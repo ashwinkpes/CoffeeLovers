@@ -8,15 +8,15 @@ namespace CoffeeLovers.Common.Mapping
 {
     public static class OwnerFactory
     {
-
-        public static Owner ToEntity(this OwnerDto ownerDto, bool generatePrimaryKey = false)
+        public static Owner ToEntity(this SaveOwnerDto ownerDto, bool generatePrimaryKey = false)
         {
             var owner = new Owner()
             {
               FirstName = ownerDto.FirstName,
               LastName = ownerDto.LastName,
               EmailId = ownerDto.Email,
-              OwnerDisplayId = ownerDto.OwnerId
+              OwnerDisplayId = ownerDto.OwnerId,
+              RoleId = ownerDto.RoleId            
             };
 
             if (generatePrimaryKey) owner.OwnerId = Guid.NewGuid();

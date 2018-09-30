@@ -32,6 +32,20 @@ namespace CoffeeLovers.DomainModels.Models
         [ForeignKey("RoleId")]
         public virtual Role Role { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
+        [MinLength(3, ErrorMessage = "Password must be minimum of 3 characters")]
+        [MaxLength(15, ErrorMessage = "Password cannot be grater than 15 characters")]
+        public string Password { get; set; }
+
+        public DateTimeOffset? LastLoggedIn { get; set; }
+
+        /// <summary>
+        /// every time the user changes his Password,
+        /// or an admin changes his Roles or stat/IsActive,
+        /// create a new `SerialNumber` GUID and store it in the DB.
+        /// </summary>
+        public string SerialNumber { get; set; }
+
         public virtual ICollection<AreaOwner> AreaOwners { get; set; }
        
     }

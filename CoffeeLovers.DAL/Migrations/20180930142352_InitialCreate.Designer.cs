@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeLovers.DAL.Migrations
 {
     [DbContext(typeof(CoffeeDbContext))]
-    [Migration("20180929153933_InitialCreate")]
+    [Migration("20180930142352_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,6 +181,8 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<bool>("IsActive");
 
+                    b.Property<DateTimeOffset?>("LastLoggedIn");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(20);
@@ -189,7 +191,11 @@ namespace CoffeeLovers.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
+                    b.Property<string>("Password");
+
                     b.Property<Guid>("RoleId");
+
+                    b.Property<string>("SerialNumber");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(20);

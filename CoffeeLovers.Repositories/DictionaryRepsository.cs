@@ -24,10 +24,13 @@ namespace CoffeeLovers.Repositories
         {
             _dbContext = dbContext;
             this.appLogger = appLogger;
+            
             //GetRoles().Wait();
             //GetAreas().Wait();
+
             IEnumerable<Role> Roles = _dbContext.Roles.ToList();
             IEnumerable<Area> Areas = _dbContext.Areas.ToList();
+
             var tasks = new List<Task>() { GetRoles(Roles), GetAreas(Areas) };
             WhenAllTasks(tasks);
         }

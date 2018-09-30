@@ -1,6 +1,7 @@
 ﻿using CoffeeLovers.Common;
 using CoffeeLovers.DAL;
 using CoffeeLovers.DomainModels.Models;
+using CoffeeLovers.IBusinessLogic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@ namespace CoffeeLovers.Extensions
                  }));
         }
 
-        internal static void SeedCoffeeContext(this IApplicationBuilder app, IConfiguration _configuration)
+        internal static void SeedCoffeeContext(this IApplicationBuilder app, IConfiguration _configuration, ISecurityService securityService, string userInitalizePassword)
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
@@ -36,9 +37,10 @@ namespace CoffeeLovers.Extensions
                     Owners = JsonConvert.DeserializeObject<List<Owner>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Owners.json")),
                     Coffees = JsonConvert.DeserializeObject<List<Coffee>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Coffees.json")),
                     Roles = JsonConvert.DeserializeObject<List<Role>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "Roles.json")),
+                    UserInitalizePassword =  userInitalizePassword
                 };
 
-                serviceScope.ServiceProvider.GetService<CoffeeDbContext>().EnsureSeedData(seedData);
+                serviceScope.ServiceProvider.GetService<CoffeeDbContext>().EnsureSeedData(seedData, securityService);
             }
         }
     }

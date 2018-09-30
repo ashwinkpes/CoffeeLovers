@@ -1,5 +1,6 @@
 ﻿using CoffeeLovers.Common;
 using CoffeeLovers.Common.Extensions;
+using CoffeeLovers.IBusinessLogic;
 using System;
 using System.Linq;
 
@@ -7,12 +8,13 @@ namespace CoffeeLovers.DAL
 {
     public static class CoffeeSeeder
     {
-        public static void EnsureSeedData(this CoffeeDbContext db, SeedData seedData)
+        public static void EnsureSeedData(this CoffeeDbContext db, SeedData seedData, ISecurityService securityService)
         {
             seedData.CheckArgumentIsNull(nameof(seedData));
 
             if (!db.Roles.Any())
             {
+                seedData.Roles.ToList().ForEach(x => { x.validTo = x.validFrom = DateTime.Now; });
                 db.Roles.AddRange(seedData.Roles);
             }
 
@@ -23,6 +25,7 @@ namespace CoffeeLovers.DAL
 
             if (!db.Owners.Any())
             {
+                seedData.Owners.ToList().ForEach(x => { x.Password = securityService.GetSha256Hash(seedData.UserInitalizePassword); });
                 db.Owners.AddRange(seedData.Owners);
             }
 

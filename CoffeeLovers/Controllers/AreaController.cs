@@ -70,7 +70,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest, 
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaByName" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaByName" : ex.ToString());
             }
         }
 
@@ -114,7 +114,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaById" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAreaById" : ex.ToString());
             }
         }
 
@@ -149,7 +149,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAllAreas" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing GetAllAreas" : ex.ToString());
             }
         }
 
@@ -184,7 +184,7 @@ namespace CoffeeLovers.Controllers
                    );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing AddArea" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing AddArea" : ex.ToString());
             }
         }
 
@@ -223,7 +223,7 @@ namespace CoffeeLovers.Controllers
                  );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing UpdateArea" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing UpdateArea" : ex.ToString());
             }
         }
 
@@ -260,7 +260,7 @@ namespace CoffeeLovers.Controllers
                  );
 
                 return StatusCode((int)HttpStatusCode.BadRequest,
-                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing DeleteArea" : ex.StackTrace);
+                    _apiSettings.IsSecuredEnvironment ? "An error occured while processing DeleteArea" : ex.ToString());
             }
         }
 

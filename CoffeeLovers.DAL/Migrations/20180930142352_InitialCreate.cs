@@ -124,7 +124,10 @@ namespace CoffeeLovers.DAL.Migrations
                     OwnerId = table.Column<Guid>(nullable: false),
                     OwnerDisplayId = table.Column<string>(maxLength: 40, nullable: false),
                     EmailId = table.Column<string>(maxLength: 30, nullable: false),
-                    RoleId = table.Column<Guid>(nullable: false)
+                    RoleId = table.Column<Guid>(nullable: false),
+                    Password = table.Column<string>(nullable: true),
+                    LastLoggedIn = table.Column<DateTimeOffset>(nullable: true),
+                    SerialNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
