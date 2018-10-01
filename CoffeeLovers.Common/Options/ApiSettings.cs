@@ -1,6 +1,6 @@
 ﻿namespace CoffeeLovers.Common.Options
 {
-    public class ApiSettings
+    public sealed class ApiSettings
     {
         public bool IsSecuredEnvironment { get; set; }
     }

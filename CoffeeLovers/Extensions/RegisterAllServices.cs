@@ -17,6 +17,9 @@ namespace CoffeeLovers.Extensions
             //API settings
             services.Configure<ApiSettings>(configuration.GetSection("ApiSettings"));
 
+            //SendGrid Settings
+            services.Configure<SendGridSettings>(configuration.GetSection("SendGridSettings"));
+
             //Cors settings
             var corsSettings = new CorsSettings();
             configuration.Bind("CorsPolicy", corsSettings);

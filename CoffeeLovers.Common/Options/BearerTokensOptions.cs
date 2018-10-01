@@ -1,6 +1,6 @@
 ﻿namespace CoffeeLovers.Common.Options
 {
-    public class BearerTokensOptions
+    public sealed class BearerTokensOptions
     {
         public string Key { set; get; }
         public string Issuer { set; get; }
