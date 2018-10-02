@@ -21,6 +21,7 @@
     <ProjectReference Include="..\CoffeeLovers.Common\CoffeeLovers.Common.csproj" />
     <ProjectReference Include="..\CoffeeLovers.IBusinessLogic\CoffeeLovers.IBusinessLogic.csproj" />
     <ProjectReference Include="..\CoffeeLovers.IRepositories\CoffeeLovers.IRepositories.csproj" />
+    <ProjectReference Include="..\CoffeeLovers.NotificationService\CoffeeLovers.NotificationService.csproj" />
     <ProjectReference Include="..\CoffeeLovers.Repositories\CoffeeLovers.Repositories.csproj" />
   </ItemGroup>
 
