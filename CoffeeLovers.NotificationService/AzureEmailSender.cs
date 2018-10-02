@@ -23,7 +23,7 @@ namespace CoffeeLovers.NotificationService
             var msg = new SendGridMessage();
             msg.Subject = message.Subject;
             msg.From = new EmailAddress(message.From);
-            msg.PlainTextContent = message.Body;
+            msg.HtmlContent = message.Body;
             msg.AddTos(message.To.Select(s => new EmailAddress(s)).ToList());
 
             if (message.CC.Count > 0)

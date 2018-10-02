@@ -27,6 +27,7 @@ namespace CoffeeLovers.DAL
         public DbSet<Coffee> Coffees { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<AreaOwner> AreaOwners { get; set; }
+        public DbSet<OwnerConfirmation> OwnerConfirmations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

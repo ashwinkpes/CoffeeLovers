@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeLovers.DAL.Migrations
 {
     [DbContext(typeof(CoffeeDbContext))]
-    [Migration("20180930142352_InitialCreate")]
+    [Migration("20181002174404_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,9 +74,9 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<DateTime?>("Updatedtime");
 
-                    b.Property<DateTime>("validFrom");
+                    b.Property<DateTime>("ValidFrom");
 
-                    b.Property<DateTime>("validTo");
+                    b.Property<DateTime>("ValidTo");
 
                     b.HasKey("AreaOwnerId");
 
@@ -114,9 +114,9 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<DateTime?>("Updatedtime");
 
-                    b.Property<DateTime>("validFrom");
+                    b.Property<DateTime>("ValidFrom");
 
-                    b.Property<DateTime>("validTo");
+                    b.Property<DateTime>("ValidTo");
 
                     b.HasKey("CoffeeId");
 
@@ -148,9 +148,9 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<DateTime?>("Updatedtime");
 
-                    b.Property<DateTime>("validFrom");
+                    b.Property<DateTime>("ValidFrom");
 
-                    b.Property<DateTime>("validTo");
+                    b.Property<DateTime>("ValidTo");
 
                     b.HasKey("CoffeeAreaId");
 
@@ -191,7 +191,9 @@ namespace CoffeeLovers.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(100);
 
                     b.Property<Guid>("RoleId");
 
@@ -207,6 +209,38 @@ namespace CoffeeLovers.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Owner","dbo");
+                });
+
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.OwnerConfirmation", b =>
+                {
+                    b.Property<Guid>("OwnerConfirmationId");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("Createdtime");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<Guid>("OwnerId");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime?>("Updatedtime");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<DateTime>("ValidTo");
+
+                    b.Property<Guid>("confirmationToken");
+
+                    b.HasKey("OwnerConfirmationId");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("OwnerConfirmation","dbo");
                 });
 
             modelBuilder.Entity("CoffeeLovers.DomainModels.Models.Role", b =>
@@ -234,9 +268,9 @@ namespace CoffeeLovers.DAL.Migrations
 
                     b.Property<DateTime?>("Updatedtime");
 
-                    b.Property<DateTime>("validFrom");
+                    b.Property<DateTime>("ValidFrom");
 
-                    b.Property<DateTime>("validTo");
+                    b.Property<DateTime>("ValidTo");
 
                     b.HasKey("RoleId");
 
@@ -274,6 +308,14 @@ namespace CoffeeLovers.DAL.Migrations
                     b.HasOne("CoffeeLovers.DomainModels.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CoffeeLovers.DomainModels.Models.OwnerConfirmation", b =>
+                {
+                    b.HasOne("CoffeeLovers.DomainModels.Models.Owner", "Owner")
+                        .WithMany("OwnerConfirmations")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

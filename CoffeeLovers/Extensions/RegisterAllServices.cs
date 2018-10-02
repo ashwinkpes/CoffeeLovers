@@ -1,5 +1,4 @@
-﻿using CoffeeLovers.Common.Options;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoffeeLovers.Extensions
@@ -14,16 +13,11 @@ namespace CoffeeLovers.Extensions
 
             //services.Configure<CorsSettings>(Configuration.GetSection("CorsPolicy"));
 
-            //API settings
-            services.Configure<ApiSettings>(configuration.GetSection("ApiSettings"));
+            //Add Ioptions and other settings
+            services.AddChainOfOptions(configuration);
 
-            //SendGrid Settings
-            services.Configure<SendGridSettings>(configuration.GetSection("SendGridSettings"));
-
-            //Cors settings
-            var corsSettings = new CorsSettings();
-            configuration.Bind("CorsPolicy", corsSettings);
-            services.AddSingleton<CorsSettings>(corsSettings);
+            //Add Notification services
+            services.AddNotificationService(configuration);
 
             //Add DB context
             services.AddCoffeeContext(configuration);

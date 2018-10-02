@@ -17,7 +17,9 @@ namespace CoffeeLovers.NotificationService.Message
         private List<string> bcc = new List<string>();
         private List<string> attachments = new List<string>();
 
-        private EmailMessageBuilder() { }
+        private EmailMessageBuilder()
+        {
+        }
 
         public static IEmailMessageAddSubject Init()
         {
@@ -104,11 +106,16 @@ namespace CoffeeLovers.NotificationService.Message
     public interface IEmailMessageBuilder
     {
         IEmailMessageBuilder AddTo(string to);
+
         IEmailMessageBuilder AddCC(string cc);
+
         IEmailMessageBuilder AddBCC(string bcc);
+
         IEmailMessageBuilder AddAttachment(string attachment);
+
         EmailMessage Build();
     }
 
-    #endregion 
+    #endregion " Abstractions "
+
 }

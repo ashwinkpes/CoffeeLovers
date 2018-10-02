@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoffeeLovers.DAL.Migrations
 {
@@ -40,8 +40,8 @@ namespace CoffeeLovers.DAL.Migrations
                     UpdatedBy = table.Column<string>(maxLength: 20, nullable: true),
                     Updatedtime = table.Column<DateTime>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    validFrom = table.Column<DateTime>(nullable: false),
-                    validTo = table.Column<DateTime>(nullable: false),
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
                     CoffeeId = table.Column<Guid>(nullable: false),
                     CoffeeDisplayId = table.Column<string>(maxLength: 40, nullable: false),
                     CoffeeName = table.Column<string>(maxLength: 20, nullable: false),
@@ -62,8 +62,8 @@ namespace CoffeeLovers.DAL.Migrations
                     UpdatedBy = table.Column<string>(maxLength: 20, nullable: true),
                     Updatedtime = table.Column<DateTime>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    validFrom = table.Column<DateTime>(nullable: false),
-                    validTo = table.Column<DateTime>(nullable: false),
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
                     RoleId = table.Column<Guid>(nullable: false),
                     RoleDisplayId = table.Column<string>(maxLength: 40, nullable: false),
                     RoleName = table.Column<string>(maxLength: 40, nullable: false)
@@ -83,8 +83,8 @@ namespace CoffeeLovers.DAL.Migrations
                     UpdatedBy = table.Column<string>(maxLength: 20, nullable: true),
                     Updatedtime = table.Column<DateTime>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    validFrom = table.Column<DateTime>(nullable: false),
-                    validTo = table.Column<DateTime>(nullable: false),
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
                     CoffeeAreaId = table.Column<Guid>(nullable: false),
                     CoffeeAreaDisplayId = table.Column<string>(maxLength: 40, nullable: false),
                     AreaId = table.Column<Guid>(nullable: false),
@@ -125,7 +125,7 @@ namespace CoffeeLovers.DAL.Migrations
                     OwnerDisplayId = table.Column<string>(maxLength: 40, nullable: false),
                     EmailId = table.Column<string>(maxLength: 30, nullable: false),
                     RoleId = table.Column<Guid>(nullable: false),
-                    Password = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(maxLength: 100, nullable: false),
                     LastLoggedIn = table.Column<DateTimeOffset>(nullable: true),
                     SerialNumber = table.Column<string>(nullable: true)
                 },
@@ -151,8 +151,8 @@ namespace CoffeeLovers.DAL.Migrations
                     UpdatedBy = table.Column<string>(maxLength: 20, nullable: true),
                     Updatedtime = table.Column<DateTime>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    validFrom = table.Column<DateTime>(nullable: false),
-                    validTo = table.Column<DateTime>(nullable: false),
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
                     AreaOwnerId = table.Column<Guid>(nullable: false),
                     AreaId = table.Column<Guid>(nullable: false),
                     OwnerId = table.Column<Guid>(nullable: false)
@@ -169,6 +169,34 @@ namespace CoffeeLovers.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AreaOwner_Owner_OwnerId",
+                        column: x => x.OwnerId,
+                        principalSchema: "dbo",
+                        principalTable: "Owner",
+                        principalColumn: "OwnerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OwnerConfirmation",
+                schema: "dbo",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 20, nullable: false),
+                    Createdtime = table.Column<DateTime>(nullable: false),
+                    UpdatedBy = table.Column<string>(maxLength: 20, nullable: true),
+                    Updatedtime = table.Column<DateTime>(nullable: true),
+                    IsActive = table.Column<bool>(nullable: false),
+                    ValidFrom = table.Column<DateTime>(nullable: false),
+                    ValidTo = table.Column<DateTime>(nullable: false),
+                    OwnerConfirmationId = table.Column<Guid>(nullable: false),
+                    confirmationToken = table.Column<Guid>(nullable: false),
+                    OwnerId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OwnerConfirmation", x => x.OwnerConfirmationId);
+                    table.ForeignKey(
+                        name: "FK_OwnerConfirmation_Owner_OwnerId",
                         column: x => x.OwnerId,
                         principalSchema: "dbo",
                         principalTable: "Owner",
@@ -205,6 +233,12 @@ namespace CoffeeLovers.DAL.Migrations
                 schema: "dbo",
                 table: "Owner",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OwnerConfirmation_OwnerId",
+                schema: "dbo",
+                table: "OwnerConfirmation",
+                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -218,7 +252,7 @@ namespace CoffeeLovers.DAL.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Owner",
+                name: "OwnerConfirmation",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
@@ -227,6 +261,10 @@ namespace CoffeeLovers.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Coffee",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "Owner",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

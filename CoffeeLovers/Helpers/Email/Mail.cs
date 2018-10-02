@@ -4,18 +4,18 @@ using System.Threading.Tasks;
 
 namespace CoffeeLovers.Helpers
 {
-    internal class Mail
+    public class Mail
     {
         private readonly IAzureEmailSender _azureEmailSender;
 
-        Mail(IAzureEmailSender azureEmailSender)
+        public Mail(IAzureEmailSender azureEmailSender)
         {
             _azureEmailSender = azureEmailSender;
         }
 
-        internal async Task<ResponseMessage> SendMailAsync(EmailMessage message)
+        public async Task<ResponseMessage> SendMailAsync(EmailMessage message)
         {
-           return await _azureEmailSender.SendAsync(message);
+            return await _azureEmailSender.SendAsync(message);
         }
     }
 }

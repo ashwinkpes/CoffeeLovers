@@ -1,6 +1,7 @@
 ﻿using CoffeeLovers.APIModels.Owner;
 using CoffeeLovers.Common.Extensions;
 using CoffeeLovers.Common.Options;
+using CoffeeLovers.Helpers;
 using CoffeeLovers.IBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -18,13 +19,20 @@ namespace CoffeeLovers.Controllers
         private readonly IOwnerService _ownerService;
         private readonly ILogger _ownerLogger;
         private readonly ApiSettings _apiSettings;
+        private readonly Mail _mail;
+        private readonly MailHelper _mailHelper;
 
-        public OwnerController(IOwnerService ownerService, IOptionsSnapshot<ApiSettings> apiSettings,
-            ILogger<OwnerController> logger)
+        public OwnerController(IOwnerService ownerService,
+                               IOptionsSnapshot<ApiSettings> apiSettings,
+                               ILogger<OwnerController> logger,
+                               Mail mail,
+                               MailHelper mailHelper)
         {
             _ownerService = ownerService;
             _ownerLogger = logger;
             _apiSettings = apiSettings.Value;
+            _mail = mail;
+            _mailHelper = mailHelper;
             CheckArguments();
         }
 
@@ -42,11 +50,28 @@ namespace CoffeeLovers.Controllers
         {
             try
             {
-                using (_ownerLogger.BeginScope($"API-AddOwner {DateTime.UtcNow}"))
+                using (_ownerLogger.BeginScope($"API-AddOwner-started {DateTime.UtcNow}"))
                 {
                     var result = await _ownerService.RegisterOwner(addOwnerDto).ConfigureAwait(false);
 
-                    _ownerLogger.LogInformation($"API-AddArea {DateTime.UtcNow}");
+                    if (!string.IsNullOrEmpty(result.ownerId) && result.confirmationToken != Guid.Empty)
+                    {
+                        string confirmationLink = Url.Action("ConfirmEmail",
+                                                             "Account",
+                                                             new
+                                                             {
+                                                                 userid = result.ownerId,
+                                                                 token = result.confirmationToken
+                                                             },
+                                                             protocol: HttpContext.Request.Scheme);
+
+                        var message = _mailHelper.GetEmailMessage("AddOwner",
+                                        new { FullName= result.fullName, UserName = result.ownerId, ConfirmationLink = confirmationLink, EmailId= result.ownerEmailId });
+
+                        await _mail.SendMailAsync(message);
+                    }
+
+                    _ownerLogger.LogInformation($"API-AddOwner-completed {DateTime.UtcNow}");
 
                     return StatusCode((int)result.statusCode, result.ownerId);
                 }

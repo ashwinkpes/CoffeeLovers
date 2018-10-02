@@ -20,21 +20,23 @@ namespace CoffeeLovers.BusinessLogic
         private readonly IDictionaryRepository<OwnerService> _dictionaryRepository;
         private readonly IAppLogger<OwnerService> _logger;
         private readonly ISecurityService _securityService;
+        private readonly IOwnerConfirmationRepository _ownerConfirmationRepository;
 
         public OwnerService(IOwnerRepository ownerRepository,
                             IDictionaryRepository<OwnerService> dictionaryRepository,
                             IAppLogger<OwnerService> logger,
-                            ISecurityService securityService)
+                            ISecurityService securityService,
+                            IOwnerConfirmationRepository ownerConfirmationRepository)
         {
             _ownerRepository = ownerRepository;
             _dictionaryRepository = dictionaryRepository;
             _logger = logger;
             _securityService = securityService;
-
+            _ownerConfirmationRepository = ownerConfirmationRepository;
             CheckArguments();
         }
 
-        public async Task<(HttpStatusCode statusCode, string ownerId)> RegisterOwner(AddOwnerDto addOwnerDto)
+        public async Task<(HttpStatusCode statusCode, string ownerId, Guid confirmationToken, string ownerEmailId, string fullName)> RegisterOwner(AddOwnerDto addOwnerDto)
         {
             _logger.LogInformation($"Service-RegisterOwner-Executing RegisterOwner started at {DateTime.UtcNow}");
 
@@ -42,6 +44,9 @@ namespace CoffeeLovers.BusinessLogic
 
             var statusCode = HttpStatusCode.Created;
             string ownerId = string.Empty;
+            string emailId = string.Empty;
+            string fullName = string.Empty;
+            Guid confirmationToken = Guid.Empty;
 
             var ownerSpec = new OwnerWithAreaSpecification(addOwnerDto.Email);
 
@@ -69,13 +74,22 @@ namespace CoffeeLovers.BusinessLogic
                 var ownerToAddToDb = ownerDto.ToEntity(true);
                 ownerToAddToDb.Password = _securityService.GetSha256Hash(addOwnerDto.Password);
                 await _ownerRepository.AddAsync(ownerToAddToDb).ConfigureAwait(false);
+
+                //Add entry in ownerconfirmation table
+                var ownerConfirmation = new OwnerConfirmation();
+                ownerConfirmation.GenerateLinkAndToken(ownerToAddToDb.OwnerId);
+                await _ownerConfirmationRepository.AddAsync(ownerConfirmation);
                 await _ownerRepository.SaveAllwithAudit();
+
                 ownerId = newOwnerDisplayId;
+                confirmationToken = ownerConfirmation.confirmationToken;
+                emailId = ownerToAddToDb.EmailId;
+                fullName = ownerToAddToDb.FullName;
             }
 
             _logger.LogInformation($"Service-RegisterOwner-Executing RegisterOwner completed at {DateTime.UtcNow}");
 
-            return (statusCode, ownerId);
+            return (statusCode, ownerId, confirmationToken, emailId, fullName);
         }
 
         private void CheckArguments()
@@ -83,6 +97,7 @@ namespace CoffeeLovers.BusinessLogic
             _ownerRepository.CheckArgumentIsNull(nameof(_ownerRepository));
             _dictionaryRepository.CheckArgumentIsNull(nameof(_dictionaryRepository));
             _logger.CheckArgumentIsNull(nameof(_logger));
+            _ownerConfirmationRepository.CheckArgumentIsNull(nameof(_ownerConfirmationRepository));
         }
     }
 }

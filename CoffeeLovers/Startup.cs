@@ -39,6 +39,8 @@ namespace CoffeeLovers
 
             services.RegisterChainOfServices(Configuration);
 
+            services.AddSingleton<IConfiguration>(Configuration);
+
             _services = services;
         }
 

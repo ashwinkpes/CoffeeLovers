@@ -33,7 +33,7 @@ namespace CoffeeLovers.DomainModels.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         [MinLength(3, ErrorMessage = "Password must be minimum of 3 characters")]
-        [MaxLength(15, ErrorMessage = "Password cannot be grater than 15 characters")]
+        [MaxLength(100, ErrorMessage = "Password cannot be grater than 100 characters")]
         public string Password { get; set; }
 
         public DateTimeOffset? LastLoggedIn { get; set; }
@@ -46,5 +46,6 @@ namespace CoffeeLovers.DomainModels.Models
         public string SerialNumber { get; set; }
 
         public virtual ICollection<AreaOwner> AreaOwners { get; set; } = new HashSet<AreaOwner>();
+        public virtual ICollection<OwnerConfirmation> OwnerConfirmations { get; set; } = new HashSet<OwnerConfirmation>();
     }
 }
