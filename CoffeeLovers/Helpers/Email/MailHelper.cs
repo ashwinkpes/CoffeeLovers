@@ -42,7 +42,7 @@ namespace CoffeeLovers.Helpers
         {
             var builder = new StringBuilder();
 
-            string targetFile = Path.Combine("Seed",Path.GetFileName("AddOwner.html"));
+            string targetFile = Path.Combine("EmailTemplates",Path.GetFileName("AddOwner.html"));
 
             if (File.Exists(targetFile))
             {
